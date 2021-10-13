@@ -1,12 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Alert, StyleSheet, Button, Text, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <ImageBackground source={require('./bg.jpg')} style={styles.image}>
+        <View style={styles.buttonContainer}>
+        <Button title = "Get Start" onPress={() => history.push()} color="transparent" style={styles.button1} />
+        </View>
+        <StatusBar style="auto" />
+      </ImageBackground>
     </View>
   );
 }
@@ -15,7 +21,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    width:"50%", 
+    marginLeft:'25%',
+    marginTop: '75%',
+  },
+  button1: {
+    borderColor: "red",
+  }
 });
