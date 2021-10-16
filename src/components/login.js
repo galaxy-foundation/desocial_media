@@ -4,7 +4,15 @@ import { ImageBackground, Alert, StyleSheet, Button, Text, View } from 'react-na
 export default function Login() {
     return(
         <View>
-            this is the Login page
-        </View>
+        <Text  style = {styles.container}>
+            this is te Login page
+        </Text></View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        color: 'red',
+    },
+  });
+  
