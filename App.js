@@ -1,39 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { ImageBackground, Alert, StyleSheet, Button, Text, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Login from './src/components/login';
+import React from 'react'
+import { Provider } from 'react-native-paper'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { theme } from './src/core/theme'
+import {
+  StartScreen,
+  LoginScreen,
+  RegisterScreen,
+  ResetPasswordScreen,
+  Dashboard,
+} from './src/screens'
+
+const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('./bg.jpg')} style={styles.image}>
-        <View style={styles.buttonContainer}>
-        <a title = "Get Start" onPress={() => window.location.href = Login} color="transparent" style={styles.button1} />
-        </View>
-        <StatusBar style="auto" />
-      </ImageBackground>
-    </View>
-  );
+    <Provider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="StartScreen"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="StartScreen" component={StartScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen
+            name="ResetPasswordScreen"
+            component={ResetPasswordScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  buttonContainer: {
-    width:"50%", 
-    marginLeft:'25%',
-    marginTop: '75%',
-  },
-  button1: {
-    borderColor: "red",
-  }
-});
