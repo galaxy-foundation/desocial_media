@@ -37,8 +37,8 @@ export default function RegisterScreen({ navigation }) {
     <Background>
       <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>Create Account</Header>
-      <TextInput
+      <Header>Create Wallet</Header>
+      {/* <TextInput
         label="Name"
         returnKeyType="next"
         value={name.value}
@@ -57,9 +57,18 @@ export default function RegisterScreen({ navigation }) {
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
+      /> */}
+      <TextInput
+        label="New password"
+        returnKeyType="done"
+        value={password.value}
+        onChangeText={(text) => setPassword({ value: text, error: '' })}
+        error={!!password.error}
+        errorText={password.error}
+        secureTextEntry
       />
       <TextInput
-        label="Password"
+        label="Confirm password"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: '' })}
@@ -72,7 +81,7 @@ export default function RegisterScreen({ navigation }) {
         onPress={onSignUpPressed}
         style={{ marginTop: 24 }}
       >
-        Sign Up
+        CREATE
       </Button>
       <View style={styles.row}>
         <Text>Already have an account? </Text>

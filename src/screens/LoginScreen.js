@@ -70,7 +70,7 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.row}>
         <Text>Don’t have an wallet? </Text>
         <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-          <Text style={styles.link}>Create wallet</Text>
+          <Text style={styles.link}> Create wallet</Text>
         </TouchableOpacity>
       </View>
     </Background>
