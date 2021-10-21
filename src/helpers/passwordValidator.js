@@ -3,3 +3,7 @@ export function passwordValidator(password) {
   if (password.length < 8) return 'Password must be at least 8 characters long.'
   return ''
 }
+export function rePasswordValidator(rePassword) {
+  if (!rePassword) return "Re-Password can't be empty."
+  return ''
+}

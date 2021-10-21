@@ -1,30 +1,45 @@
 import React, { useState } from 'react'
+// import "react-native-get-random-values"
+// import "@ethersproject/shims"
 import { ethers } from 'ethers';
-import { View, StyleSheet, TouchableOpacity, Clipboard, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Clipboard, Image, AsyncStorage } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
+// import * as Random from 'expo-random';
+// import { polyfillWebCrypto } from 'expo-standard-web-crypto';
+// import { generateSecureRandom } from 'react-native-securerandom';
+
+
+
 
 export default function MnemonicCopyScreen({ navigation }) {
+//   polyfillWebCrypto();
+//   crypto.getRandomValues
+//   window.crypto.getRandomValues = function(array) {
+//     const random = generateSecureRandom(array.length);
+//     for (let i = 0; i < array.length; i++) { array[i] = random[i]; }
+// };
     const [copiedText, setCopiedText] = useState('')
-    const [copiedTextView, setCopiedTextView] = useState('')
-
-
-    // const ethers = require('ethers')
-      // const wallet = ethers.Wallet.createRandom()
+    const [copiedTextView, setCopiedTextView] = useState(false)
+    
+    const ethers = require('ethers')
+    const wallet = ethers.Wallet.createRandom()
 
 //       console.log('address:', wallet.address)
 // console.log('mnemonic:', wallet.mnemonic.phrase)
 // console.log('privateKey:', wallet.privateKey)
     const phrase = "middle pride coil impulse interest sand pizza supply vital diagram margin vally stomach avocado zoo visit eagle fortune unk rescue yard spring gown cause"
-    const copyToClipboard = () => {
+    const copyToClipboard = async () => {
         Clipboard.setString(phrase)
-        setCopiedTextView("View Copied Text")
+        setCopiedTextView(true)
+        await AsyncStorage.setItem("desocial@0313/phrase",phrase)
+        alert(wallet.address, wallet.mnemonic.phrase, wallet.privateKey)
       }
       const fetchCopiedText = async () => {
         const text = await Clipboard.getString()
-        if(Clipboard!==null){
+        if(Clipboard!==null){ 
           setCopiedText(text)
         }else
         {
@@ -44,9 +59,9 @@ export default function MnemonicCopyScreen({ navigation }) {
           <Text style = {styles.copy_button}>Click here to copy to Clipboard</Text>
         </TouchableOpacity>
         <Text style={styles.copiedText}>{copiedText}</Text>
-        <View style={styles.row}>
+        <View style={copiedTextView===true?styles.row:styles.hidden}>
           <TouchableOpacity onPress={() => fetchCopiedText()} style={styles.copiedTextView}>
-            <Text style = {{textAlign:'center', color:"white"}}>{copiedTextView}</Text>
+            <Text style = {{textAlign:'center', color:"white"}}>View Copied Text</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')} style={styles.logInButton}>
             <Text style = {{textAlign:'center', color:"white"}}>Login</Text>
@@ -81,7 +96,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   copy_button: {
-    marginTop: 8,
+    marginTop: 18,
     borderWidth: 1,
     width: "80%",
     marginLeft: "10%",
@@ -116,5 +131,8 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+  },
+  hidden: {
+    display: "none",
   },
 })

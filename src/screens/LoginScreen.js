@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, AsyncStorage } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -12,15 +12,18 @@ import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
 
-  const onLoginPressed = () => {
+  const onLoginPressed = async () => {
     // const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
     if (passwordError) {
-      // setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      return
+    }
+    const storagePassword = await AsyncStorage.getItem("desocial@0313/password")
+    if(password.value!==storagePassword){
+      alert("Wrong Password. Try again !")
       return
     }
     navigation.reset({
