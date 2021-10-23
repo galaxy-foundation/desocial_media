@@ -13,7 +13,6 @@ export default function ResetPasswordScreen({ navigation }) {
   const [phrase, setPhrase] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [rePassword, setRePassword] = useState({ value: '', error: '' })
-  const phraseRef = useRef(null)
   const sendResetWallet = async () => {
     const passwordError = passwordValidator(password.value) 
     const rePasswordError = rePasswordValidator(rePassword.value)
@@ -54,7 +53,6 @@ export default function ResetPasswordScreen({ navigation }) {
         onChangeText={(text) => setPhrase({ value: text, error: '' })}
         error={!!phrase.error}
         errorText={phrase.error}
-        ref={phraseRef}
         // autoCapitalize="none"
         // autoCompleteType="email"
         // textContentType="emailAddress"

@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
-// import "react-native-get-random-values"
-// import "@ethersproject/shims"
-import { ethers } from 'ethers';
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TouchableOpacity, Clipboard, Image, AsyncStorage } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
-// import * as Random from 'expo-random';
-// import { polyfillWebCrypto } from 'expo-standard-web-crypto';
-// import { generateSecureRandom } from 'react-native-securerandom';
+import "@ethersproject/shims"
+import { ethers } from 'ethers';
+import * as Random from 'expo-random';
+import { polyfillWebCrypto } from 'expo-standard-web-crypto';
+import { generateSecureRandom } from 'react-native-securerandom';
 
 
 
@@ -23,21 +22,37 @@ export default function MnemonicCopyScreen({ navigation }) {
 // };
     const [copiedText, setCopiedText] = useState('')
     const [copiedTextView, setCopiedTextView] = useState(false)
-    
-    const ethers = require('ethers')
+    const [storedPhrase, setStoredPhrase] = useState('')
+	const [storedPublicKey, setStoredPublicKey] = useState('')
     const wallet = ethers.Wallet.createRandom()
+    
 
-//       console.log('address:', wallet.address)
-// console.log('mnemonic:', wallet.mnemonic.phrase)
-// console.log('privateKey:', wallet.privateKey)
+    //   console.log('address:', wallet.address)
+    //   console.log('mnemonic:', wallet.mnemonic.phrase)
+    //   console.log('privateKey:', wallet.privateKey)
     const phrase = "middle pride coil impulse interest sand pizza supply vital diagram margin vally stomach avocado zoo visit eagle fortune unk rescue yard spring gown cause"
-    const copyToClipboard = async () => {
-        Clipboard.setString(phrase)
+	useEffect(() => {
+		const runInit = async ()=>{
+			await AsyncStorage.setItem("desocial@0313/phrase",wallet.mnemonic.phrase)
+			await AsyncStorage.setItem("desocial@0313/publicKey",wallet.address)
+			const storedPhraseData = await AsyncStorage.getItem("desocial@0313/phrase")
+			setStoredPhrase(storedPhraseData)
+			const storedPublicKeyData = await AsyncStorage.getItem("desocial@0313/publicKey")
+			setStoredPublicKey(storedPublicKeyData)
+		}
+    	runInit();
+	}, []);
+    const copyToClipboard = () => {
+        Clipboard.setString(storedPhrase)
         setCopiedTextView(true)
-        await AsyncStorage.setItem("desocial@0313/phrase",phrase)
-        alert(wallet.address, wallet.mnemonic.phrase, wallet.privateKey)
+        alert(storedPublicKey)
+		console.log(storedPhrase)
+		console.log(storedPublicKey)
       }
       const fetchCopiedText = async () => {
+		alert(storedPublicKey)
+		console.log(storedPhrase)
+		console.log(storedPublicKey)
         const text = await Clipboard.getString()
         if(Clipboard!==null){ 
           setCopiedText(text)
@@ -54,7 +69,7 @@ export default function MnemonicCopyScreen({ navigation }) {
       <Text style = {styles.warning}> ! DO NOT share this phrase with anyone for secret.</Text>
       <View style = {styles.phrase}>
         <Text>* Your private Secret Recovery Phrase</Text>
-        <Text style = {styles.mnemonic}>{phrase}</Text>
+        <Text style = {styles.mnemonic}>{storedPhrase}</Text>
         <TouchableOpacity onPress={() => copyToClipboard()}>
           <Text style = {styles.copy_button}>Click here to copy to Clipboard</Text>
         </TouchableOpacity>
