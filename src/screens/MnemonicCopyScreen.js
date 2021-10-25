@@ -4,11 +4,20 @@ import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
-import "@ethersproject/shims"
+// import "react-native-get-random-values"
+// import unorm from 'unorm';
+// String.prototype.normalize = function(form) {
+//   var func = unorm[(form || 'NFC').toLowerCase()];
+//   if (!func) {
+//     throw new RangeError('invalid form - ' + form);
+//   }
+//   return func(this);
+// };
+// import "@ethersproject/shims"
 import { ethers } from 'ethers';
-import * as Random from 'expo-random';
-import { polyfillWebCrypto } from 'expo-standard-web-crypto';
-import { generateSecureRandom } from 'react-native-securerandom';
+// import * as Random from 'expo-random';
+// import { polyfillWebCrypto } from 'expo-standard-web-crypto';
+// import { generateSecureRandom } from 'react-native-securerandom';
 
 
 
@@ -23,18 +32,19 @@ export default function MnemonicCopyScreen({ navigation }) {
     const [copiedText, setCopiedText] = useState('')
     const [copiedTextView, setCopiedTextView] = useState(false)
     const [storedPhrase, setStoredPhrase] = useState('')
-	const [storedPublicKey, setStoredPublicKey] = useState('')
+	  const [storedPublicKey, setStoredPublicKey] = useState('')
     const wallet = ethers.Wallet.createRandom()
     
 
     //   console.log('address:', wallet.address)
     //   console.log('mnemonic:', wallet.mnemonic.phrase)
     //   console.log('privateKey:', wallet.privateKey)
-    const phrase = "middle pride coil impulse interest sand pizza supply vital diagram margin vally stomach avocado zoo visit eagle fortune unk rescue yard spring gown cause"
+    //   const phrase = "middle pride coil impulse interest sand pizza supply vital diagram margin vally stomach avocado zoo visit eagle fortune unk rescue yard spring gown cause"
 	useEffect(() => {
 		const runInit = async ()=>{
 			await AsyncStorage.setItem("desocial@0313/phrase",wallet.mnemonic.phrase)
 			await AsyncStorage.setItem("desocial@0313/publicKey",wallet.address)
+      await AsyncStorage.setItem("desocial@0313/privateKey",wallet.privateKey)
 			const storedPhraseData = await AsyncStorage.getItem("desocial@0313/phrase")
 			setStoredPhrase(storedPhraseData)
 			const storedPublicKeyData = await AsyncStorage.getItem("desocial@0313/publicKey")

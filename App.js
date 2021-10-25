@@ -2,6 +2,17 @@ import React from 'react'
 import { Provider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import "react-native-get-random-values"
+import unorm from 'unorm';
+String.prototype.normalize = function(form) {
+  var func = unorm[(form || 'NFC').toLowerCase()];
+  if (!func) {
+    throw new RangeError('invalid form - ' + form);
+  }
+  return func(this);
+};
+import "@ethersproject/shims"
+import { ethers } from 'ethers';
 import { theme } from './src/core/theme'
 import {
   StartScreen,

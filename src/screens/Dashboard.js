@@ -1,30 +1,24 @@
-import React from 'react'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Paragraph from '../components/Paragraph'
-import Button from '../components/Button'
+import * as React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-export default function Dashboard({ navigation }) {
+import HomeScreen from './HomeScreen'
+import PostScreen from './PostScreen'
+import SettingsScreen from './SettingScreen'
+import FollowingScreen from './FollowingScreen'
+
+const Tab = createBottomTabNavigator();
+
+export default function Dashboard() {
   return (
-    <Background>
-      <Logo />
-      <Header>Let’s start</Header>
-      <Paragraph>
-        Your amazing app starts here. Open you favorite code editor and start
-        editing this project.
-      </Paragraph>
-      <Button
-        mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'StartScreen' }],
-          })
-        }
-      >
-        Logout
-      </Button>
-    </Background>
-  )
+    // <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Posts" component={PostScreen} />
+        <Tab.Screen name="Followings" component={FollowingScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+    // </NavigationContainer>
+  );
 }

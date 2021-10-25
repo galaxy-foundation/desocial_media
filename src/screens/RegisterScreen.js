@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, AsyncStorage, Image } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -12,6 +12,7 @@ import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { rePasswordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 export default function RegisterScreen({ navigation }) {
@@ -67,7 +68,7 @@ export default function RegisterScreen({ navigation }) {
         onPress={onSignUpPressed}
         style={{ marginTop: 24 }}
       >
-        CREATE
+      CREATE
       </Button>
       <View style={styles.row}>
         <Text>Already have an account? </Text>
@@ -87,5 +88,8 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: 'bold',
     color: theme.colors.primary,
+  },
+  loading: {
+    width: 20,
   },
 })
