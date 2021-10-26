@@ -24,6 +24,7 @@ export default function LoginScreen({ navigation }) {
     const storagePassword = await AsyncStorage.getItem("desocial@0313/password")
     if(password.value!==storagePassword){
       alert("Wrong Password. Try again !")
+      setPassword({value: ''})
       return
     }
     navigation.reset({

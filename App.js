@@ -23,6 +23,7 @@ import {
   MnemonicCopyScreen,
   EditProfileScreen,
   HomeScreen,
+  ChangePasswordScreen,
 } from './src/screens'
 const Stack = createStackNavigator()
 
@@ -47,6 +48,7 @@ export default function App() {
           <Stack.Screen name="MnemonicCopyScreen" component={MnemonicCopyScreen} />
           <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

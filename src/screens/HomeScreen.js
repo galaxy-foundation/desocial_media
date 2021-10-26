@@ -73,7 +73,7 @@ export default function HomeScreen({navigation}) {
         </View>
         <View style = {{marginTop:20}}>
             <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80 }} />
-            <Text>{profileName}</Text>
+            <Text style = {{textAlign:'center'}}>{profileName}</Text>
         </View>
         <View style = {styles.myStatus}>
             <View style = {styles.postStatus}>

@@ -6,4 +6,4 @@ export { default as Dashboard } from './Dashboard'
 export { default as MnemonicCopyScreen } from './MnemonicCopyScreen'
 export { default as EditProfileScreen } from './EditProfileScreen'
 export { default as HomeScreen } from './HomeScreen'
-
+export { default as ChangePasswordScreen } from './ChangePasswordScreen'
