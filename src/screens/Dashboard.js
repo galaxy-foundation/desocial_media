@@ -7,7 +7,7 @@ import HomeScreen from './HomeScreen'
 import PostScreen from './PostScreen'
 import SettingsScreen from './SettingScreen'
 import FollowingScreen from './FollowingScreen'
-
+import Background from '../components/Background'
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard() {
