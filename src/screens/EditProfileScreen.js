@@ -84,7 +84,7 @@ export default function EditProfileScreen({navigation}) {
             </View>
             <View style = {{marginTop:30, marginLeft:15}}>
                 <View style = {{flexDirection:"row"}}>
-                    <Text style={styles.profileheadtext}>Fullname</Text>
+                    <Text style={styles.profileheadtext}>*Fullname</Text>
                     <TextInput 
                         label = 'Fullname'
                         value = {fullName}
@@ -94,7 +94,7 @@ export default function EditProfileScreen({navigation}) {
                     />
                 </View>
                 <View style = {{flexDirection:"row", marginTop:10}}>
-                    <Text style={styles.profileheadtext}>Gender</Text>
+                    <Text style={styles.profileheadtext}>*Gender</Text>
                     <TextInput 
                         label = 'Gender'
                         value = {gender}
@@ -104,7 +104,7 @@ export default function EditProfileScreen({navigation}) {
                     />
                 </View>
                 <View style = {{flexDirection:"row", marginTop:10}}>
-                    <Text style={styles.profileheadtext}>E-mail</Text>
+                    <Text style={styles.profileheadtext}>*E-mail</Text>
                     <TextInput 
                         label = 'e-mail'
                         value = {email}
@@ -114,7 +114,7 @@ export default function EditProfileScreen({navigation}) {
                     />
                 </View>
                 <View style = {{flexDirection:"row", marginTop:10}}>
-                    <Text style={styles.profileheadtext}>Instagram Link</Text>
+                    <Text style={styles.profileheadtext}>*Instagram Link</Text>
                     <TextInput 
                         label = 'YourLink'
                         value = {instagram}
@@ -124,7 +124,7 @@ export default function EditProfileScreen({navigation}) {
                     />
                 </View>
                 <View style = {{flexDirection:"row", marginTop:10}}>
-                    <Text style={styles.profileheadtext}>Linkedin Link</Text>
+                    <Text style={styles.profileheadtext}>*Linkedin Link</Text>
                     <TextInput 
                         label = 'YourLink'
                         value = {linkedin}
@@ -134,7 +134,7 @@ export default function EditProfileScreen({navigation}) {
                     />
                 </View>
                 <View style = {{flexDirection:"row", marginTop:10}}>
-                    <Text style={styles.profileheadtext}>Phone number</Text>
+                    <Text style={styles.profileheadtext}>*Phone number</Text>
                     <TextInput 
                         label = 'PhoneNumber'
                         value = {phone}

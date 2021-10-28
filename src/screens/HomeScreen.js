@@ -90,11 +90,11 @@ export default function HomeScreen({navigation}) {
             </View>
         </View>
         <View style = {{marginTop:30}}>
-                <Text>Gender: {gender}</Text>
-                <Text>E-mail: {email}</Text>
-                <Text>Instagram Link: {instagram}</Text>
-                <Text>Linkedin Link: {linkedin}</Text>
-                <Text>Phone Number: {phone}</Text>
+                <Text>*Gender: {gender}</Text>
+                <Text>*E-mail: {email}</Text>
+                <Text>*Instagram Link: {instagram}</Text>
+                <Text>*Linkedin Link: {linkedin}</Text>
+                <Text>*Phone Number: {phone}</Text>
         </View>
         <Button mode="contained" onPress={() => navigation.replace('EditProfileScreen')} style = {{width:"80%", marginTop: 40}}>Edit Profile</Button>
     </View>

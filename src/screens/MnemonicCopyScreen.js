@@ -51,6 +51,7 @@ export default function MnemonicCopyScreen({ navigation }) {
       await AsyncStorage.setItem("desocial@0313/userInstagram",'')
       await AsyncStorage.setItem("desocial@0313/userLinkedin",'')
       await AsyncStorage.setItem("desocial@0313/userPhone",'')
+      await AsyncStorage.setItem("desocial@0313/uri", '')
 			const storedPhraseData = await AsyncStorage.getItem("desocial@0313/phrase")
 			setStoredPhrase(storedPhraseData)
 			const storedPublicKeyData = await AsyncStorage.getItem("desocial@0313/publicKey")

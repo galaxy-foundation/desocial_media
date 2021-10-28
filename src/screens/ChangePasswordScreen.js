@@ -36,6 +36,13 @@ export default function ChangePasswordScreen({ navigation }) {
       alert("You should input current password exactly!")
       return
     }
+    if(password.value===currentPassword.value){
+      alert('New Password cannot be same with Current Password !')
+      setRePassword({value:''})
+      setPassword({value:''})
+      
+      return
+    }
     await AsyncStorage.setItem("desocial@0313/password",password.value)
     navigation.navigate('Dashboard')
   }
