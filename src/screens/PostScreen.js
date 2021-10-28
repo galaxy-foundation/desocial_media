@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, AsyncStorage, Text } from 'react-native';
+import { Button, Image, View, Platform, AsyncStorage, Text, Modal } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function ImagePickerExample() {
@@ -27,6 +27,7 @@ export default function ImagePickerExample() {
       allowsEditing: true,                                   
       aspect: [4, 3],
       quality: 1,
+      base64:true,
     });
     
     await AsyncStorage.setItem("desocial@0313/uri", result.uri)
