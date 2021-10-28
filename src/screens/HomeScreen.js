@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboard, Image, Linking } from 'react-native';
-import Button from '../components/Button'
+import {Button, View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboard, Image, Linking } from 'react-native';
+// import Button from '../components/Button'
 import Background from '../components/Background'
+import Modal from "react-native-modal";
 
 export default function HomeScreen({navigation}) {
 
@@ -13,6 +14,7 @@ export default function HomeScreen({navigation}) {
     const [instagram, setInstagram] = useState("Unknown")
     const [linkedin, setLinkedin] = useState("Unknown")
     const [phone, setPhone] = useState("Unknown")
+    const [isModalVisible, setModalVisible] = useState(false);
 
 
     useEffect(() => {
@@ -54,25 +56,42 @@ export default function HomeScreen({navigation}) {
         user();
     },[]);
 
-    const copyToClipboard = () => {
-        Clipboard.setString(address) 
+    const copyToClipboard = async () => {
+        Clipboard.setString(address)
+        alert("Copied to clipboard !")
     }
-    // const goToEditScreen = () => {
-    //     navigation.replace('LoginScreen')
-    //       }
-    // }
+    const toggleModal = () => {
+          setModalVisible(!isModalVisible);
+      };
+    const openExplorer = () => {
+        setModalVisible(!isModalVisible);
+        Linking.openURL("https://bscscan.com/address/"+ `${address}`)
+    }
   return (
     <View style={styles.container}>
         <View style = {styles.row}>
             <TouchableOpacity onPress={() => copyToClipboard()} style = {styles.address}>
                 <Text>{shownAddress}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => Linking.openURL("https://bscscan.com/address/"+ `${address}`)} style = {styles.balance}>
+            <TouchableOpacity onPress={toggleModal} style = {styles.balance}>
                 <Text>$ 55.55</Text>
             </TouchableOpacity>
+            <Modal isVisible={isModalVisible}>
+                <View>
+                <Text style = {{color:"white", textAlign:"center", fontSize:25, backgroundColor:"#222127", borderColor:"#333333", borderRadius:10, borderWidth:1,}}>Do you want to go to Explorer ?</Text>
+                <View style = {{flexDirection:"row", marginTop:50,}}>
+                    <View style = {{width:"40%", marginLeft:"5%"}}>
+                    <Button title="YES" onPress={openExplorer} />
+                    </View>
+                    <View style = {{width:"40%", marginLeft:"10%"}}>
+                    <Button title="CANCEL" onPress={toggleModal} />
+                    </View>
+                </View>
+                </View>
+            </Modal>
         </View>
         <View style = {{marginTop:20}}>
-            <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80 }} />
+            <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80, }} />
             <Text style = {{textAlign:'center'}}>{profileName}</Text>
         </View>
         <View style = {styles.myStatus}>
@@ -96,7 +115,9 @@ export default function HomeScreen({navigation}) {
                 <Text>*Linkedin Link: {linkedin}</Text>
                 <Text>*Phone Number: {phone}</Text>
         </View>
-        <Button mode="contained" onPress={() => navigation.replace('EditProfileScreen')} style = {{width:"80%", marginTop: 40}}>Edit Profile</Button>
+        <View style = {{width:"80%", marginTop: 40,}}>
+            <Button mode="contained" title = "EDIT PROFILE" onPress={() => navigation.replace('EditProfileScreen')} color = "#333333" />
+        </View>
     </View>
   );
 }
