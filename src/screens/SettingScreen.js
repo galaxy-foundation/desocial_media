@@ -5,15 +5,15 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 export default function SettingsScreen({navigation}) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity onPress = {()=>navigation.replace('ChangePasswordScreen')}>
-            <Text>Change Password</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: "60%", marginLeft:"20%" }}>
+        <TouchableOpacity onPress = {()=>navigation.replace('ChangePasswordScreen')} style = {{backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+            <Text style = {{color:"white", textAlign:"center"}}>Change Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress = {()=>navigation.replace('LoginScreen')}>
-            <Text>Recovery Setting</Text>
+        <TouchableOpacity onPress = {()=>navigation.replace('LoginScreen')} style = {{marginTop:40, backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+            <Text style = {{color:"white", textAlign:"center"}}>Recovery Setting</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress = {()=>navigation.replace('LoginScreen')}>
-            <Text>Logout</Text>
+        <TouchableOpacity onPress = {()=>navigation.replace('LoginScreen')} style = {{marginTop:40, backgroundColor:"white",padding:10, width:"100%", borderWidth:0.5, borderColor:"#333333", borderRadius:7,}}>
+            <Text style = {{color:"#333333", textAlign:"center"}}>Logout</Text>
         </TouchableOpacity>
       </View>
     );

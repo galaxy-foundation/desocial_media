@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Button, View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboard, Image, Linking } from 'react-native';
-// import Button from '../components/Button'
+import {Button, View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboard, Image, Linking, Touchable } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import Background from '../components/Background'
 import Modal from "react-native-modal";
-
 export default function HomeScreen({navigation}) {
 
-    const [shownAddress, setShownAddress] = useState("")
-    const [address, setAddress] = useState("")
+    // const [shownAddress, setShownAddress] = useState("")
+    // const [address, setAddress] = useState("")
+    const [profilePhoto, setProfilePhoto] = useState("")
     const [profileName, setProfileName] = useState("")
     const [gender, setGender] = useState("Unknown")
     const [email, setEmail] = useState("Unknown")
@@ -18,20 +18,17 @@ export default function HomeScreen({navigation}) {
 
 
     useEffect(() => {
-        const runInit = async () => {
-            const publicKey = await AsyncStorage.getItem("desocial@0313/publicKey")
-            setAddress(publicKey)
-            const shownAddress = publicKey.slice(0,5) + " ..."+ publicKey.slice(-2)
-            setShownAddress(shownAddress)
-        }
-        runInit();
         const user = async () => {
+            const userPhoto = await AsyncStorage.getItem("desocial@0313/profilePhoto")
             const userName = await AsyncStorage.getItem("desocial@0313/userName")
             const userGender = await AsyncStorage.getItem("desocial@0313/userGender")
             const userEmail = await AsyncStorage.getItem("desocial@0313/userEmail")
             const userInstagram = await AsyncStorage.getItem("desocial@0313/userInstagram")
             const userLinkedin = await AsyncStorage.getItem("desocial@0313/userLinkedin")
             const userPhone = await AsyncStorage.getItem("desocial@0313/userPhone")
+            if(profilePhoto){
+                setProfilePhoto(userPhoto)
+            }
             if(userName){
                 setProfileName(userName)
             }else{
@@ -56,43 +53,79 @@ export default function HomeScreen({navigation}) {
         user();
     },[]);
 
-    const copyToClipboard = async () => {
-        Clipboard.setString(address)
-        alert("Copied to clipboard !")
-    }
-    const toggleModal = () => {
-          setModalVisible(!isModalVisible);
+    useEffect(() => {
+        (async () => {
+        const storedProfilePhoto = await AsyncStorage.getItem("desocial@0313/profilePhoto")
+        console.log(storedProfilePhoto)
+          if(storedProfilePhoto){
+            setProfilePhoto(storedProfilePhoto);
+          }
+          if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+        })();
+        
+      }, []);
+    const pickProfilePhoto = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,                                   
+          aspect: [3, 3],
+          quality: 1,
+          base64:true,
+        });
+        
+        await AsyncStorage.setItem("desocial@0313/profilePhoto", result.uri)
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setProfilePhoto(result.uri);
+        }
+        
       };
-    const openExplorer = () => {
+    const toggleModal = () => {
         setModalVisible(!isModalVisible);
-        Linking.openURL("https://bscscan.com/address/"+ `${address}`)
+    };
+    const removeProfilePhoto = async () => {
+        const removedProfilePhoto = await AsyncStorage.setItem("desocial@0313/profilePhoto", "")
+        setModalVisible(!isModalVisible);
+        setProfilePhoto(removedProfilePhoto)
     }
   return (
     <View style={styles.container}>
-        <View style = {styles.row}>
-            <TouchableOpacity onPress={() => copyToClipboard()} style = {styles.address}>
-                <Text>{shownAddress}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={toggleModal} style = {styles.balance}>
-                <Text>$ 55.55</Text>
-            </TouchableOpacity>
-            <Modal isVisible={isModalVisible}>
-                <View>
-                <Text style = {{color:"white", textAlign:"center", fontSize:25, backgroundColor:"#222127", borderColor:"#333333", borderRadius:10, borderWidth:1,}}>Do you want to go to Explorer ?</Text>
-                <View style = {{flexDirection:"row", marginTop:50,}}>
-                    <View style = {{width:"40%", marginLeft:"5%"}}>
-                    <Button title="YES" onPress={openExplorer} />
-                    </View>
-                    <View style = {{width:"40%", marginLeft:"10%"}}>
-                    <Button title="CANCEL" onPress={toggleModal} />
-                    </View>
-                </View>
-                </View>
-            </Modal>
-        </View>
-        <View style = {{marginTop:20}}>
-            <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80, }} />
-            <Text style = {{textAlign:'center'}}>{profileName}</Text>
+        <View style = {{marginTop:15}}>
+            <View>
+                {profilePhoto?
+                    <View>
+                        <TouchableOpacity onPress = {toggleModal}>
+                            <Image source={{ uri: profilePhoto }} style={{ width: 100, height: 100, borderRadius:50, borderWidth:2, borderColor:"green"}} />
+                            <Image source={require('../assets/trash.png')} style = {{position:"absolute", width: 20, height:20,marginTop: 80, marginLeft: 75}} />
+                        </TouchableOpacity>
+                        <Modal isVisible={isModalVisible}>
+                            <View>
+                            <Text style = {{color:"white", textAlign:"center", fontSize:25, backgroundColor:"#222127", borderColor:"#333333", borderRadius:10, borderWidth:1,padding: 20,}}>Remove your photo?</Text>
+                            <View style = {{flexDirection:"row", marginTop:50,}}>
+                                <View style = {{width:"40%", marginLeft:"5%"}}>
+                                <Button title="YES" onPress={removeProfilePhoto} />
+                                </View>
+                                <View style = {{width:"40%", marginLeft:"10%"}}>
+                                <Button title="CANCEL" onPress={toggleModal} />
+                                </View>
+                            </View>
+                            </View>
+                        </Modal>
+                    </View>:
+                    <TouchableOpacity onPress = {pickProfilePhoto}>
+                        <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80, marginTop:10,}} />
+                        <Text style = {styles.addProfileIcon}>+</Text>
+                    </TouchableOpacity>
+                }
+                
+            </View>
+            <Text style = {{textAlign:'center', marginTop:5,}}>{profileName}</Text>
         </View>
         <View style = {styles.myStatus}>
             <View style = {styles.postStatus}>
@@ -150,4 +183,18 @@ const styles = StyleSheet.create({
     followingStatus: {
         marginLeft: 25,
     },
+    addProfileIcon: {
+        position: "absolute",
+        marginTop:65,
+        marginLeft:52,
+        fontSize:23,
+        color:"white",
+        backgroundColor:"#0099ff",
+        width:28,
+        height:28,
+        borderRadius:14,
+        borderWidth:2,
+        borderColor:"white",
+        textAlign:"center",
+    }
 })

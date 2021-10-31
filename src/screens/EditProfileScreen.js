@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboard, Image, Linking} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import BackButton from '../components/BackButton'
+import * as ImagePicker from 'expo-image-picker';
 
 export default function EditProfileScreen({navigation}) {
+    const [editProfilePhoto, setEditProfilePhoto] = useState('')
     const [fullName, setFullName] = useState('');
     const [gender, setGender] = useState('')
     const [email, setEmail] = useState('')
@@ -13,12 +15,15 @@ export default function EditProfileScreen({navigation}) {
     
     useEffect (() => {
         const runInit = async () => {
+            const storedProfilePhoto = await AsyncStorage.getItem("desocial@0313/profilePhoto")
             const storedUserName = await AsyncStorage.getItem("desocial@0313/userName")
             const storedGender = await AsyncStorage.getItem("desocial@0313/userGender")
             const storedEmail = await AsyncStorage.getItem("desocial@0313/userEmail")
             const storedInstagram = await AsyncStorage.getItem("desocial@0313/userInstagram")
             const storedLinkedin = await AsyncStorage.getItem("desocial@0313/userLinkedin")
             const storedPhone = await AsyncStorage.getItem("desocial@0313/userPhone")
+            setEditProfilePhoto(storedProfilePhoto)
+            console.log(editProfilePhoto)
             setFullName(storedUserName)
             setGender(storedGender)
             setEmail(storedEmail)
@@ -28,7 +33,30 @@ export default function EditProfileScreen({navigation}) {
         }
         runInit();
     }, [])
+    const pickProfilePhoto = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,                                   
+          aspect: [3, 3],
+          quality: 1,
+          base64:true,
+        });
+        
+        // await AsyncStorage.setItem("desocial@0313/profilePhoto", result.uri)
+        console.log(result);
+    
+        if (!result.cancelled) {
+            setEditProfilePhoto(result.uri);
+        }
+      };
     const submitProfile = async () => {
+        if(editProfilePhoto){
+            await AsyncStorage.setItem("desocial@0313/profilePhoto", editProfilePhoto)
+        }else{
+            alert("Please Add your Profile Photo !")
+            return
+        }
+        
         const storedUserName = await AsyncStorage.getItem("desocial@0313/userName")
         const storedGender = await AsyncStorage.getItem("desocial@0313/userGender")
         const storedEmail = await AsyncStorage.getItem("desocial@0313/userEmail")
@@ -78,10 +106,24 @@ export default function EditProfileScreen({navigation}) {
                     <Image style={styles.submitIcon} source={require('../assets/correct.png')}/>
                 </TouchableOpacity>
             </View>
-            <View style = {{marginTop:30, alignItems:"center"}}>
-                <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80 }} />
-                <Text style = {{fontSize:20}}>Change Profile Photo</Text>
-            </View>
+            {editProfilePhoto?
+                <View style = {{marginTop:30, alignItems:"center"}}>
+                    <TouchableOpacity onPress = {pickProfilePhoto} >
+                        <View style = {{alignItems:"center"}}>
+                            <Image source={{ uri: editProfilePhoto }} style={{ width: 100, height: 100, marginTop:5, borderRadius:50, borderWidth:2, borderColor:"green",alignItems: "center"}} />
+                        </View>
+                        <Image source={require('../assets/edit.png')} style = {{width:20, height: 20,marginTop: 80, marginLeft: 120,position:"absolute"}} />
+                        <Text style = {{fontSize:20, color:"black", textAlign:"center"}}>Change Profile Photo</Text>
+                    </TouchableOpacity>
+                </View>:
+                <View style = {{marginTop:30, alignItems:"center"}}>
+                    <TouchableOpacity onPress = {pickProfilePhoto} style = {{ alignItems: "center"}}>
+                        <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80 }} />
+                        <Text style = {styles.addProfileIcon}>+</Text>
+                        <Text style = {{fontSize:20}}>Add Profile Photo</Text>
+                    </TouchableOpacity>
+                </View>
+            }
             <View style = {{marginTop:30, marginLeft:15}}>
                 <View style = {{flexDirection:"row"}}>
                     <Text style={styles.profileheadtext}>*Fullname</Text>
@@ -172,6 +214,13 @@ const styles = StyleSheet.create({
     profileinputfield: {
         width:"60%", 
         height:40,
+    },
+    addProfileIcon: {
+        position: "absolute",
+        marginTop:30,
+        fontSize:30,
+        color:"#0099ff",
+        textAlign:"center",
     }
   })
   
