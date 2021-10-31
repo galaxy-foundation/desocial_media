@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 export default function Dashboard() {
   return (
 	<>
-		<Account/>
+		<Account />
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} options = {{tabBarIcon:({focused})=>(
           <Ionicons name="ios-home" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>

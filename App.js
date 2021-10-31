@@ -24,6 +24,7 @@ import {
   EditProfileScreen,
   HomeScreen,
   ChangePasswordScreen,
+  PostEditScreen,
 } from './src/screens'
 const Stack = createStackNavigator()
 
@@ -49,6 +50,7 @@ export default function App() {
           <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
+          <Stack.Screen name="PostEditScreen" component={PostEditScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
