@@ -27,7 +27,7 @@ export default function ImagePickerExample({navigation}) {
   // }
   useEffect(() => {
     (async () => {
-      const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle")
+      const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
         if(storedArticleTitle.length >= 30){
           const showItemTitle = storedArticleTitle.slice(0,30) + "...";
           setArticleTitle(showItemTitle)
@@ -76,7 +76,7 @@ export default function ImagePickerExample({navigation}) {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:300,}}>
+      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:320,}}>
         <Text style = {{color:"black", fontSize:30,color:"#737373"}}>+</Text>
       </TouchableOpacity>
       <View>

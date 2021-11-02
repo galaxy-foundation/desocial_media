@@ -96,10 +96,11 @@ export default function ProfileSettingScreen({navigation}) {
     }
   return (
     <View style = {{marginTop:25}}>
-        <View>
-            <TouchableOpacity onPress = {() => navigation.replace("Dashboard")}>
-                <Image source = {require("../assets/arrow_back.png")} style = {{width: 25, height: 25, }} />
+        <View style = {styles.topBar}>
+            <TouchableOpacity onPress = {() => navigation.replace("Dashboard")} style = {{marginLeft:10,}}>
+                <Image source = {require("../assets/arrow_back_white.png")} style = {{width: 25, height: 25, }} />
             </TouchableOpacity>
+            <Text style = {{color:"white", fontSize:20, marginLeft:10,}}>{profileName}</Text>
         </View>
         <View style={styles.container}>
             <View>
@@ -167,6 +168,7 @@ const styles = StyleSheet.create({
         // flex: 1, 
         justifyContent: 'center', 
         alignItems: 'center',
+        marginTop:70,
     },
     row :{
         flexDirection : "row",
@@ -203,5 +205,10 @@ const styles = StyleSheet.create({
         borderWidth:2,
         borderColor:"white",
         textAlign:"center",
+    },
+    topBar: {
+        flexDirection:"row",
+        backgroundColor:"#002e4d",
+        padding:10,
     }
 })

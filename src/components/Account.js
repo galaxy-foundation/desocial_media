@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import { StyleSheet, View, Clipboard, AsyncStorage, TouchableOpacity, Text, Button, Linking, Image } from 'react-native'
 import Modal from "react-native-modal";
+import { useNavigation } from '@react-navigation/native';
 
 export default function Account () {
 
     const [shownAddress, setShownAddress] = useState("")
     const [address, setAddress] = useState("")
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalVisibleProfile, setModalVisibleProfile] = useState(false);
     const [accountPhoto, setAccountPhoto] = useState('')
     useEffect(() => {
         const runInit = async () => {
@@ -27,17 +29,29 @@ export default function Account () {
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+    const toggleModalProfile = () => {
+        setModalVisibleProfile(!isModalVisibleProfile);
+    };
     const openExplorer = () => {
         setModalVisible(!isModalVisible);
         Linking.openURL("https://bscscan.com/address/"+ `${address}`)
     }
+    const navigation = useNavigation();
+    const goProfileSettingScreen = () => {
+        setModalVisibleProfile(!isModalVisibleProfile)
+        navigation.navigate("ProfileSettingScreen")
+    }
+    const logout = () => {
+        setModalVisibleProfile(!isModalVisibleProfile)
+        navigation.replace('LoginScreen')
+    }
     return (
         <View style = {styles.row}>
             <TouchableOpacity onPress={() => copyToClipboard()} style = {styles.address}>
-                <Text>{shownAddress}</Text>
+                <Text style = {{color:"white"}}>{shownAddress}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={toggleModal} style = {styles.balance}>
-                <Text>$ 55.55</Text>
+                <Text style = {{color:"white"}}>$ 55.55</Text>
             </TouchableOpacity>
             <Modal isVisible={isModalVisible}>
                 <View>
@@ -52,14 +66,23 @@ export default function Account () {
                 </View>
                 </View>
             </Modal>
-            {accountPhoto?
-                <TouchableOpacity>
-                    <Image source={{uri:accountPhoto}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"blue"}} />
-                </TouchableOpacity>:
-                <TouchableOpacity>
+            <TouchableOpacity onPress = {toggleModalProfile}>
+                {accountPhoto?
+                    <Image source={{uri:accountPhoto}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"blue"}} />:
                     <Image source={require("../assets/avatarrandom.png")} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"blue"}} />
+                }
+            </TouchableOpacity>
+            <Modal isVisible={isModalVisibleProfile} transparent={false} animationType = "fade" onBackdropPress = {() => setModalVisibleProfile(!isModalVisibleProfile)}>
+                <TouchableOpacity onPress = {toggleModalProfile}>
+                    <Image source = {require("../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
                 </TouchableOpacity>
-            }
+                <TouchableOpacity onPress = {goProfileSettingScreen} style = {{backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+                    <Text style = {{color:"white", textAlign:"center"}}>Profile Setting</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress = {logout} style = {{marginTop:40, backgroundColor:"white",padding:10, width:"100%", borderWidth:0.5, borderColor:"#333333", borderRadius:7,}}>
+                    <Text style = {{color:"#333333", textAlign:"center"}}>Logout</Text>
+                </TouchableOpacity>
+            </Modal>
             
         </View>
     );
@@ -68,10 +91,11 @@ export default function Account () {
 const styles = StyleSheet.create({
     row :{
         flexDirection : "row",
-        marginTop: 40,
+        marginTop: 25,
         borderBottomWidth:0.5,
         borderBottomColor:"#d9d9d9",
-        paddingBottom:5,
+        paddingVertical:10,
+        backgroundColor:"#002e4d",
     },
     address :{
         width: "50%",
