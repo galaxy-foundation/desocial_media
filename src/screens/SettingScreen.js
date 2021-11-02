@@ -6,7 +6,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 export default function SettingsScreen({navigation}) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: "60%", marginLeft:"20%" }}>
-        <TouchableOpacity onPress = {()=>navigation.replace('ChangePasswordScreen')} style = {{backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+        <TouchableOpacity onPress = {()=>navigation.replace('ProfileSettingScreen')} style = {{backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+            <Text style = {{color:"white", textAlign:"center"}}>Profile Setting</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress = {()=>navigation.replace('ChangePasswordScreen')} style = {{marginTop:40, backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
             <Text style = {{color:"white", textAlign:"center"}}>Change Password</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress = {()=>navigation.replace('LoginScreen')} style = {{marginTop:40, backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>

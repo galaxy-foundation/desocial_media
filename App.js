@@ -22,7 +22,7 @@ import {
   Dashboard,
   MnemonicCopyScreen,
   EditProfileScreen,
-  HomeScreen,
+  ProfileSettingScreen,
   ChangePasswordScreen,
   PostEditScreen,
   PostViewScreen,
@@ -49,7 +49,7 @@ export default function App() {
           />
           <Stack.Screen name="MnemonicCopyScreen" component={MnemonicCopyScreen} />
           <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="ProfileSettingScreen" component={ProfileSettingScreen} />
           <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
           <Stack.Screen name="PostEditScreen" component={PostEditScreen} />
           <Stack.Screen name="PostViewScreen" component={PostViewScreen} />

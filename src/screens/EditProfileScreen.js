@@ -93,7 +93,7 @@ export default function EditProfileScreen({navigation}) {
         }else{
             await AsyncStorage.setItem("desocial@0313/userPhone",phone)
         }
-        navigation.navigate('Dashboard')
+        navigation.navigate('ProfileSettingScreen')
     }
     return(
         <View>

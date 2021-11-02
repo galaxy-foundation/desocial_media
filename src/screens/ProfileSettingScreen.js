@@ -3,7 +3,7 @@ import {Button, View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboar
 import * as ImagePicker from 'expo-image-picker';
 import Background from '../components/Background'
 import Modal from "react-native-modal";
-export default function HomeScreen({navigation}) {
+export default function ProfileSettingScreen({navigation}) {
 
     // const [shownAddress, setShownAddress] = useState("")
     // const [address, setAddress] = useState("")
@@ -95,61 +95,68 @@ export default function HomeScreen({navigation}) {
         setProfilePhoto(removedProfilePhoto)
     }
   return (
-    <View style={styles.container}>
-        <View style = {{marginTop:15}}>
+    <View style = {{marginTop:25}}>
+        <View>
+            <TouchableOpacity onPress = {() => navigation.replace("Dashboard")}>
+                <Image source = {require("../assets/arrow_back.png")} style = {{width: 25, height: 25, }} />
+            </TouchableOpacity>
+        </View>
+        <View style={styles.container}>
             <View>
-                {profilePhoto?
-                    <View>
-                        <TouchableOpacity onPress = {toggleModal}>
-                            <Image source={{ uri: profilePhoto }} style={{ width: 100, height: 100, borderRadius:50, borderWidth:2, borderColor:"green"}} />
-                            <Image source={require('../assets/trash.png')} style = {{position:"absolute", width: 20, height:20,marginTop: 80, marginLeft: 75}} />
+                <View>
+                    {profilePhoto?
+                        <View>
+                            <TouchableOpacity onPress = {toggleModal}>
+                                <Image source={{ uri: profilePhoto }} style={{ width: 100, height: 100, borderRadius:50, borderWidth:2, borderColor:"green"}} />
+                                <Image source={require('../assets/trash.png')} style = {{position:"absolute", width: 20, height:20,marginTop: 80, marginLeft: 75}} />
+                            </TouchableOpacity>
+                            <Modal isVisible={isModalVisible}>
+                                <View>
+                                <Text style = {{color:"white", textAlign:"center", fontSize:25, backgroundColor:"#222127", borderColor:"#333333", borderRadius:10, borderWidth:1,padding: 20,}}>Remove your photo?</Text>
+                                <View style = {{flexDirection:"row", marginTop:50,}}>
+                                    <View style = {{width:"40%", marginLeft:"5%"}}>
+                                    <Button title="YES" onPress={removeProfilePhoto} />
+                                    </View>
+                                    <View style = {{width:"40%", marginLeft:"10%"}}>
+                                    <Button title="CANCEL" onPress={toggleModal} />
+                                    </View>
+                                </View>
+                                </View>
+                            </Modal>
+                        </View>:
+                        <TouchableOpacity onPress = {pickProfilePhoto}>
+                            <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80, marginTop:10,}} />
+                            <Text style = {styles.addProfileIcon}>+</Text>
                         </TouchableOpacity>
-                        <Modal isVisible={isModalVisible}>
-                            <View>
-                            <Text style = {{color:"white", textAlign:"center", fontSize:25, backgroundColor:"#222127", borderColor:"#333333", borderRadius:10, borderWidth:1,padding: 20,}}>Remove your photo?</Text>
-                            <View style = {{flexDirection:"row", marginTop:50,}}>
-                                <View style = {{width:"40%", marginLeft:"5%"}}>
-                                <Button title="YES" onPress={removeProfilePhoto} />
-                                </View>
-                                <View style = {{width:"40%", marginLeft:"10%"}}>
-                                <Button title="CANCEL" onPress={toggleModal} />
-                                </View>
-                            </View>
-                            </View>
-                        </Modal>
-                    </View>:
-                    <TouchableOpacity onPress = {pickProfilePhoto}>
-                        <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80, marginTop:10,}} />
-                        <Text style = {styles.addProfileIcon}>+</Text>
-                    </TouchableOpacity>
-                }
-                
+                    }
+                    
+                </View>
+                <Text style = {{textAlign:'center', marginTop:5,}}>{profileName}</Text>
             </View>
-            <Text style = {{textAlign:'center', marginTop:5,}}>{profileName}</Text>
-        </View>
-        <View style = {styles.myStatus}>
-            <View style = {styles.postStatus}>
-                <Text style={{textAlign:"center"}}>0</Text>
-                <Text>posts</Text>
+            <View style = {styles.myStatus}>
+                <View style = {styles.postStatus}>
+                    <Text style={{textAlign:"center"}}>0</Text>
+                    <Text>posts</Text>
+                </View>
+                <View style = {styles.followerStatus}>
+                    <Text style={{textAlign:"center"}}>0</Text>
+                    <Text>followers</Text>
+                </View>
+                <View style = {styles.followingStatus}>
+                    <Text style={{textAlign:"center"}}>0</Text>
+                    <Text>following</Text>
+                </View>
             </View>
-            <View style = {styles.followerStatus}>
-                <Text style={{textAlign:"center"}}>0</Text>
-                <Text>followers</Text>
+            <View style = {{marginTop:30}}>
+                    <Text>*Gender: {gender}</Text>
+                    <Text>*E-mail: {email}</Text>
+                    <Text>*Instagram Link: {instagram}</Text>
+                    <Text>*Linkedin Link: {linkedin}</Text>
+                    <Text>*Phone Number: {phone}</Text>
             </View>
-            <View style = {styles.followingStatus}>
-                <Text style={{textAlign:"center"}}>0</Text>
-                <Text>following</Text>
+            <View style = {{width:"80%", marginTop: 40,}}>
+                <Button mode="contained" title = "EDIT PROFILE" onPress={() => navigation.replace('EditProfileScreen')} color = "#333333" />
             </View>
-        </View>
-        <View style = {{marginTop:30}}>
-                <Text>*Gender: {gender}</Text>
-                <Text>*E-mail: {email}</Text>
-                <Text>*Instagram Link: {instagram}</Text>
-                <Text>*Linkedin Link: {linkedin}</Text>
-                <Text>*Phone Number: {phone}</Text>
-        </View>
-        <View style = {{width:"80%", marginTop: 40,}}>
-            <Button mode="contained" title = "EDIT PROFILE" onPress={() => navigation.replace('EditProfileScreen')} color = "#333333" />
         </View>
     </View>
   );

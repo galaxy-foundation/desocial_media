@@ -4,12 +4,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';  
 
-import HomeScreen from './HomeScreen'
+import HomeScreen from './ProfileSettingScreen'
 import PostScreen from './PostScreen'
 import SettingsScreen from './SettingScreen'
 import FollowingScreen from './FollowingScreen'
 import Background from '../components/Background'
 import Account from '../components/Account';
+import ProfileSettingScreen from './ProfileSettingScreen';
 // import { white } from 'react-native-paper/lib/typescript/styles/colors';
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ export default function Dashboard() {
 	<>
 		<Account />
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} options = {{tabBarIcon:({focused})=>(
+        <Tab.Screen name="Home" component={PostScreen} options = {{tabBarIcon:({focused})=>(
           <Ionicons name="ios-home" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
         )}} />
         <Tab.Screen name="Posts" component={PostScreen} 
