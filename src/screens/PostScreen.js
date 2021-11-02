@@ -8,6 +8,9 @@ import HTMLView from 'react-native-htmlview';
 
 export default function ImagePickerExample({navigation}) {
   const [article, setArticle] = useState(null);
+  const [articleTitle, setArticleTitle] = useState("");
+  const [topicImage, setTopicImage] = useState(null);
+  const [postedTime, setPostedTime] = useState("");
   // const [isModalVisible, setModalVisible] = useState(false);
 
   // const toggleModal = () => {
@@ -24,11 +27,21 @@ export default function ImagePickerExample({navigation}) {
   // }
   useEffect(() => {
     (async () => {
-    const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
-    console.log(storedArticle)
+      const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle")
+        if(storedArticleTitle.length >= 30){
+          const showItemTitle = storedArticleTitle.slice(0,30) + "...";
+          setArticleTitle(showItemTitle)
+        }else{
+          setArticleTitle(storedArticleTitle)
+        }
+      const storedTopicImage = await AsyncStorage.getItem("desocial@0313/articleTopicImage")
+        setTopicImage(storedTopicImage)
+      const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
       if(storedArticle){
         setArticle(storedArticle);
       }
+      const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
+        setPostedTime(storedTime)
       if (Platform.OS !== 'web') {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
@@ -39,6 +52,9 @@ export default function ImagePickerExample({navigation}) {
     
   }, []);
 
+  const viewPost  = () => {
+    navigation.navigate("PostViewScreen")
+  }
   // const pickImage = async () => {
   //   let result = await ImagePicker.launchImageLibraryAsync({
   //     mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -59,16 +75,25 @@ export default function ImagePickerExample({navigation}) {
   // };
 
   return (
-    <View style={{ alignItems: 'center', justifyContent: 'center' ,}}>
-      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:250,}}>
+    <View>
+      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:300,}}>
         <Text style = {{color:"black", fontSize:30,color:"#737373"}}>+</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <View>
         {article?
-          <View>
-            <HTMLView value = {article} />
-          </View>:
-          <View style = {{marginTop:"20%"}}>
+          <TouchableOpacity style = {{flexDirection:"row", marginTop:20, padding:20,}} onPress = {viewPost}>
+            <View>
+              <Image source = {{uri:topicImage}} style = {{width:40, height:32}} />
+            </View>
+            <View style = {{marginLeft:20,}}>
+              <Text style = {{fontSize:15,}}>{articleTitle}</Text>
+              <View style = {{flexDirection:"row"}}>
+                <Text style = {{fontSize:10, color:"grey"}}>posted at </Text>
+                <Text style = {{fontSize:10, color:"grey"}}>{postedTime}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>:
+          <View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
             <Image source = {require("../assets/items.png")} />
             <View style = {{alignItems:"center", marginTop:-30}}>
               <Text style={{ color:"#737373", }}>NO POSTS</Text>
@@ -81,7 +106,7 @@ export default function ImagePickerExample({navigation}) {
             </View>
           </View>
         }
-      </TouchableOpacity>
+      </View>
       {/* <Modal isVisible={isModalVisible}>
         <View>
           <Image source={{ uri: image }} style={{ width: "100%", height: 300,}} />

@@ -10,6 +10,7 @@ import HTMLView from "react-native-htmlview";
 import * as ImagePicker from 'expo-image-picker';
 import * as VideoPicker from 'expo-image-picker';
 import { block } from 'react-native-reanimated';
+import { TextInput } from 'react-native-paper';
 
 
 const PostEditScreen = ({navigation}) => {
@@ -40,7 +41,7 @@ const PostEditScreen = ({navigation}) => {
         let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,                                   
-        aspect: [4, 3],
+        aspect: [5, 4],
         quality: 1,
         base64:true,
         });
@@ -184,8 +185,7 @@ const PostEditScreen = ({navigation}) => {
                     }}
                     insertVideo={pickVideo}
                 />
-            <ScrollView style={styles.container}>
-                <RichEditor
+                {/* <RichEditor
                     disabled={false}
                     containerStyle={styles.editorTitle}
                     // ref={RichText}
@@ -194,7 +194,15 @@ const PostEditScreen = ({navigation}) => {
                     onChange={(text) => setArticleTitle(text)}
                     editorInitializedCallback={editorInitializedCallback}
                     onHeightChange={handleHeightChange}
+                /> */}
+                <TextInput 
+                    value = {articleTitle}
+                    onChangeText={(text) => setArticleTitle(text)}
+                    style={styles.richTitle}
+                    placeholder = {"Your title"}
+                    placeholderTextColor="white"
                 />
+                <ScrollView style={styles.container}>
                 {topicImage?
                     <TouchableOpacity style = {{width:"70%", height:180, marginLeft:"15%", marginTop:15,}} onPress = {pickTopicImage}>
                         <Image source = {{uri: topicImage}} style = {{width:"100%", height:180}} />
@@ -218,9 +226,6 @@ const PostEditScreen = ({navigation}) => {
                     editorInitializedCallback={editorInitializedCallback}
                     onHeightChange={handleHeightChange}
                 />
-                <Text style={styles.text}>Result</Text>
-                <HTMLView value={articleTitle} stylesheet={styles.title} />
-                <HTMLView value={article} stylesheet={styles} />
             </ScrollView>
         </View>
     );
@@ -256,12 +261,16 @@ export default PostEditScreen;
         marginTop:10,
       },
       richTitle: {
-        minHeight: 30,
+        height: 60,
+        fontSize:30,
+        textAlign:"center",
+        backgroundColor:"#737373",
+        color:"green",
         // flex: 1,
       },
       richArticle: {
-        minHeight: 100,
-        // fontSize: 40,
+        // minHeight: 1000,
+        // height:2000,
         // flex: 1,
       },
       richBar: {
@@ -277,7 +286,7 @@ export default PostEditScreen;
         textAlign: "center",
         color: "#515156",
       },
-    image: {
+     image: {
         width: 24,
         height: 24,
         marginLeft:15,
