@@ -76,10 +76,10 @@ export default function Account () {
                 <TouchableOpacity onPress = {toggleModalProfile}>
                     <Image source = {require("../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress = {goProfileSettingScreen} style = {{backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+                <TouchableOpacity onPress = {goProfileSettingScreen} style = {{backgroundColor:"#333333",padding:10, width:"80%", borderRadius:7, marginLeft:"10%"}}>
                     <Text style = {{color:"white", textAlign:"center"}}>Profile Setting</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress = {logout} style = {{marginTop:40, backgroundColor:"white",padding:10, width:"100%", borderWidth:0.5, borderColor:"#333333", borderRadius:7,}}>
+                <TouchableOpacity onPress = {logout} style = {{marginTop:40, backgroundColor:"white",padding:10, width:"80%", borderWidth:0.5, borderColor:"#333333", borderRadius:7,marginLeft:"10%"}}>
                     <Text style = {{color:"#333333", textAlign:"center"}}>Logout</Text>
                 </TouchableOpacity>
             </Modal>

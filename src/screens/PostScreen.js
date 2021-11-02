@@ -6,25 +6,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
 
 
-export default function ImagePickerExample({navigation}) {
+export default function PostScreen({navigation}) {
   const [article, setArticle] = useState(null);
   const [articleTitle, setArticleTitle] = useState("");
   const [topicImage, setTopicImage] = useState(null);
   const [postedTime, setPostedTime] = useState("");
-  // const [isModalVisible, setModalVisible] = useState(false);
-
-  // const toggleModal = () => {
-  //   if(image){
-  //     setModalVisible(!isModalVisible);
-  //   }else{
-  //     return
-  //   }
-  // };
-  // const removeMedia = async () => {
-  //   await AsyncStorage.setItem("desocial@0313/uri", "")
-  //   setImage(null)
-  //   setModalVisible(!isModalVisible);
-  // }
   useEffect(() => {
     (async () => {
       const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
@@ -55,25 +41,6 @@ export default function ImagePickerExample({navigation}) {
   const viewPost  = () => {
     navigation.navigate("PostViewScreen")
   }
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,                                   
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //     base64:true,
-  //   });
-    
-  //   await AsyncStorage.setItem("desocial@0313/uri", result.uri)
-  //   console.log(result);
-
-  //   if (!result.cancelled) {
-  //     setImage(result.uri);
-  //     console.log(image)
-  //   }
-    
-  // };
-
   return (
     <View>
       <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:320,}}>
@@ -107,20 +74,6 @@ export default function ImagePickerExample({navigation}) {
           </View>
         }
       </View>
-      {/* <Modal isVisible={isModalVisible}>
-        <View>
-          <Image source={{ uri: image }} style={{ width: "100%", height: 300,}} />
-          <Text style = {{color:"white", textAlign:"center", fontSize:25, backgroundColor:"#737373", borderColor:"black", borderRadius:10, borderWidth:1, marginTop:10,}}>Will you remove it out from posts ?</Text>
-          <View style = {{flexDirection:"row", marginTop:50,}}>
-            <View style = {{width:"50%", marginLeft:"5%"}}>
-              <Button title="Remove Media Out" onPress={removeMedia} />
-            </View>
-            <View style = {{width:"30%", marginLeft:"10%"}}>
-              <Button title="Cancel" onPress={toggleModal} />
-            </View>
-          </View>
-        </View>
-      </Modal> */}
     </View>
   );
 }
