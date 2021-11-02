@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, AsyncStorage, Text, TouchableOpacity } from 'react-native';
+import { Button, Image, View, Platform, AsyncStorage, Text, TouchableOpacity, ScrollView} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Modal from "react-native-modal";
 import { NavigationContainer } from '@react-navigation/native';
+import HTMLView from 'react-native-htmlview';
 
 
 export default function ImagePickerExample({navigation}) {
-  const [image, setImage] = useState(null);
+  const [article, setArticle] = useState(null);
   // const [isModalVisible, setModalVisible] = useState(false);
 
   // const toggleModal = () => {
@@ -23,10 +24,10 @@ export default function ImagePickerExample({navigation}) {
   // }
   useEffect(() => {
     (async () => {
-    const storedUri = await AsyncStorage.getItem("desocial@0313/uri")
-    console.log(storedUri)
-      if(storedUri){
-        setImage(storedUri);
+    const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
+    console.log(storedArticle)
+      if(storedArticle){
+        setArticle(storedArticle);
       }
       if (Platform.OS !== 'web') {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -63,11 +64,13 @@ export default function ImagePickerExample({navigation}) {
         <Text style = {{color:"black", fontSize:30,color:"#737373"}}>+</Text>
       </TouchableOpacity>
       <TouchableOpacity>
-        {image?
-          <Image source={{ uri: image }} style={{ width: 320, height: 240, marginTop:30, }} />:
+        {article?
+          <View>
+            <HTMLView value = {article} />
+          </View>:
           <View style = {{marginTop:"20%"}}>
             <Image source = {require("../assets/items.png")} />
-            <View style = {{alignItems:"center"}}>
+            <View style = {{alignItems:"center", marginTop:-30}}>
               <Text style={{ color:"#737373", }}>NO POSTS</Text>
               <View style = {{flexDirection:"row"}}>
                 <Text style = {{ fontSize:10,}}>
