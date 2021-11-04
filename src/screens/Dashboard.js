@@ -20,12 +20,12 @@ export default function Dashboard() {
 		<Account />
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} options = {{tabBarIcon:({focused})=>(
-          <Ionicons name="ios-home" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
+          <Ionicons name="home" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
         )}} />
         <Tab.Screen name="Posts" component={PostScreen} 
           options = {{tabBarIcon:({focused})=>(
           	<View>
-           		<Ionicons name="add-circle" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
+           		<Ionicons name="add-circle-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
            		<Text style = {styles.alamAmount_post}>4</Text>
         	</View>
         )}}
@@ -33,7 +33,7 @@ export default function Dashboard() {
         <Tab.Screen name="Followings" component={FollowingScreen} 
           options = {{tabBarIcon:({focused})=>(
 			<View>
-				<Ionicons name="heart" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
+				<Ionicons name="heart-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
 				<Text style = {styles.alamAmount_following}>1</Text>
 			</View>
         )}}
@@ -41,13 +41,13 @@ export default function Dashboard() {
 		<Tab.Screen name="Wallet"
           component={WalletScreen}
           options = {{tabBarIcon:({focused})=>(
-          <Ionicons name="wallet" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
+          <Ionicons name="wallet-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
         )}}
         />
         <Tab.Screen name="Settings"
           component={SettingsScreen}
           options = {{tabBarIcon:({focused})=>(
-          <Ionicons name="menu" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
+          <Ionicons name="settings-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
         )}}
         />
       </Tab.Navigator>

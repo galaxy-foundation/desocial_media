@@ -11,6 +11,7 @@ export default function FollowingScreen({navigation}) {
   const [articleTitle, setArticleTitle] = useState("");
   const [topicImage, setTopicImage] = useState(null);
   const [postedTime, setPostedTime] = useState("");
+  const [followingStatu, setFollowingStatu] = useState("")
   useEffect(() => {
     (async () => {
       const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
@@ -28,7 +29,9 @@ export default function FollowingScreen({navigation}) {
       }
       const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
         setPostedTime(storedTime)
-      if (Platform.OS !== 'web') {
+      const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
+      setFollowingStatu(storedFollowingStatu)
+      if (Platform.OS !== 'web') { 
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
           alert('Sorry, we need camera roll permissions to make this work!');
@@ -44,7 +47,7 @@ export default function FollowingScreen({navigation}) {
   return (
     <View>
       <View>
-        {article?
+        {(followingStatu==="1")?
           <TouchableOpacity style = {{flexDirection:"row", marginTop:10, padding:20,}} onPress = {viewPost}>
             <View>
               <Image source = {{uri:topicImage}} style = {{width:40, height:32}} />
@@ -60,13 +63,7 @@ export default function FollowingScreen({navigation}) {
           <View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
             <Image source = {require("../assets/items.png")} />
             <View style = {{alignItems:"center", marginTop:-30}}>
-              <Text style={{ color:"#737373", }}>NO POSTS</Text>
-              <View style = {{flexDirection:"row"}}>
-                <Text style = {{ fontSize:10,}}>
-                  <Text style = {{textDecorationLine:"underline", color:"blue"}} onPress = {() => navigation.navigate('PostEditScreen')}>Post</Text>
-                  <Text> your New Article</Text>
-                </Text>
-              </View>
+              <Text style={{ color:"#737373", }}>No Items</Text>
             </View>
           </View>
         }

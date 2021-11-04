@@ -58,7 +58,7 @@ export default function HomeScreen({navigation}) {
       </View>
       <View>
         <Text style = {{marginTop:10, marginLeft:10,fontSize:10,}}>
-          RECOMMANDED AUTORS
+          RECOMMANDED AUTHORS
         </Text>
         <ScrollView horizontal = {true}>
           <View style = {{flexDirection:"row", padding:15, borderBottomWidth:2, borderBottomColor:"rgba(230, 230, 230, 1)"}}>

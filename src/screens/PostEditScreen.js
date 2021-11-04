@@ -246,6 +246,7 @@ export default PostEditScreen;
       },
       container: {
         marginTop: 10,
+        height: 350,
       },
       editorTitle: {
         borderBottomColor:"black",
