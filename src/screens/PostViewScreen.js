@@ -7,30 +7,18 @@ import Modal from "react-native-modal";
 
 export default function PostViewScreen({navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [article, setArticle] = useState(null);
-  const [articleTitle, setArticleTitle] = useState("");
-  const [topicImage, setTopicImage] = useState(null);
-  const [postedTime, setPostedTime] = useState("");
-  const [topbarTitle, setTopbarTitle] = useState("");
+  const [article, setArticle] = useState(' ');
   const [goodFeedbackStatu,setGoodFeedbackStatu] = useState(false)
   const [badFeedbackStatu,setBadFeedbackStatu] = useState(false)
   const [followingAmount, setFollowingAmount] = useState("0")
   useEffect(() => {
     (async () => {
-        const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle")
-        setArticleTitle(storedArticleTitle)
-        const showTpbarTitle = storedArticleTitle.slice(0,10)
-        setTopbarTitle(showTpbarTitle)
-        const storedTopicImage = await AsyncStorage.getItem("desocial@0313/articleTopicImage")
-        setTopicImage(storedTopicImage)
-        const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
-        if(storedArticle){
-            setArticle(storedArticle);
-        }
-        const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
-        setPostedTime(storedTime)
+        const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount")
+        const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+storedPostsAmount)
+        setArticle(JSON.parse(storedArticle))
         const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
         setFollowingAmount(storedFollowingStatu)
+
         if (Platform.OS !== 'web') {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status !== 'granted') {
@@ -78,25 +66,25 @@ const onBadFeedback = async () => {
             <TouchableOpacity onPress={() => navigation.replace('Dashboard')}>
                 <Image source = {require("../assets/arrow_back.png")} style = {{width:25, height:25,}} />
             </TouchableOpacity>
-            <Text style = {{fontSize:18, marginLeft:10,}}>{topbarTitle}...</Text>
+            <Text style = {{fontSize:18, marginLeft:10,}}>{article[0].slice(0,10)}...</Text>
             <Text style = {{fontSize:12, color:"grey", marginLeft:10,marginTop:6,}}> saved at </Text>
-            <Text style = {{fontSize:10, color:"#333333",marginTop:8,}}> {postedTime}</Text>
+            <Text style = {{fontSize:10, color:"#333333",marginTop:8,}}> {article[3]}</Text>
         </View>
-        <Text style = {styles.titleStyle}>{articleTitle}</Text>
+        <Text style = {styles.titleStyle}>{article[0]}</Text>
         <ScrollView style = {{marginTop:10,height:420}}>
             <TouchableOpacity onPress = {toggleImageModal} >
-                <Image source = {{uri: topicImage}} style = {styles.topicImageStyle} />
+                <Image source = {{uri: article[1]}} style = {styles.topicImageStyle} />
             </TouchableOpacity>
             <Modal isVisible={isModalVisible} style = {{marginLeft:30,}}>
                 <TouchableOpacity onPress = {toggleImageModal}>
                     <Image source = {require("../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
                 </TouchableOpacity>
-                <Image source = {{uri: topicImage}} style = {{width:300, height:240}} />
-                <Text style = {{color:"white"}}>{articleTitle}</Text>
+                <Image source = {{uri: article[1]}} style = {{width:300, height:240}} />
+                <Text style = {{color:"white"}}>{article[0]}</Text>
                 <Text style = {{color:"white", textAlign:"right", padding:30,}}>Copyright@0x21.</Text>
             </Modal>
             <View style = {styles.articleStyle}>
-                <HTMLView value = {article} />
+                <HTMLView value = {article[2]} />
             </View>
             <View style = {{borderWidth:1, width:"80%", marginLeft:"10%", paddingVertical:10, marginTop:40,}}>
                 <Text style= {{textAlign:"center"}}>Is this article helpful?</Text>

@@ -11,8 +11,12 @@ export default function PostScreen({navigation}) {
   const [articleTitle, setArticleTitle] = useState("");
   const [topicImage, setTopicImage] = useState(null);
   const [postedTime, setPostedTime] = useState("");
+  const [postsAmount, setPostsAmount] = useState("");
   useEffect(() => {
     (async () => {
+      const storedAmount = await AsyncStorage.getItem("desocial@0313/postsAmount")
+      setPostsAmount(storedAmount)
+      console.log(postsAmount)
       const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
         if(storedArticleTitle.length >= 30){
           const showItemTitle = storedArticleTitle.slice(0,30) + "...";
@@ -39,18 +43,14 @@ export default function PostScreen({navigation}) {
   }, []);
 
   const viewPost  = () => {
-    navigation.navigate("PostViewScreen")
+    navigation.replace("PostViewScreen")
   }
-  return (
-    <View>
-      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:320,}}>
-        <Text style = {{color:"black", fontSize:30,color:"#737373"}}>+</Text>
-      </TouchableOpacity>
-      <View>
-        {article?
-          <TouchableOpacity style = {{flexDirection:"row", marginTop:20, padding:20,}} onPress = {viewPost}>
+  var postsItems = [];
+  for(let i = 1; i<=postsAmount;i++){
+    postsItems.push(
+        <TouchableOpacity style = {{flexDirection:"row", marginLeft:20, padding:10,}} onPress = {viewPost} key = {postsItems}>
             <View>
-              <Image source = {{uri:topicImage}} style = {{width:40, height:32}} />
+              <Image source = {{uri:topicImage}} style = {{width:50, height:40}} />
             </View>
             <View style = {{marginLeft:20,}}>
               <Text style = {{fontSize:15,}}>{articleTitle}</Text>
@@ -59,7 +59,19 @@ export default function PostScreen({navigation}) {
                 <Text style = {{fontSize:10, color:"grey"}}>{postedTime}</Text>
               </View>
             </View>
-          </TouchableOpacity>:
+        </TouchableOpacity>
+    );
+  }
+  return (
+    <View>
+      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:320,}}>
+        <Text style = {{color:"black", fontSize:30,color:"#737373"}}>+</Text>
+      </TouchableOpacity>
+      <ScrollView>
+        {article?
+          <View style = {{marginTop:20,}}>
+            {postsItems}
+          </View>:
           <View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
             <Image source = {require("../assets/items.png")} />
             <View style = {{alignItems:"center", marginTop:-30}}>
@@ -73,7 +85,7 @@ export default function PostScreen({navigation}) {
             </View>
           </View>
         }
-      </View>
+      </ScrollView>
     </View>
   );
 }

@@ -17,9 +17,12 @@ const PostEditScreen = ({navigation}) => {
     const strikethrough = require("../assets/strikethrough.png"); //icon for strikethrough
     // const alignment = require("../assets/video.png"); 
     const RichText = useRef(); //reference to the RichEditor component
-    const [article, setArticle] = useState("");
+    const [articleContent, setArticleContent] = useState("");
     const [articleTitle, setArticleTitle] = useState("");
     const [topicImage, setTopicImage] = useState("");
+    const [article, setArticle] = useState(
+      []
+    )
     const pickTopicImage = async () => {
           let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -102,8 +105,15 @@ const PostEditScreen = ({navigation}) => {
 //   }
 
     const postArticle = async () => {
-        console.log(article)
-        if(!article){
+        const storedAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") || '' ;
+        if(storedAmount===null){
+          await AsyncStorage.setItem("desocial@0313/postsAmount", "1")
+        }else{
+          const amount = !isNaN(storedAmount) ? Number(storedAmount) : 0;
+          await AsyncStorage.setItem("desocial@0313/postsAmount", String(amount+1))
+        }
+        console.log(articleContent)
+        if(!articleContent){
             alert("Your Article is Empty now !")
             return
         }
@@ -116,10 +126,11 @@ const PostEditScreen = ({navigation}) => {
             return
         }
         const curTime = new Date().toLocaleString();
-        await AsyncStorage.setItem("desocial@0313/articleTitle", articleTitle)
-        await AsyncStorage.setItem("desocial@0313/article", article)
-        await AsyncStorage.setItem("desocial@0313/articleTopicImage", topicImage)
-        await AsyncStorage.setItem("desocial@0313/articlePostTime", curTime)
+        article.push(articleTitle, topicImage, articleContent, curTime)
+        await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), JSON.stringify(article))
+        // await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), articleContent)
+        // await AsyncStorage.setItem("desocial@0313/articleTopicImage"+(Number(storedAmount)+1).toString(), topicImage)
+        // await AsyncStorage.setItem("desocial@0313/articlePostTime"+(Number(storedAmount)+1).toString(), curTime)
         navigation.replace('PostViewScreen')
     }
     return (
@@ -222,7 +233,7 @@ const PostEditScreen = ({navigation}) => {
                     ref={RichText}
                     style={styles.richArticle}
                     placeholder={"Edit your Article..."}
-                    onChange={(text) => setArticle(text)}
+                    onChange={(text) => setArticleContent(text)}
                     editorInitializedCallback={editorInitializedCallback}
                     onHeightChange={handleHeightChange}
                 />

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a66053f1-0e48-4510-9518-1ed20b1303ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Account.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/ProfileSettingScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ProfileSettingScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/PostEditScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostEditScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/PostScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostScreen.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,10 +113,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1634978144430" />
-    <state x="117" y="97" width="1736" height="856" key="AVDManager" timestamp="1635861103006">
+    <state x="117" y="97" width="1736" height="856" key="AVDManager" timestamp="1636037957078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1635861103006" />
+    <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1636037957078" />
     <state x="773" y="266" key="AndroidProcessChooserDialog" timestamp="1634979460607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
