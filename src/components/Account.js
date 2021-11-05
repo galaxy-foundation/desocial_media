@@ -9,7 +9,7 @@ export default function Account () {
     const [address, setAddress] = useState("")
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalVisibleProfile, setModalVisibleProfile] = useState(false);
-    const [accountPhoto, setAccountPhoto] = useState('')
+    const [accountPhoto, setAccountPhoto] = useState(null)
     useEffect(() => {
         const runInit = async () => {
             const publicKey = await AsyncStorage.getItem("desocial@0313/publicKey")
@@ -67,9 +67,9 @@ export default function Account () {
                 </View>
             </Modal>
             <TouchableOpacity onPress = {toggleModalProfile}>
-                {accountPhoto?
-                    <Image source={{uri:accountPhoto}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"blue"}} />:
-                    <Image source={require("../assets/avatarrandom.png")} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"blue"}} />
+                {(accountPhoto!=="anonymous")?
+                    <Image source={{uri:accountPhoto}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"white"}} />:
+                    <Image source={require("../assets/avatarrandom.png")} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"grey"}} />
                 }
             </TouchableOpacity>
             <Modal isVisible={isModalVisibleProfile} transparent={false} animationType = "fade" onBackdropPress = {() => setModalVisibleProfile(!isModalVisibleProfile)}>

@@ -7,31 +7,25 @@ import HTMLView from 'react-native-htmlview';
 
 
 export default function PostScreen({navigation}) {
-  const [article, setArticle] = useState(null);
-  const [articleTitle, setArticleTitle] = useState("");
-  const [topicImage, setTopicImage] = useState(null);
-  const [postedTime, setPostedTime] = useState("");
-  const [postsAmount, setPostsAmount] = useState("");
+  const [status, setStatus] = useState({
+    articles: [],
+    count: 0,
+  });
+  /* const [articles, setArticles] = useState([]); */
+  // const [articleTitle, setArticleTitle] = useState("");
+  // const [topicImage, setTopicImage] = useState(null);
+  // const [postedTime, setPostedTime] = useState("");
+  /* const [postsAmount, setPostsAmount] = useState(""); */
   useEffect(() => {
     (async () => {
-      const storedAmount = await AsyncStorage.getItem("desocial@0313/postsAmount")
-      setPostsAmount(storedAmount)
-      console.log(postsAmount)
-      const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
-        if(storedArticleTitle.length >= 30){
-          const showItemTitle = storedArticleTitle.slice(0,30) + "...";
-          setArticleTitle(showItemTitle)
-        }else{
-          setArticleTitle(storedArticleTitle)
-        }
-      const storedTopicImage = await AsyncStorage.getItem("desocial@0313/articleTopicImage")
-        setTopicImage(storedTopicImage)
-      const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
-      if(storedArticle){
-        setArticle(storedArticle);
+      const postsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount")
+      const count = !isNaN(postsAmount) ? Number(postsAmount) : 0;
+      const articles = [];
+      for(let i = 1; i<=postsAmount;i++){
+        const storedArticles = await AsyncStorage.getItem("desocial@0313/article"+i);
+        articles.push(JSON.parse(storedArticles))
       }
-      const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
-        setPostedTime(storedTime)
+      setStatus({articles, count})
       if (Platform.OS !== 'web') {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
@@ -45,32 +39,29 @@ export default function PostScreen({navigation}) {
   const viewPost  = () => {
     navigation.replace("PostViewScreen")
   }
-  var postsItems = [];
-  for(let i = 1; i<=postsAmount;i++){
-    postsItems.push(
-        <TouchableOpacity style = {{flexDirection:"row", marginLeft:20, padding:10,}} onPress = {viewPost} key = {postsItems}>
-            <View>
-              <Image source = {{uri:topicImage}} style = {{width:50, height:40}} />
-            </View>
-            <View style = {{marginLeft:20,}}>
-              <Text style = {{fontSize:15,}}>{articleTitle}</Text>
-              <View style = {{flexDirection:"row"}}>
-                <Text style = {{fontSize:10, color:"grey"}}>posted at </Text>
-                <Text style = {{fontSize:10, color:"grey"}}>{postedTime}</Text>
-              </View>
-            </View>
-        </TouchableOpacity>
-    );
-  }
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-50, marginLeft:320,}}>
-        <Text style = {{color:"black", fontSize:30,color:"#737373"}}>+</Text>
+      <Text style = {{color:"black", fontSize:20, zIndex:1,marginTop:-40, marginLeft:80,}}>({status.count})</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('PostEditScreen')} style = {{zIndex:1,marginTop:-40, marginLeft:320,}}>
+        <Text style = {{fontSize:30,color:"#737373"}}>+</Text>
       </TouchableOpacity>
       <ScrollView>
-        {article?
+        {status.count!==0?
           <View style = {{marginTop:20,}}>
-            {postsItems}
+            {status.articles.map((v,k)=>(
+              <TouchableOpacity style = {{flexDirection:"row", marginLeft:20, padding:10,}} onPress = {viewPost} key = {k}>
+                  <View>
+                    <Image source = {{uri:v[1]}} style = {{width:50, height:40}} />
+                  </View>
+                  <View style = {{marginLeft:20,}}>
+                    <Text style = {{fontSize:15,}}>{v[0]}</Text>
+                    <View style = {{flexDirection:"row"}}>
+                      <Text style = {{fontSize:10, color:"grey"}}>posted at </Text>
+                      <Text style = {{fontSize:10, color:"grey"}}>{v[3]}</Text>
+                    </View>
+                  </View>
+              </TouchableOpacity>
+            ))}
           </View>:
           <View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
             <Image source = {require("../assets/items.png")} />

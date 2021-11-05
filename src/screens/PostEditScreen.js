@@ -105,33 +105,40 @@ const PostEditScreen = ({navigation}) => {
 //   }
 
     const postArticle = async () => {
-        const storedAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") || '' ;
-        if(storedAmount===null){
-          await AsyncStorage.setItem("desocial@0313/postsAmount", "1")
-        }else{
-          const amount = !isNaN(storedAmount) ? Number(storedAmount) : 0;
-          await AsyncStorage.setItem("desocial@0313/postsAmount", String(amount+1))
-        }
-        console.log(articleContent)
-        if(!articleContent){
+        
+        if(!articleContent || !articleTitle || !topicImage){
+          if(!articleContent){
             alert("Your Article is Empty now !")
             return
+          }
+          if(!articleTitle){
+              alert("Add your Title!")
+              return
+          }
+          if(!topicImage){
+              alert("have to add an image for the topic!")
+              return
+          }
+          return
+        }else{
+          const storedAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") || '' ;
+          if(storedAmount===null){
+            await AsyncStorage.setItem("desocial@0313/postsAmount", "1")
+          }else{
+            const amount = !isNaN(storedAmount) ? Number(storedAmount) : 0;
+            await AsyncStorage.setItem("desocial@0313/postsAmount", String(amount+1))
+          }
+          const curTime = new Date().toLocaleString();
+          const author = await AsyncStorage.getItem("desocial@0313/profilePhoto")
+          const followingStatus = await AsyncStorage.getItem("desocial@0313/followingStatu")
+          const userName = await AsyncStorage.getItem("desocial@0313/userName")
+          article.push(articleTitle, topicImage, articleContent, curTime, author, userName, followingStatus)
+          await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), JSON.stringify(article))
+          // await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), articleContent)
+          // await AsyncStorage.setItem("desocial@0313/articleTopicImage"+(Number(storedAmount)+1).toString(), topicImage)
+          // await AsyncStorage.setItem("desocial@0313/articlePostTime"+(Number(storedAmount)+1).toString(), curTime)
+            navigation.replace('PostViewScreen')
         }
-        if(!articleTitle){
-            alert("Add your Title!")
-            return
-        }
-        if(!topicImage){
-            alert("have to add an image for the topic!")
-            return
-        }
-        const curTime = new Date().toLocaleString();
-        article.push(articleTitle, topicImage, articleContent, curTime)
-        await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), JSON.stringify(article))
-        // await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), articleContent)
-        // await AsyncStorage.setItem("desocial@0313/articleTopicImage"+(Number(storedAmount)+1).toString(), topicImage)
-        // await AsyncStorage.setItem("desocial@0313/articlePostTime"+(Number(storedAmount)+1).toString(), curTime)
-        navigation.replace('PostViewScreen')
     }
     return (
         <View>
@@ -144,7 +151,7 @@ const PostEditScreen = ({navigation}) => {
                     <Image source = {require("../assets/post.png")} style = {{width:30, height:30,}} />
                 </TouchableOpacity>
             </View>
-            <Text style={styles.text}>Draft for new article...</Text>
+            <Text style={styles.text}>Draft for new article...{article}</Text>
             <RichToolbar
                     style = {styles.richBar}
                     editor={RichText}

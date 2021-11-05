@@ -46,6 +46,7 @@ export default function FollowingScreen({navigation}) {
   }
   return (
     <View>
+      <Text style = {{color:"black", fontSize:20, zIndex:1,marginTop:-40, marginLeft:120,}}>(1)</Text>
       <View>
         {(followingStatu==="1")?
           <TouchableOpacity style = {{flexDirection:"row", marginTop:10, padding:20,}} onPress = {viewPost}>

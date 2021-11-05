@@ -7,18 +7,17 @@ import Modal from "react-native-modal";
 
 export default function PostViewScreen({navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [article, setArticle] = useState(' ');
+  const [article, setArticle] = useState(" ");
   const [goodFeedbackStatu,setGoodFeedbackStatu] = useState(false)
   const [badFeedbackStatu,setBadFeedbackStatu] = useState(false)
   const [followingAmount, setFollowingAmount] = useState("0")
   useEffect(() => {
     (async () => {
         const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount")
-        const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+storedPostsAmount)
+        const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+storedPostsAmount);
         setArticle(JSON.parse(storedArticle))
         const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
         setFollowingAmount(storedFollowingStatu)
-
         if (Platform.OS !== 'web') {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status !== 'granted') {
@@ -37,27 +36,37 @@ const onGoodFeedback = async () => {
     if(badFeedbackStatu===true){
         setBadFeedbackStatu(!badFeedbackStatu)
         setGoodFeedbackStatu(!goodFeedbackStatu)
-    }else{
-        setGoodFeedbackStatu(!goodFeedbackStatu)
-    }
-    await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
-    if(goodFeedbackStatu===true){
-        setFollowingAmount("0")
-        await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
-    }else{
         setFollowingAmount("1")
         await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
+    }else{
+        if(goodFeedbackStatu===true){
+            setGoodFeedbackStatu(!goodFeedbackStatu)
+            setFollowingAmount("0")
+            await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
+        }else{
+            setGoodFeedbackStatu(!goodFeedbackStatu)
+            setFollowingAmount("1")
+            await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
+        }
     }
 }
 const onBadFeedback = async () => {
     if(goodFeedbackStatu===true){
         setGoodFeedbackStatu(!goodFeedbackStatu)
         setBadFeedbackStatu(!badFeedbackStatu)
+        setFollowingAmount("-1")
+        await AsyncStorage.setItem("desocial@0313/followingStatu", "-1")
     }else{
-        setBadFeedbackStatu(!badFeedbackStatu)
+        if(badFeedbackStatu===true){
+            setBadFeedbackStatu(!badFeedbackStatu)
+            setFollowingAmount("0")
+            await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
+        }else{
+            setBadFeedbackStatu(!badFeedbackStatu)
+            setFollowingAmount("-1")
+            await AsyncStorage.setItem("desocial@0313/followingStatu", "-1")
+        }
     }
-    await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
-    setFollowingAmount("0")
 }
   return (
     <View>
@@ -71,7 +80,7 @@ const onBadFeedback = async () => {
             <Text style = {{fontSize:10, color:"#333333",marginTop:8,}}> {article[3]}</Text>
         </View>
         <Text style = {styles.titleStyle}>{article[0]}</Text>
-        <ScrollView style = {{marginTop:10,height:420}}>
+        <ScrollView style = {{marginTop:10,height:370}}>
             <TouchableOpacity onPress = {toggleImageModal} >
                 <Image source = {{uri: article[1]}} style = {styles.topicImageStyle} />
             </TouchableOpacity>
@@ -86,7 +95,7 @@ const onBadFeedback = async () => {
             <View style = {styles.articleStyle}>
                 <HTMLView value = {article[2]} />
             </View>
-            <View style = {{borderWidth:1, width:"80%", marginLeft:"10%", paddingVertical:10, marginTop:40,}}>
+            <View style = {{borderWidth:0.5,borderColor:"grey", width:"80%", marginLeft:"10%", paddingVertical:10, marginVertical:20,}}>
                 <Text style= {{textAlign:"center"}}>Is this article helpful?</Text>
                 <View style = {{flexDirection:"row", justifyContent:"center"}}>
                     {(badFeedbackStatu===true)?
@@ -107,9 +116,18 @@ const onBadFeedback = async () => {
                     }
                 </View>
             </View>
-            <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ {followingAmount}</Text>
-            <Text style = {{color:"#333333", textAlign:"right", padding:30,}}>Copyright@0x21 </Text>
         </ScrollView>
+        <View style = {{flexDirection:"row", marginTop:10,}}>
+            <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ {followingAmount}</Text>
+            <View style = {{marginLeft:20,}}>
+                {(article[4]!=="anonymous")?
+                    <Image source = {{uri:article[4]}} style = {{width:25, height:25, borderRadius:12.5,}} />:
+                    <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
+                }
+            </View>
+            <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]}</Text>
+        </View>
+            <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
     </View>
   );
 }
