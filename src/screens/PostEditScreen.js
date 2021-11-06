@@ -137,7 +137,7 @@ const PostEditScreen = ({navigation}) => {
           // await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), articleContent)
           // await AsyncStorage.setItem("desocial@0313/articleTopicImage"+(Number(storedAmount)+1).toString(), topicImage)
           // await AsyncStorage.setItem("desocial@0313/articlePostTime"+(Number(storedAmount)+1).toString(), curTime)
-            navigation.replace('PostViewScreen')
+            navigation.navigate('PostViewScreen')
         }
     }
     return (

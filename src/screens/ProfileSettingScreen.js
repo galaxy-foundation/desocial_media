@@ -7,7 +7,7 @@ export default function ProfileSettingScreen({navigation}) {
 
     // const [shownAddress, setShownAddress] = useState("")
     // const [address, setAddress] = useState("")
-    const [profilePhoto, setProfilePhoto] = useState("")
+    const [profilePhoto, setProfilePhoto] = useState(" ")
     const [profileName, setProfileName] = useState("")
     const [gender, setGender] = useState("Unknown")
     const [email, setEmail] = useState("Unknown")
@@ -90,14 +90,14 @@ export default function ProfileSettingScreen({navigation}) {
         setModalVisible(!isModalVisible);
     };
     const removeProfilePhoto = async () => {
-        const removedProfilePhoto = await AsyncStorage.setItem("desocial@0313/profilePhoto", "")
+        const removedProfilePhoto = await AsyncStorage.setItem("desocial@0313/profilePhoto", "anonymous")
         setModalVisible(!isModalVisible);
         setProfilePhoto(removedProfilePhoto)
     }
   return (
     <View style = {{marginTop:25}}>
         <View style = {styles.topBar}>
-            <TouchableOpacity onPress = {() => navigation.replace("Dashboard")} style = {{marginLeft:10,}}>
+            <TouchableOpacity onPress = {() => navigation.navigate("Dashboard")} style = {{marginLeft:10,}}>
                 <Image source = {require("../assets/arrow_back_white.png")} style = {{width: 25, height: 25, }} />
             </TouchableOpacity>
             <Text style = {{color:"white", fontSize:20, marginLeft:10,}}>{profileName}</Text>
@@ -105,7 +105,7 @@ export default function ProfileSettingScreen({navigation}) {
         <View style={styles.container}>
             <View>
                 <View>
-                    {profilePhoto?
+                    {profilePhoto!=="anonymous"?
                         <View>
                             <TouchableOpacity onPress = {toggleModal}>
                                 <Image source={{ uri: profilePhoto }} style={{ width: 100, height: 100, borderRadius:50, borderWidth:2, borderColor:"green"}} />
