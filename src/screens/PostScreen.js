@@ -39,7 +39,7 @@ export default function PostScreen({navigation}) {
 
 	const viewPost  = (currentPage) => {
 		update({currentPage})
-		navigation.replace("PostViewScreen")
+		navigation.navigate("PostedViewScreen")
 	}
 	return (
 		<View>
@@ -51,7 +51,7 @@ export default function PostScreen({navigation}) {
 				{status.count!==0?
 					<View style = {{marginTop:20,}}>
 						{status.articles.map((v,k)=>(
-							<TouchableOpacity style = {{flexDirection:"row", marginLeft:20, padding:10,}} onPress = {()=>viewPost(Number(k)+1)} key = {k}>
+							<TouchableOpacity style = {{flexDirection:"row", marginHorizontal:20, padding:10,borderBottomColor:"lightgrey", borderBottomWidth:0.3,}} onPress = {()=>viewPost(Number(k)+1)} key = {k}>
 									<View>
 										<Image source = {{uri:v[1]}} style = {{width:50, height:40}} />
 									</View>

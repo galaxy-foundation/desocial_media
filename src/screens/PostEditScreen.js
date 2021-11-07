@@ -134,10 +134,7 @@ const PostEditScreen = ({navigation}) => {
           const userName = await AsyncStorage.getItem("desocial@0313/userName")
           article.push(articleTitle, topicImage, articleContent, curTime, author, userName, followingStatus)
           await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), JSON.stringify(article))
-          // await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), articleContent)
-          // await AsyncStorage.setItem("desocial@0313/articleTopicImage"+(Number(storedAmount)+1).toString(), topicImage)
-          // await AsyncStorage.setItem("desocial@0313/articlePostTime"+(Number(storedAmount)+1).toString(), curTime)
-            navigation.navigate('PostViewScreen')
+          navigation.replace('PostViewScreen')
         }
     }
     return (

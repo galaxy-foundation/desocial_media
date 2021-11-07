@@ -4,8 +4,15 @@ import { TextInput } from 'react-native-paper';
 import BackButton from '../components/BackButton'
 import * as ImagePicker from 'expo-image-picker';
 
+import { useSelector, useDispatch} from 'react-redux';
+import slice from '../../reducer';
+
 export default function EditProfileScreen({navigation}) {
-    const [editProfilePhoto, setEditProfilePhoto] = useState('')
+    // const G = useSelector(state => state);
+	// const dispatch = useDispatch();
+	// const update = (json) => dispatch(slice.actions.update(json));
+
+    const [editProfilePhoto, setEditProfilePhoto] = useState(' ')
     const [fullName, setFullName] = useState('');
     const [gender, setGender] = useState('')
     const [email, setEmail] = useState('')
@@ -50,13 +57,12 @@ export default function EditProfileScreen({navigation}) {
         }
       };
     const submitProfile = async () => {
-        if(editProfilePhoto){
+        if(editProfilePhoto!=="anonymous"){
             await AsyncStorage.setItem("desocial@0313/profilePhoto", editProfilePhoto)
         }else{
             alert("Please Add your Profile Photo !")
             return
         }
-        
         const storedUserName = await AsyncStorage.getItem("desocial@0313/userName")
         const storedGender = await AsyncStorage.getItem("desocial@0313/userGender")
         const storedEmail = await AsyncStorage.getItem("desocial@0313/userEmail")
@@ -93,7 +99,8 @@ export default function EditProfileScreen({navigation}) {
         }else{
             await AsyncStorage.setItem("desocial@0313/userPhone",phone)
         }
-        navigation.navigate('ProfileSettingScreen')
+        // update({profilePhoto})
+        navigation.replace('ProfileSettingScreen')
     }
     return(
         <View>
@@ -106,7 +113,7 @@ export default function EditProfileScreen({navigation}) {
                     <Image style={styles.submitIcon} source={require('../assets/correct.png')}/>
                 </TouchableOpacity>
             </View>
-            {editProfilePhoto?
+            {editProfilePhoto!=="anonymous"?
                 <View style = {{marginTop:30, alignItems:"center"}}>
                     <TouchableOpacity onPress = {pickProfilePhoto} >
                         <View style = {{alignItems:"center"}}>
@@ -120,7 +127,7 @@ export default function EditProfileScreen({navigation}) {
                     <TouchableOpacity onPress = {pickProfilePhoto} style = {{ alignItems: "center"}}>
                         <Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80 }} />
                         <Text style = {styles.addProfileIcon}>+</Text>
-                        <Text style = {{fontSize:20}}>Add Profile Photo</Text>
+                        <Text style = {{fontSize:20, color:"black"}}>Add Profile Photo</Text>
                     </TouchableOpacity>
                 </View>
             }

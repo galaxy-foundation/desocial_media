@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react'
 import { StyleSheet, View, Clipboard, AsyncStorage, TouchableOpacity, Text, Button, Linking, Image } from 'react-native'
 import Modal from "react-native-modal";
 import { useNavigation } from '@react-navigation/native';
-
+import { useSelector , useDispatch} from 'react-redux';
 export default function Account () {
+
+    // const U = useSelector(state => state);
 
     const [shownAddress, setShownAddress] = useState("")
     const [address, setAddress] = useState("")
@@ -67,7 +69,7 @@ export default function Account () {
                 </View>
             </Modal>
             <TouchableOpacity onPress = {toggleModalProfile}>
-                {(accountPhoto!=="anonymous")?
+                {accountPhoto!=="anonymous"?
                     <Image source={{uri:accountPhoto}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"white"}} />:
                     <Image source={require("../assets/avatarrandom.png")} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"grey"}} />
                 }

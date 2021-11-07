@@ -3,8 +3,16 @@ import {Button, View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboar
 import * as ImagePicker from 'expo-image-picker';
 import Background from '../components/Background'
 import Modal from "react-native-modal";
+
+import { useSelector, useDispatch} from 'react-redux';
+import slice from '../../reducer';
+
 export default function ProfileSettingScreen({navigation}) {
 
+
+    // const G = useSelector(state => state);
+	// const dispatch = useDispatch();
+	// const update = (json) => dispatch(slice.actions.update(json));
     // const [shownAddress, setShownAddress] = useState("")
     // const [address, setAddress] = useState("")
     const [profilePhoto, setProfilePhoto] = useState(" ")
@@ -90,9 +98,10 @@ export default function ProfileSettingScreen({navigation}) {
         setModalVisible(!isModalVisible);
     };
     const removeProfilePhoto = async () => {
-        const removedProfilePhoto = await AsyncStorage.setItem("desocial@0313/profilePhoto", "anonymous")
+        await AsyncStorage.setItem("desocial@0313/profilePhoto", "anonymous")
         setModalVisible(!isModalVisible);
-        setProfilePhoto(removedProfilePhoto)
+        setProfilePhoto("anonymous")
+        // update({profilePhoto})
     }
   return (
     <View style = {{marginTop:25}}>
@@ -156,7 +165,7 @@ export default function ProfileSettingScreen({navigation}) {
                     <Text>*Phone Number: {phone}</Text>
             </View>
             <View style = {{width:"80%", marginTop: 40,}}>
-                <Button mode="contained" title = "EDIT PROFILE" onPress={() => navigation.replace('EditProfileScreen')} color = "#333333" />
+                <Button mode="contained" title = "EDIT PROFILE" onPress={() => navigation.navigate('EditProfileScreen')} color = "#333333" />
             </View>
         </View>
     </View>

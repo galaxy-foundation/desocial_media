@@ -5,8 +5,15 @@ import HTMLView from 'react-native-htmlview';
 import Account from '../components/Account';
 import Modal from "react-native-modal";
 
+import { useSelector/* , useDispatch */} from 'react-redux';
+/* import slice from '../../reducer'; */
 
-function PostViewScreen({navigation}) {
+function PostedViewScreen({navigation}) {
+    const G = useSelector(state => state);
+	/* const dispatch = useDispatch();
+	const update = (json) => dispatch(slice.actions.update(json)); */
+
+    // const currentPage = useSelector(....)
     const [isModalVisible, setModalVisible] = useState(false);
     const [article, setArticle] = useState(" ");
     const [goodFeedbackStatu,setGoodFeedbackStatu] = useState(false)
@@ -16,8 +23,8 @@ function PostViewScreen({navigation}) {
     
     useEffect(() => {
         (async () => {
-            const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") 
-            const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+storedPostsAmount);
+            /* const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") */
+            const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+G.currentPage);
             setArticle(JSON.parse(storedArticle))
             const L = JSON.parse(storedArticle)[0].length;
             if(L>35){
@@ -34,7 +41,7 @@ function PostViewScreen({navigation}) {
             }
         })();
         
-    }, []);
+    }, [G.currentPage]);
 
     const toggleImageModal = () => {
         setModalVisible(!isModalVisible);
@@ -80,11 +87,12 @@ function PostViewScreen({navigation}) {
         <View>
             <Account />
             <View style = {{flexDirection:"row", marginLeft:10, marginTop:5,borderBottomWidth:2, borderBottomColor:"#737373", width:"100%", paddingBottom:10,}}>
-                <TouchableOpacity onPress={() => navigation.replace('Dashboard')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
                     <Image source = {require("../assets/arrow_back.png")} style = {{width:25, height:25,}} />
                 </TouchableOpacity>
                 <Text style = {{fontSize:18, marginLeft:10,}}>{article[0].slice(0,10)}...</Text>
-                <Text style = {{fontSize:12, color:"grey", marginLeft:10,marginTop:6,}}> Just now </Text>
+                <Text style = {{fontSize:12, color:"grey", marginLeft:10,marginTop:6,}}> saved at </Text>
+                <Text style = {{fontSize:10, color:"#333333",marginTop:8,}}> {article[3]}</Text>
             </View>
             <Text style = {styles.titleStyle}>{article[0]}</Text>
             <ScrollView style = {{marginTop:10,height:350}}>
@@ -102,10 +110,31 @@ function PostViewScreen({navigation}) {
                 <View style = {styles.articleStyle}>
                     <HTMLView value = {article[2]} />
                 </View>
+                <View style = {{borderWidth:0.5,borderColor:"grey", width:"80%", marginLeft:"10%", paddingVertical:10, marginVertical:20,}}>
+                    <Text style= {{textAlign:"center"}}>Is this article helpful?</Text>
+                    <View style = {{flexDirection:"row", justifyContent:"center"}}>
+                        {(badFeedbackStatu===true)?
+                            <TouchableOpacity onPress = {onBadFeedback}>
+                                <Image source = {require('../assets/following_bad.png')} style ={{width:40, height:40,}} />
+                            </TouchableOpacity>:
+                            <TouchableOpacity onPress = {onBadFeedback}>
+                                <Image source = {require('../assets/following_bad_off.png')} style ={{width:40, height:40,}} />
+                            </TouchableOpacity>
+                        }
+                        {(goodFeedbackStatu===true)?
+                            <TouchableOpacity style = {{ marginLeft:30,}} onPress = {onGoodFeedback}>
+                                <Image source = {require('../assets/following_good.png')} style ={{width:40, height:40}} />
+                            </TouchableOpacity>:
+                            <TouchableOpacity style = {{ marginLeft:30,}} onPress = {onGoodFeedback}>
+                                <Image source = {require('../assets/following_good_off.png')} style ={{width:40, height:40}} />
+                            </TouchableOpacity>
+                        }
+                    </View>
+                </View>
                 {height===true?
                 <View>
                     <View style = {{flexDirection:"row", marginTop:10,}}>
-                        <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ 0</Text>
+                        <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ {followingAmount}</Text>
                         <View style = {{marginLeft:20,}}>
                             {(article[4]!=="anonymous")?
                                 <Image source = {{uri:article[4]}} style = {{width:25, height:25, borderRadius:12.5,}} />:
@@ -156,4 +185,4 @@ const styles = StyleSheet.create({
         padding:20,
     }
 })
-export default PostViewScreen;
+export default PostedViewScreen;
