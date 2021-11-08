@@ -4,6 +4,8 @@ import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
+
+import {initialAccount, getWallet} from '../core/model'
 // import "react-native-get-random-values"
 // import unorm from 'unorm';
 // String.prototype.normalize = function(form) {
@@ -34,43 +36,33 @@ export default function MnemonicCopyScreen({ navigation }) {
     const [storedPhrase, setStoredPhrase] = useState('')
 	  const [storedPublicKey, setStoredPublicKey] = useState('')
     const wallet = ethers.Wallet.createRandom()
-    
-
+    const mnemonic = wallet.mnemonic.phrase;
+    const address = wallet.address;
+    const privateKey = wallet.privateKey;
     //   console.log('address:', wallet.address)
     //   console.log('mnemonic:', wallet.mnemonic.phrase)
     //   console.log('privateKey:', wallet.privateKey)
     //   const phrase = "middle pride coil impulse interest sand pizza supply vital diagram margin vally stomach avocado zoo visit eagle fortune unk rescue yard spring gown cause"
 	useEffect(() => {
 		const runInit = async ()=>{
-			await AsyncStorage.setItem("desocial@0313/phrase",wallet.mnemonic.phrase)
-			await AsyncStorage.setItem("desocial@0313/publicKey",wallet.address)
-      await AsyncStorage.setItem("desocial@0313/privateKey",wallet.privateKey)
-      await AsyncStorage.setItem("desocial@0313/userName",'anonymous')
-      await AsyncStorage.setItem("desocial@0313/userGender",'')
-      await AsyncStorage.setItem("desocial@0313/userEmail",'')
-      await AsyncStorage.setItem("desocial@0313/userInstagram",'')
-      await AsyncStorage.setItem("desocial@0313/userLinkedin",'')
-      await AsyncStorage.setItem("desocial@0313/userPhone",'')
-      await AsyncStorage.setItem("desocial@0313/profilePhoto", 'anonymous')
-      await AsyncStorage.setItem("desocial@0313/postsAmount", '0')
-      await AsyncStorage.setItem("desocial@0313/article", JSON.stringify([]))
-      await AsyncStorage.setItem("desocial@0313/followingStatu", '0')
-			const storedPhraseData = await AsyncStorage.getItem("desocial@0313/phrase")
-			setStoredPhrase(storedPhraseData)
-			const storedPublicKeyData = await AsyncStorage.getItem("desocial@0313/publicKey")
-			setStoredPublicKey(storedPublicKeyData)
+      initialAccount(mnemonic, address, privateKey)
+      const storedMnemonic = (await getWallet()).mnemonic;
+			setStoredPhrase(storedMnemonic)
+      console.log(storedMnemonic)
+      const storedAddress = (await getWallet()).address;
+			setStoredPublicKey(storedAddress)
+      console.log(storedAddress)
 		}
     	runInit();
 	}, []);
     const copyToClipboard = () => {
         Clipboard.setString(storedPhrase)
         setCopiedTextView(true)
-        alert(storedPublicKey)
+        alert("Copied Recovery Phrase to clipboard succeessfully!"+'\n'+'\n'+storedPhrase)
 		console.log(storedPhrase)
 		console.log(storedPublicKey)
       }
-      const fetchCopiedText = async () => {
-		alert(storedPublicKey)
+    const fetchCopiedText = async () => {
 		console.log(storedPhrase)
 		console.log(storedPublicKey)
         const text = await Clipboard.getString()

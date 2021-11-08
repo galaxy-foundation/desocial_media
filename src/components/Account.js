@@ -2,31 +2,18 @@ import React, {useEffect, useState} from 'react'
 import { StyleSheet, View, Clipboard, AsyncStorage, TouchableOpacity, Text, Button, Linking, Image } from 'react-native'
 import Modal from "react-native-modal";
 import { useNavigation } from '@react-navigation/native';
-import { useSelector , useDispatch} from 'react-redux';
+
+import { useSelector } from 'react-redux';
+
 export default function Account () {
+    const {avatar, account} = useSelector(state => state);
 
-    // const U = useSelector(state => state);
-
-    const [shownAddress, setShownAddress] = useState("")
-    const [address, setAddress] = useState("")
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalVisibleProfile, setModalVisibleProfile] = useState(false);
-    const [accountPhoto, setAccountPhoto] = useState(null)
-    useEffect(() => {
-        const runInit = async () => {
-            const publicKey = await AsyncStorage.getItem("desocial@0313/publicKey")
-            setAddress(publicKey)
-            const shownAddress = publicKey.slice(0,5) + " ..."+ publicKey.slice(-2)
-            setShownAddress(shownAddress)
-            const profilePhoto = await AsyncStorage.getItem("desocial@0313/profilePhoto")
-            setAccountPhoto(profilePhoto)
-        }
-        runInit();
-    }, []);
 
     const copyToClipboard = async () => {
-        Clipboard.setString(address)
-        alert("Copied to clipboard !"+'\n'+'\n'+address)
+        Clipboard.setString(account)
+        alert("Copied to clipboard !"+'\n'+'\n'+account)
     }
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -36,7 +23,7 @@ export default function Account () {
     };
     const openExplorer = () => {
         setModalVisible(!isModalVisible);
-        Linking.openURL("https://bscscan.com/address/"+ `${address}`)
+        Linking.openURL("https://bscscan.com/address/"+ `${account}`)
     }
     const navigation = useNavigation();
     const goProfileSettingScreen = () => {
@@ -50,7 +37,7 @@ export default function Account () {
     return (
         <View style = {styles.row}>
             <TouchableOpacity onPress={() => copyToClipboard()} style = {styles.address}>
-                <Text style = {{color:"white"}}>{shownAddress}</Text>
+                <Text style = {{color:"white"}}>{account.slice(0,5) + " ..."+ account.slice(-2)}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={toggleModal} style = {styles.balance}>
                 <Text style = {{color:"white"}}>$ 55.55</Text>
@@ -69,8 +56,8 @@ export default function Account () {
                 </View>
             </Modal>
             <TouchableOpacity onPress = {toggleModalProfile}>
-                {accountPhoto!=="anonymous"?
-                    <Image source={{uri:accountPhoto}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"white"}} />:
+                {avatar!=="anonymous"?
+                    <Image source={{uri:avatar}} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"white"}} />:
                     <Image source={require("../assets/avatarrandom.png")} style = {{width:30, height:30, borderRadius:15,borderWidth:0.5, borderColor:"grey"}} />
                 }
             </TouchableOpacity>

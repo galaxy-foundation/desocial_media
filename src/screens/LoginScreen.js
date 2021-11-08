@@ -11,7 +11,15 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
+import {validatePassword, getProfile} from '../core/model'
+
+import { useSelector, useDispatch} from 'react-redux';
+import slice from '../../reducer';
+
 export default function LoginScreen({ navigation }) {
+  const dispatch = useDispatch();
+	const update = (json) => dispatch(slice.actions.update(json));
+
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onLoginPressed = async () => {
@@ -21,12 +29,13 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError })
       return
     }
-    const storagePassword = await AsyncStorage.getItem("desocial@0313/password")
-    if(password.value!==storagePassword){
+    if(!await validatePassword(password.value)){
       alert("Wrong Password. Try again !")
       setPassword({value: ''})
       return
     }
+    const profile = await getProfile();
+    update({...profile})
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],

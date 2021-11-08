@@ -26,6 +26,7 @@ function PostedViewScreen({navigation}) {
             /* const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") */
             const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+G.currentPage);
             setArticle(JSON.parse(storedArticle))
+            
             const L = JSON.parse(storedArticle)[0].length;
             if(L>35){
                 setHeight(true)
@@ -90,7 +91,10 @@ function PostedViewScreen({navigation}) {
                 <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
                     <Image source = {require("../assets/arrow_back.png")} style = {{width:25, height:25,}} />
                 </TouchableOpacity>
-                <Text style = {{fontSize:18, marginLeft:10,}}>{article[0].slice(0,10)}...</Text>
+                {article[0].length<=10?
+                    <Text style = {{fontSize:18, marginLeft:10,}}>{article[0]}</Text>:
+                    <Text style = {{fontSize:18, marginLeft:10,}}>{article[0].slice(0,10)}...</Text>
+                }
                 <Text style = {{fontSize:12, color:"grey", marginLeft:10,marginTop:6,}}> saved at </Text>
                 <Text style = {{fontSize:10, color:"#333333",marginTop:8,}}> {article[3]}</Text>
             </View>

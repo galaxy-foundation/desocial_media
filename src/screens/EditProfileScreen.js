@@ -4,42 +4,15 @@ import { TextInput } from 'react-native-paper';
 import BackButton from '../components/BackButton'
 import * as ImagePicker from 'expo-image-picker';
 
+import {setProfile} from '../core/model'
 import { useSelector, useDispatch} from 'react-redux';
 import slice from '../../reducer';
 
-export default function EditProfileScreen({navigation}) {
-    // const G = useSelector(state => state);
-	// const dispatch = useDispatch();
-	// const update = (json) => dispatch(slice.actions.update(json));
 
-    const [editProfilePhoto, setEditProfilePhoto] = useState(' ')
-    const [fullName, setFullName] = useState('');
-    const [gender, setGender] = useState('')
-    const [email, setEmail] = useState('')
-    const [instagram, setInstagram] = useState('')
-    const [linkedin, setLinkedin] = useState('')
-    const [phone, setPhone] = useState('')
-    
-    useEffect (() => {
-        const runInit = async () => {
-            const storedProfilePhoto = await AsyncStorage.getItem("desocial@0313/profilePhoto")
-            const storedUserName = await AsyncStorage.getItem("desocial@0313/userName")
-            const storedGender = await AsyncStorage.getItem("desocial@0313/userGender")
-            const storedEmail = await AsyncStorage.getItem("desocial@0313/userEmail")
-            const storedInstagram = await AsyncStorage.getItem("desocial@0313/userInstagram")
-            const storedLinkedin = await AsyncStorage.getItem("desocial@0313/userLinkedin")
-            const storedPhone = await AsyncStorage.getItem("desocial@0313/userPhone")
-            setEditProfilePhoto(storedProfilePhoto)
-            console.log(editProfilePhoto)
-            setFullName(storedUserName)
-            setGender(storedGender)
-            setEmail(storedEmail)
-            setInstagram(storedInstagram)
-            setLinkedin(storedLinkedin)
-            setPhone(storedPhone)
-        }
-        runInit();
-    }, [])
+export default function EditProfileScreen({navigation}) {
+    const {avatar, fullName, gender, email, instagram, linkedin, phone} = useSelector(state => state);
+	const dispatch = useDispatch();
+	const update = (json) => dispatch(slice.actions.update(json));
     const pickProfilePhoto = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -49,57 +22,18 @@ export default function EditProfileScreen({navigation}) {
           base64:true,
         });
         
-        // await AsyncStorage.setItem("desocial@0313/profilePhoto", result.uri)
         console.log(result);
     
         if (!result.cancelled) {
-            setEditProfilePhoto(result.uri);
+            update({avatar:result.uri});
         }
       };
     const submitProfile = async () => {
-        if(editProfilePhoto!=="anonymous"){
-            await AsyncStorage.setItem("desocial@0313/profilePhoto", editProfilePhoto)
-        }else{
+        if(avatar==="anonymous") {
             alert("Please Add your Profile Photo !")
             return
         }
-        const storedUserName = await AsyncStorage.getItem("desocial@0313/userName")
-        const storedGender = await AsyncStorage.getItem("desocial@0313/userGender")
-        const storedEmail = await AsyncStorage.getItem("desocial@0313/userEmail")
-        const storedInstagram = await AsyncStorage.getItem("desocial@0313/userInstagram")
-        const storedLinkedin = await AsyncStorage.getItem("desocial@0313/userLinkedin")
-        const storedPhone = await AsyncStorage.getItem("desocial@0313/userPhone")
-        if(!fullName){
-            setFullName(storedUserName)
-        }else{
-            await AsyncStorage.setItem("desocial@0313/userName",fullName)
-        }
-        if(!gender){
-            setGender(storedGender)
-        }else{
-            await AsyncStorage.setItem("desocial@0313/userGender",gender)
-        }
-        if(!email){
-            setEmail(storedEmail)
-        }else{
-            await AsyncStorage.setItem("desocial@0313/userEmail",email)
-        }
-        if(!instagram){
-            setInstagram(storedInstagram)
-        }else{
-            await AsyncStorage.setItem("desocial@0313/userInstagram",instagram)
-        }
-        if(!linkedin){
-            setLinkedin(storedLinkedin)
-        }else{
-            await AsyncStorage.setItem("desocial@0313/userLinkedin",linkedin)
-        }
-        if(!phone){
-            setPhone(storedPhone)
-        }else{
-            await AsyncStorage.setItem("desocial@0313/userPhone",phone)
-        }
-        // update({profilePhoto})
+        setProfile(avatar, fullName, gender, email, instagram, linkedin, phone)
         navigation.replace('ProfileSettingScreen')
     }
     return(
@@ -113,11 +47,11 @@ export default function EditProfileScreen({navigation}) {
                     <Image style={styles.submitIcon} source={require('../assets/correct.png')}/>
                 </TouchableOpacity>
             </View>
-            {editProfilePhoto!=="anonymous"?
+            {avatar!=="anonymous"?
                 <View style = {{marginTop:30, alignItems:"center"}}>
                     <TouchableOpacity onPress = {pickProfilePhoto} >
                         <View style = {{alignItems:"center"}}>
-                            <Image source={{ uri: editProfilePhoto }} style={{ width: 100, height: 100, marginTop:5, borderRadius:50, borderWidth:2, borderColor:"green",alignItems: "center"}} />
+                            <Image source={{ uri: avatar }} style={{ width: 100, height: 100, marginTop:5, borderRadius:50, borderWidth:2, borderColor:"green",alignItems: "center"}} />
                         </View>
                         <Image source={require('../assets/edit.png')} style = {{width:20, height: 20,marginTop: 80, marginLeft: 120,position:"absolute"}} />
                         <Text style = {{fontSize:20, color:"black", textAlign:"center"}}>Change Profile Photo</Text>
@@ -137,7 +71,7 @@ export default function EditProfileScreen({navigation}) {
                     <TextInput 
                         label = 'Fullname'
                         value = {fullName}
-                        onChangeText = {fullname => setFullName(fullname)}
+                        onChangeText = {fullName => update({fullName})}
                         style={styles.profileinputfield}
                         mode="outlined"
                     />
@@ -147,7 +81,7 @@ export default function EditProfileScreen({navigation}) {
                     <TextInput 
                         label = 'Gender'
                         value = {gender}
-                        onChangeText = {gender => setGender(gender)}
+                        onChangeText = {gender => update({gender})}
                         style={styles.profileinputfield}
                         mode="outlined"
                     />
@@ -157,7 +91,7 @@ export default function EditProfileScreen({navigation}) {
                     <TextInput 
                         label = 'e-mail'
                         value = {email}
-                        onChangeText = {email => setEmail(email)}
+                        onChangeText = {email => update({email})}
                         style={styles.profileinputfield}
                         mode="outlined"
                     />
@@ -167,7 +101,7 @@ export default function EditProfileScreen({navigation}) {
                     <TextInput 
                         label = 'YourLink'
                         value = {instagram}
-                        onChangeText = {instagram => setInstagram(instagram)}
+                        onChangeText = {instagram => update({instagram})}
                         style={styles.profileinputfield}
                         mode="outlined"
                     />
@@ -177,7 +111,7 @@ export default function EditProfileScreen({navigation}) {
                     <TextInput 
                         label = 'YourLink'
                         value = {linkedin}
-                        onChangeText = {linkedin => setLinkedin(linkedin)}
+                        onChangeText = {linkedin => update({linkedin})}
                         style={styles.profileinputfield}
                         mode="outlined"
                     />
@@ -187,7 +121,7 @@ export default function EditProfileScreen({navigation}) {
                     <TextInput 
                         label = 'PhoneNumber'
                         value = {phone}
-                        onChangeText = {phone => setPhone(phone)}
+                        onChangeText = {phone => update({phone})}
                         style={styles.profileinputfield}
                         mode="outlined"
                     />

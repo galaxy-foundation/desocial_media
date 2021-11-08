@@ -9,9 +9,6 @@ import Modal from "react-native-modal";
 function PostViewScreen({navigation}) {
     const [isModalVisible, setModalVisible] = useState(false);
     const [article, setArticle] = useState(" ");
-    const [goodFeedbackStatu,setGoodFeedbackStatu] = useState(false)
-    const [badFeedbackStatu,setBadFeedbackStatu] = useState(false)
-    const [followingAmount, setFollowingAmount] = useState("0")
     const [height, setHeight] = useState(false);
     
     useEffect(() => {
@@ -23,9 +20,6 @@ function PostViewScreen({navigation}) {
             if(L>35){
                 setHeight(true)
             }
-            const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
-            setFollowingAmount(storedFollowingStatu)
-            // const articleContentsHeight = ;
             if (Platform.OS !== 'web') {
                 const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
                 if (status !== 'granted') {
@@ -39,43 +33,6 @@ function PostViewScreen({navigation}) {
     const toggleImageModal = () => {
         setModalVisible(!isModalVisible);
     };
-
-    const onGoodFeedback = async () => {
-        if(badFeedbackStatu===true){
-            setBadFeedbackStatu(!badFeedbackStatu)
-            setGoodFeedbackStatu(!goodFeedbackStatu)
-            setFollowingAmount("1")
-            await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
-        }else{
-            if(goodFeedbackStatu===true){
-                setGoodFeedbackStatu(!goodFeedbackStatu)
-                setFollowingAmount("0")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
-            }else{
-                setGoodFeedbackStatu(!goodFeedbackStatu)
-                setFollowingAmount("1")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
-            }
-        }
-    }
-    const onBadFeedback = async () => {
-        if(goodFeedbackStatu===true){
-            setGoodFeedbackStatu(!goodFeedbackStatu)
-            setBadFeedbackStatu(!badFeedbackStatu)
-            setFollowingAmount("-1")
-            await AsyncStorage.setItem("desocial@0313/followingStatu", "-1")
-        }else{
-            if(badFeedbackStatu===true){
-                setBadFeedbackStatu(!badFeedbackStatu)
-                setFollowingAmount("0")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
-            }else{
-                setBadFeedbackStatu(!badFeedbackStatu)
-                setFollowingAmount("-1")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "-1")
-            }
-        }
-    }
     return (
         <View>
             <Account />
@@ -121,7 +78,7 @@ function PostViewScreen({navigation}) {
             {height===false?
                 <View>
                     <View style = {{flexDirection:"row", marginTop:10,}}>
-                        <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ {followingAmount}</Text>
+                        <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ 0</Text>
                         <View style = {{marginLeft:20,}}>
                             {(article[4]!=="anonymous")?
                                 <Image source = {{uri:article[4]}} style = {{width:25, height:25, borderRadius:12.5,}} />:

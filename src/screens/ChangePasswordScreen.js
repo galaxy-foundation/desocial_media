@@ -10,7 +10,9 @@ import { passwordValidator } from '../helpers/passwordValidator'
 import { rePasswordValidator } from '../helpers/passwordValidator'
 import { currentPasswordValidator } from '../helpers/passwordValidator'
 
-export default function ChangePasswordScreen({ navigation }) {
+import { validatePassword, updatePassword } from '../core/model'
+
+export default async function ChangePasswordScreen({ navigation }) {
   const [currentPassword, setCurrentPassword] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [rePassword, setRePassword] = useState({ value: '', error: '' })
@@ -31,8 +33,7 @@ export default function ChangePasswordScreen({ navigation }) {
         setRePassword({ value: '', error: '' })
         return
     }
-    const storedPassword = await AsyncStorage.getItem("desocial@0313/password")
-    if(storedPassword!==currentPassword.value){
+    if(!await validatePassword(password.value)){
       alert("You should input current password exactly!")
       return
     }
@@ -43,7 +44,7 @@ export default function ChangePasswordScreen({ navigation }) {
       
       return
     }
-    await AsyncStorage.setItem("desocial@0313/password",password.value)
+    await updatePassword(password.value)
     navigation.navigate('Dashboard')
   }
 

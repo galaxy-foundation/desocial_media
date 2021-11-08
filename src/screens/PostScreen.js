@@ -5,6 +5,7 @@ import Modal from "react-native-modal";
 import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
 
+
 import { useSelector, useDispatch} from 'react-redux';
 import slice from '../../reducer';
 

@@ -130,9 +130,9 @@ const PostEditScreen = ({navigation}) => {
           }
           const curTime = new Date().toLocaleString();
           const author = await AsyncStorage.getItem("desocial@0313/profilePhoto")
-          const followingStatus = await AsyncStorage.getItem("desocial@0313/followingStatu")
+          // const followingStatus = await AsyncStorage.getItem("desocial@0313/followingStatu")
           const userName = await AsyncStorage.getItem("desocial@0313/userName")
-          article.push(articleTitle, topicImage, articleContent, curTime, author, userName, followingStatus)
+          article.push(articleTitle, topicImage, articleContent, curTime, author, userName, 0)
           await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), JSON.stringify(article))
           navigation.replace('PostViewScreen')
         }

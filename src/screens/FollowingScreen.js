@@ -7,7 +7,7 @@ import HTMLView from 'react-native-htmlview';
 
 
 export default function FollowingScreen({navigation}) {
-  const [article, setArticle] = useState(null);
+  // const [article, setArticle] = useState([]);
   const [articleTitle, setArticleTitle] = useState("");
   const [topicImage, setTopicImage] = useState(null);
   const [postedTime, setPostedTime] = useState("");
@@ -23,10 +23,10 @@ export default function FollowingScreen({navigation}) {
         }
       const storedTopicImage = await AsyncStorage.getItem("desocial@0313/articleTopicImage")
         setTopicImage(storedTopicImage)
-      const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
-      if(storedArticle){
-        setArticle(storedArticle);
-      }
+      // const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
+      // if(storedArticle){
+      //   setArticle(storedArticle);
+      // }
       const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
         setPostedTime(storedTime)
       const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
