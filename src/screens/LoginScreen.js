@@ -11,7 +11,7 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
-import {validatePassword, getProfile} from '../core/model'
+import {validatePassword, getProfile, getDatabase} from '../core/model'
 
 import { useSelector, useDispatch} from 'react-redux';
 import slice from '../../reducer';
@@ -22,7 +22,9 @@ export default function LoginScreen({ navigation }) {
 
   const [password, setPassword] = useState({ value: '', error: '' })
 
+
   const onLoginPressed = async () => {
+    // alert((await getDatabase()).database)
     // const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
     if (passwordError) {

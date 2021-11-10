@@ -33,7 +33,7 @@ export default async function ChangePasswordScreen({ navigation }) {
         setRePassword({ value: '', error: '' })
         return
     }
-    if(!await validatePassword(password.value)){
+    if(!await validatePassword(currentPassword.value)){
       alert("You should input current password exactly!")
       return
     }

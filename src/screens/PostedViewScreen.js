@@ -26,14 +26,13 @@ function PostedViewScreen({navigation}) {
             /* const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") */
             const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+G.currentPage);
             setArticle(JSON.parse(storedArticle))
-            
+            setFollowingAmount((JSON.parse(storedArticle))[6])
             const L = JSON.parse(storedArticle)[0].length;
             if(L>35){
                 setHeight(true)
             }
-            const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
-            setFollowingAmount(storedFollowingStatu)
-            // const articleContentsHeight = ;
+            // const storedFollowingStatu = await AsyncStorage.getItem("desocial@0313/followingStatu")
+            // setFollowingAmount(storedFollowingStatu)
             if (Platform.OS !== 'web') {
                 const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
                 if (status !== 'granted') {
@@ -52,17 +51,20 @@ function PostedViewScreen({navigation}) {
         if(badFeedbackStatu===true){
             setBadFeedbackStatu(!badFeedbackStatu)
             setGoodFeedbackStatu(!goodFeedbackStatu)
-            setFollowingAmount("1")
-            await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
+            article[6]+=2
+            setFollowingAmount(article[6])
+            await AsyncStorage.setItem("desocial@0313/article"+G.currentPage, JSON.stringify(article))
         }else{
             if(goodFeedbackStatu===true){
                 setGoodFeedbackStatu(!goodFeedbackStatu)
-                setFollowingAmount("0")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
+                article[6]-=1
+                setFollowingAmount(article[6])
+                await AsyncStorage.setItem("desocial@0313/article"+G.currentPage, JSON.stringify(article))
             }else{
                 setGoodFeedbackStatu(!goodFeedbackStatu)
-                setFollowingAmount("1")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "1")
+                article[6]+=1
+                setFollowingAmount(article[6])
+                await AsyncStorage.setItem("desocial@0313/article"+G.currentPage, JSON.stringify(article))
             }
         }
     }
@@ -70,17 +72,20 @@ function PostedViewScreen({navigation}) {
         if(goodFeedbackStatu===true){
             setGoodFeedbackStatu(!goodFeedbackStatu)
             setBadFeedbackStatu(!badFeedbackStatu)
-            setFollowingAmount("-1")
-            await AsyncStorage.setItem("desocial@0313/followingStatu", "-1")
+            article[6]-=2
+            setFollowingAmount(article[6])
+            await AsyncStorage.setItem("desocial@0313/article"+G.currentPage, JSON.stringify(article))
         }else{
             if(badFeedbackStatu===true){
                 setBadFeedbackStatu(!badFeedbackStatu)
-                setFollowingAmount("0")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "0")
+                article[6]+=1
+                setFollowingAmount(article[6])
+                await AsyncStorage.setItem("desocial@0313/article"+G.currentPage, JSON.stringify(article))
             }else{
                 setBadFeedbackStatu(!badFeedbackStatu)
-                setFollowingAmount("-1")
-                await AsyncStorage.setItem("desocial@0313/followingStatu", "-1")
+                article[6]-=1
+                setFollowingAmount(article[6])
+                await AsyncStorage.setItem("desocial@0313/article"+G.currentPage, JSON.stringify(article))
             }
         }
     }
@@ -145,7 +150,7 @@ function PostedViewScreen({navigation}) {
                                 <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
-                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]}</Text>
+                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]===''?"anonymous":article[5]}</Text>
                     </View>
                     <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
                 </View>:null
@@ -161,7 +166,7 @@ function PostedViewScreen({navigation}) {
                                 <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
-                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]}</Text>
+                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]===''?"anonymous":article[5]}</Text>
                     </View>
                     <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
                 </View>:null

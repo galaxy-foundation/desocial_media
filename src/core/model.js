@@ -81,3 +81,14 @@ export const validatePassword = async (password) => {
 	const storagePassword = await AsyncStorage.getItem("desocial@0313/password")
 	return password===storagePassword
 }
+
+// save data as JSON
+
+export const setDatabase = async(data) => {
+	await AsyncStorage.setItem("desocial@0313/database", JSON.stringify(data))
+}
+export const getDatabase = async() => {
+	const buf = await AsyncStorage.getItem("desocial@0313/database") || {}
+	const database = 	buf ? JSON.parse(buf) :{}
+	return database
+}

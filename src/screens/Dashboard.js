@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,11 +10,21 @@ import SettingsScreen from './SettingScreen'
 import FollowingScreen from './FollowingScreen'
 import Background from '../components/Background'
 import Account from '../components/Account';
-import WalletScreen from './ProfileSettingScreen';
+import WalletScreen from './WalletScreen';
+
+import { getProfile } from '../core/model';
 // import { white } from 'react-native-paper/lib/typescript/styles/colors';
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard() {
+const [postsAmount, setPostsAmount] = useState(null);
+
+useEffect(() => {
+	(async () => {
+		setPostsAmount((await getProfile()).postsAmount)
+	})();
+	
+}, []);
   return (
 	<>
 		<Account />
@@ -26,7 +36,10 @@ export default function Dashboard() {
           options = {{tabBarIcon:({focused})=>(
           	<View>
            		<Ionicons name="add-circle-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
-           		<Text style = {styles.alamAmount_post}>4</Text>
+				{postsAmount==="0" || null?
+					null:
+					<Text style = {styles.alamAmount_post}>{postsAmount}</Text>
+				}
         	</View>
         )}}
         />
@@ -63,7 +76,7 @@ const styles = StyleSheet.create ({
 		// borderWidth:1,
 		borderRadius:7,
 		color: "white",
-		fontSize:10,
+		fontSize:8,
 		padding: 2,
 		width:14,
 		height:14,
@@ -75,7 +88,7 @@ const styles = StyleSheet.create ({
 		// borderWidth:1,
 		borderRadius:7,
 		color: "white",
-		fontSize:10,
+		fontSize:8,
 		padding: 2,
 		width:14,
 		height:14,

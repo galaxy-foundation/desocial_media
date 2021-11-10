@@ -69,7 +69,7 @@ function PostViewScreen({navigation}) {
                                 <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
-                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]}</Text>
+                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]===''?"anonymous":article[5]}</Text>
                     </View>
                     <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
                 </View>:null
@@ -85,7 +85,7 @@ function PostViewScreen({navigation}) {
                                 <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
-                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]}</Text>
+                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{(article[5]==='')?"anonymous":article[5]}</Text>
                     </View>
                     <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
                 </View>:null

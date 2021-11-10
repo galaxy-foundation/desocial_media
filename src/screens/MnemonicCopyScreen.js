@@ -5,7 +5,7 @@ import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
 
-import {initialAccount, getWallet} from '../core/model'
+import {initialAccount, getWallet, setDatabase, getDatabase} from '../core/model'
 // import "react-native-get-random-values"
 // import unorm from 'unorm';
 // String.prototype.normalize = function(form) {
@@ -35,6 +35,8 @@ export default function MnemonicCopyScreen({ navigation }) {
     const [copiedTextView, setCopiedTextView] = useState(false)
     const [storedPhrase, setStoredPhrase] = useState('')
 	  const [storedPublicKey, setStoredPublicKey] = useState('')
+
+    // const [data, setData] = useState({})
     const wallet = ethers.Wallet.createRandom()
     const mnemonic = wallet.mnemonic.phrase;
     const address = wallet.address;
@@ -47,6 +49,11 @@ export default function MnemonicCopyScreen({ navigation }) {
 		const runInit = async ()=>{
       initialAccount(mnemonic, address, privateKey)
       const storedMnemonic = (await getWallet()).mnemonic;
+      // const initialDatas = (await getDatabase()).database
+      // alert(initialDatas)
+      // return
+      // initialDatas.storedMnemonic = "profile_infor";
+      // setData(initialDatas)
 			setStoredPhrase(storedMnemonic)
       console.log(storedMnemonic)
       const storedAddress = (await getWallet()).address;
@@ -58,6 +65,7 @@ export default function MnemonicCopyScreen({ navigation }) {
     const copyToClipboard = () => {
         Clipboard.setString(storedPhrase)
         setCopiedTextView(true)
+        // setDatabase(data)
         alert("Copied Recovery Phrase to clipboard succeessfully!"+'\n'+'\n'+storedPhrase)
 		console.log(storedPhrase)
 		console.log(storedPublicKey)

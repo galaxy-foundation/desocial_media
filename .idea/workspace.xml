@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a66053f1-0e48-4510-9518-1ed20b1303ab" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/ChangePasswordScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ChangePasswordScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/FollowingScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/FollowingScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/LoginScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/LoginScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/MnemonicCopyScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/MnemonicCopyScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/PostEditScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostEditScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/PostScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/PostViewScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostViewScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/PostedViewScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostedViewScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,19 +124,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1634978144430" />
-    <state x="117" y="97" width="1736" height="856" key="AVDManager" timestamp="1636037957078">
+    <state x="117" y="97" width="1736" height="856" key="AVDManager" timestamp="1636474429943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1635861103006" />
-    <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1636037957078" />
+    <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1636474429943" />
     <state x="773" y="266" key="AndroidProcessChooserDialog" timestamp="1634979460607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="773" y="266" key="AndroidProcessChooserDialog/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1634979460607" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1634965726148">
+    <state x="461" y="164" key="SettingsEditor" timestamp="1636446609286">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1634965726148" />
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1636446609286" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1634952941294">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

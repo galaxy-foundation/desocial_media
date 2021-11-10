@@ -12,17 +12,20 @@ import * as VideoPicker from 'expo-image-picker';
 import { block } from 'react-native-reanimated';
 import { TextInput } from 'react-native-paper';
 
+import { useSelector } from 'react-redux';
+
+import { getProfile } from '../core/model';
+
 
 const PostEditScreen = ({navigation}) => {
     const strikethrough = require("../assets/strikethrough.png"); //icon for strikethrough
-    // const alignment = require("../assets/video.png"); 
     const RichText = useRef(); //reference to the RichEditor component
     const [articleContent, setArticleContent] = useState("");
     const [articleTitle, setArticleTitle] = useState("");
     const [topicImage, setTopicImage] = useState("");
-    const [article, setArticle] = useState(
-      []
-    )
+
+    const {avatar, fullName} = useSelector(state => state)
+
     const pickTopicImage = async () => {
           let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -48,7 +51,6 @@ const PostEditScreen = ({navigation}) => {
         quality: 1,
         base64:true,
         });
-        // let img = Image.resolveAssetSource({uri:result.uri}).uri;
         
         if (!result.cancelled) {
         RichText.current?.insertImage(
@@ -121,7 +123,7 @@ const PostEditScreen = ({navigation}) => {
           }
           return
         }else{
-          const storedAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") || '' ;
+          const storedAmount = (await getProfile()).postsAmount;
           if(storedAmount===null){
             await AsyncStorage.setItem("desocial@0313/postsAmount", "1")
           }else{
@@ -129,10 +131,11 @@ const PostEditScreen = ({navigation}) => {
             await AsyncStorage.setItem("desocial@0313/postsAmount", String(amount+1))
           }
           const curTime = new Date().toLocaleString();
-          const author = await AsyncStorage.getItem("desocial@0313/profilePhoto")
+          // const author = await AsyncStorage.getItem("desocial@0313/profilePhoto")
           // const followingStatus = await AsyncStorage.getItem("desocial@0313/followingStatu")
-          const userName = await AsyncStorage.getItem("desocial@0313/userName")
-          article.push(articleTitle, topicImage, articleContent, curTime, author, userName, 0)
+          // const userName = await AsyncStorage.getItem("desocial@0313/userName")
+          const article = [];
+          article.push(articleTitle, topicImage, articleContent, curTime, avatar, fullName, 0)
           await AsyncStorage.setItem("desocial@0313/article"+(Number(storedAmount)+1).toString(), JSON.stringify(article))
           navigation.replace('PostViewScreen')
         }
@@ -148,7 +151,7 @@ const PostEditScreen = ({navigation}) => {
                     <Image source = {require("../assets/post.png")} style = {{width:30, height:30,}} />
                 </TouchableOpacity>
             </View>
-            <Text style={styles.text}>Draft for new article...{article}</Text>
+            <Text style={styles.text}>Draft for new article...</Text>
             <RichToolbar
                     style = {styles.richBar}
                     editor={RichText}

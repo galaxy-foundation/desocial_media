@@ -5,20 +5,17 @@ import { Searchbar } from 'react-native-paper';
 import Modal from "react-native-modal";
 import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
-
+import { useSelector } from 'react-redux';
 
 export default function HomeScreen({navigation}) {
-	const [article, setArticle] = useState(null);
+	const {avatar} = useSelector(state => state)
 	const [articleTitle, setArticleTitle] = useState("");
 	const [topicImage, setTopicImage] = useState(null);
 	const [postedTime, setPostedTime] = useState("");
 	const [searchQuery, setSearchQuery] = useState('')
-	const [recommandedProfilePhoto, setRecommandedProfilePhoto] = useState(null)
 	const onChangeSearch = query => setSearchQuery(query);
 	useEffect(() => {
 		(async () => {
-			const profilePhoto = await AsyncStorage.getItem("desocial@0313/profilePhoto")
-			setRecommandedProfilePhoto(profilePhoto)
 			const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
 				if(storedArticleTitle.length >= 15){
 					const showItemTitle = storedArticleTitle.slice(0,15) + "...";
@@ -28,10 +25,6 @@ export default function HomeScreen({navigation}) {
 				}
 			const storedTopicImage = await AsyncStorage.getItem("desocial@0313/articleTopicImage")
 				setTopicImage(storedTopicImage)
-			const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
-			if(storedArticle){
-				setArticle(storedArticle);
-			}
 			const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
 				setPostedTime(storedTime)
 			if (Platform.OS !== 'web') {
@@ -62,9 +55,14 @@ export default function HomeScreen({navigation}) {
 				</Text>
 				<ScrollView horizontal = {true}>
 					<View style = {{flexDirection:"row", padding:15, borderBottomWidth:2, borderBottomColor:"rgba(230, 230, 230, 1)"}}>
-						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
-							<Image source = {{uri:recommandedProfilePhoto}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
-						</TouchableOpacity>
+						{avatar!=="anonymous"?
+							<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+								<Image source = {{uri:avatar}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
+							</TouchableOpacity>:
+							<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+								<Image source = {require('../assets/avatarrandom.png')} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
+							</TouchableOpacity>
+						}
 						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
 							<Image source = {{uri:"https://randomuser.me/api/portraits/med/men/1.jpg"}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 						</TouchableOpacity>
