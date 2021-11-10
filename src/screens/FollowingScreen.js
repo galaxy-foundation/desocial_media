@@ -12,7 +12,6 @@ export default function FollowingScreen({navigation}) {
 	const G = useSelector(state => state);
 	const dispatch = useDispatch();
 	const update = (json) => dispatch(slice.actions.update(json));
-
 	const [status, setStatus] = useState({
 		articles: [],
 		count: 0,

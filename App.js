@@ -29,6 +29,8 @@ import {
   RecommandedPostScreen,
   PostedViewScreen,
   WalletScreen,
+  SendScreen,
+  ReceiveScreen,
 } from './src/screens'
 
 import { Provider as ReduxProvider } from 'react-redux';
@@ -64,6 +66,8 @@ export default function App() {
             <Stack.Screen name="PostedViewScreen" component={PostedViewScreen} />
             <Stack.Screen name="RecommandedPostScreen" component={RecommandedPostScreen} />
             <Stack.Screen name="WalletScreen" component={WalletScreen} />
+            <Stack.Screen name="SendScreen" component={SendScreen} />
+            <Stack.Screen name="ReceiveScreen" component={ReceiveScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

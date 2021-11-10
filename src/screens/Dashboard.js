@@ -46,7 +46,7 @@ useEffect(() => {
         <Tab.Screen name="Followings" component={FollowingScreen} 
           options = {{tabBarIcon:({focused})=>(
 			<View>
-				<Ionicons name="heart-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
+				<Ionicons name="heart-outline" focused={focused}  color={focused?"#0099ff":"#737373"} size={30}/>
 				<Text style = {styles.alamAmount_following}>1</Text>
 			</View>
         )}}
