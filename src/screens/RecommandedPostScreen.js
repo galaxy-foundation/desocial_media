@@ -4,69 +4,64 @@ import * as ImagePicker from 'expo-image-picker';
 import Modal from "react-native-modal";
 import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
-import Account from '../components/Account'
 
-export default function RecommandedPostScreen({navigation}) {
-  const [article, setArticle] = useState(null);
-  const [articleTitle, setArticleTitle] = useState("");
-  const [topicImage, setTopicImage] = useState(null);
-  const [postedTime, setPostedTime] = useState("");
-  const [recommandedPoster, setRecommandedPoster] = useState('')
-  useEffect(() => {
-    (async () => {
-      const storedUserName = await AsyncStorage.getItem("desocial@0313/userName")
-       setRecommandedPoster(storedUserName)
-      const storedArticleTitle = await AsyncStorage.getItem("desocial@0313/articleTitle") || '';
-        if(storedArticleTitle.length >= 30){
-          const showItemTitle = storedArticleTitle.slice(0,30) + "...";
-          setArticleTitle(showItemTitle)
-        }else{
-          setArticleTitle(storedArticleTitle)
-        }
-      const storedTopicImage = await AsyncStorage.getItem("desocial@0313/articleTopicImage")
-        setTopicImage(storedTopicImage)
-      const storedArticle = await AsyncStorage.getItem("desocial@0313/article")
-      if(storedArticle){
-        setArticle(storedArticle);
-      }
-      const storedTime = await AsyncStorage.getItem("desocial@0313/articlePostTime")
-        setPostedTime(storedTime)
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-    
-  }, []);
+import { getProfile } from '../core/model';
 
-  const viewPost  = () => {
-    navigation.navigate("PostViewScreen")
-  }
-  return (
-    <View>
+import { useSelector, useDispatch} from 'react-redux';
+import slice from '../../reducer';
+import Account from '../components/Account';
+
+export default function FollowingScreen({navigation}) {
+	const G = useSelector(state => state);
+	const dispatch = useDispatch();
+	const update = (json) => dispatch(slice.actions.update(json));
+
+  const viewPost  = (currentPage) => {
+		update({currentPage})
+		navigation.navigate("PostedViewScreen")
+	}
+	return (
+		<View>
       <Account />
-      <View style = {{flexDirection:"row", marginLeft:10, marginTop:10,}}>
-          <TouchableOpacity onPress = {() => navigation.replace('Dashboard')}>
-              <Image source = {require('../assets/arrow_back.png')}  style = {{width: 30, height:30,}} />
-          </TouchableOpacity>
-          <Text style = {{fontSize:20,marginLeft:10,}}>{recommandedPoster}</Text>
+      <View style = {{flexDirection:"row", padding:10,}}>
+        <TouchableOpacity onPress = {() => navigation.navigate("Dashboard")}>
+          <Image source = {require('../assets/arrow_back.png')} style = {{width:30, height:30,}} />
+        </TouchableOpacity>
+        {G.fullName===""?
+          <Text style = {{color:"black", fontSize:15, padding:5,}}>{G.account.slice(0, 12) + "..." + G.account.slice(-5)}</Text>:
+          <Text style = {{color:"black", fontSize:15, padding:5,}}>{G.fullName}</Text>
+        }
+        <Text style = {{color:"black", fontSize:15, padding:5,}}>({G.articles.length})</Text>
       </View>
-      <View>
-          <TouchableOpacity style = {{flexDirection:"row", padding:20,}} onPress = {viewPost}>
-            <View>
-              <Image source = {{uri:topicImage}} style = {{width:40, height:32}} />
-            </View>
-            <View style = {{marginLeft:20,}}>
-              <Text style = {{fontSize:15,}}>{articleTitle}</Text>
-              <View style = {{flexDirection:"row"}}>
-                <Text style = {{fontSize:10, color:"grey"}}>posted at </Text>
-                <Text style = {{fontSize:10, color:"grey"}}>{postedTime}</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-      </View>
-    </View>
-  );
+			<ScrollView style = {{marginTop:20,}}>
+				{G.articles.length ? (
+						G.articles.map((v,k)=>(
+								<View key = {k}>
+								<TouchableOpacity style = {{flexDirection:"row", marginHorizontal:20, padding:10,borderBottomColor:"lightgrey", borderBottomWidth:0.3,}} onPress = {()=>viewPost(Number(k)+1)}>
+										<View>
+											<Image source = {{uri:v.topicImage}} style = {{width:50, height:40}} />
+										</View>
+										<View style = {{marginLeft:20,}}>
+											<Text style = {{fontSize:15,}}>
+												{v.title?.length<25 ? (v.title || null) : v.title.slice(0, 22) + "..."}
+											</Text>
+											<View style = {{flexDirection:"row"}}>
+												<Text style = {{fontSize:10, color:"grey"}}>posted at </Text>
+												<Text style = {{fontSize:10, color:"grey"}}>{v.postedTime}</Text>
+											</View>
+										</View>
+								</TouchableOpacity>
+								</View>
+						))
+					) :
+					<View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
+						<Image source = {require("../assets/items.png")} />
+						<View style = {{alignItems:"center", marginTop:-30}}>
+							<Text style={{ color:"#737373", }}>NO ITEMS</Text>
+						</View>
+					</View>
+				}
+			</ScrollView>
+		</View>
+	);
 }

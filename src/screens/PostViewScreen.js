@@ -5,18 +5,28 @@ import HTMLView from 'react-native-htmlview';
 import Account from '../components/Account';
 import Modal from "react-native-modal";
 
+import { useSelector, useDispatch } from 'react-redux';
+import slice from '../../reducer';
+import {getProfile} from '../core/model'
 
 function PostViewScreen({navigation}) {
+
+    const dispatch = useDispatch();
+    const update = (json) => dispatch(slice.actions.update(json));
+
     const [isModalVisible, setModalVisible] = useState(false);
-    const [article, setArticle] = useState(" ");
+    const [article, setArticle] = useState({});
     const [height, setHeight] = useState(false);
     
     useEffect(() => {
         (async () => {
-            const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") 
-            const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+storedPostsAmount);
-            setArticle(JSON.parse(storedArticle))
-            const L = JSON.parse(storedArticle)[0].length;
+            // const storedPostsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount") 
+            // const storedArticle = await AsyncStorage.getItem("desocial@0313/article"+storedPostsAmount);
+            const storedArticles = (await getProfile()).articles
+            const storedArticle = storedArticles[storedArticles.length-1]
+            console.log(storedArticle)
+            setArticle(storedArticle)
+            const L = storedArticle.title.length;
             if(L>35){
                 setHeight(true)
             }
@@ -40,36 +50,36 @@ function PostViewScreen({navigation}) {
                 <TouchableOpacity onPress={() => navigation.replace('Dashboard')}>
                     <Image source = {require("../assets/arrow_back.png")} style = {{width:25, height:25,}} />
                 </TouchableOpacity>
-                <Text style = {{fontSize:18, marginLeft:10,}}>{article[0].slice(0,10)}...</Text>
+                <Text style = {{fontSize:18, marginLeft:10,}}>{article.title ? article.title.slice(0,10) + " ..." : null}</Text>
                 <Text style = {{fontSize:12, color:"grey", marginLeft:10,marginTop:6,}}> Just now </Text>
             </View>
-            <Text style = {styles.titleStyle}>{article[0]}</Text>
+            <Text style = {styles.titleStyle}>{article.title}</Text>
             <ScrollView style = {{marginTop:10,height:350}}>
                 <TouchableOpacity onPress = {toggleImageModal} >
-                    <Image source = {{uri: article[1]}} style = {styles.topicImageStyle} />
+                    <Image source = {{uri: article.topicImage}} style = {styles.topicImageStyle} />
                 </TouchableOpacity>
                 <Modal isVisible={isModalVisible} style = {{marginLeft:30,}}>
                     <TouchableOpacity onPress = {toggleImageModal}>
                         <Image source = {require("../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
                     </TouchableOpacity>
-                    <Image source = {{uri: article[1]}} style = {{width:300, height:240}} />
-                    <Text style = {{color:"white"}}>{article[0]}</Text>
+                    <Image source = {{uri: article.topicImage}} style = {{width:300, height:240}} />
+                    <Text style = {{color:"white"}}>{article.title}</Text>
                     <Text style = {{color:"white", textAlign:"right", padding:30,}}>Copyright@0x21.</Text>
                 </Modal>
                 <View style = {styles.articleStyle}>
-                    <HTMLView value = {article[2]} />
+                    <HTMLView value = {article.content} />
                 </View>
                 {height===true?
                 <View>
                     <View style = {{flexDirection:"row", marginTop:10,}}>
                         <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ 0</Text>
                         <View style = {{marginLeft:20,}}>
-                            {(article[4]!=="anonymous")?
-                                <Image source = {{uri:article[4]}} style = {{width:25, height:25, borderRadius:12.5,}} />:
+                            {(article.authorPhoto!=="anonymous")?
+                                <Image source = {{uri:article.authorPhoto}} style = {{width:25, height:25, borderRadius:12.5,}} />:
                                 <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
-                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article[5]===''?"anonymous":article[5]}</Text>
+                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article.authorName===''?"anonymous":article.authorName}</Text>
                     </View>
                     <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
                 </View>:null
@@ -80,12 +90,12 @@ function PostViewScreen({navigation}) {
                     <View style = {{flexDirection:"row", marginTop:10,}}>
                         <Text style = {{color:"gray",marginLeft:"10%", fontSize:18,}}>❤ 0</Text>
                         <View style = {{marginLeft:20,}}>
-                            {(article[4]!=="anonymous")?
-                                <Image source = {{uri:article[4]}} style = {{width:25, height:25, borderRadius:12.5,}} />:
+                            {(article.authorPhoto!=="anonymous")?
+                                <Image source = {{uri:article.authorPhoto}} style = {{width:25, height:25, borderRadius:12.5,}} />:
                                 <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
-                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{(article[5]==='')?"anonymous":article[5]}</Text>
+                        <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{(article.authorName==='')?"anonymous":article.authorName}</Text>
                     </View>
                     <Text style = {{color:"#333333", textAlign:"right", padding:10,}}>Copyright@0x21 </Text>
                 </View>:null

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	currentPage: 0,
     avatar: 'anonymous',
+	account:'',
     fullName: '',
     gender: '',
     email: '',
@@ -10,8 +11,8 @@ const initialState = {
     linkedin: '',
     phone: '',
     postsAmount: 0,
-    article: [],
-    followingStatu: false,
+    articles: [],
+    followingStatu: 0,
 }
 
 export default createSlice({

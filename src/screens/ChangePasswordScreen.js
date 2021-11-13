@@ -12,10 +12,11 @@ import { currentPasswordValidator } from '../helpers/passwordValidator'
 
 import { validatePassword, updatePassword } from '../core/model'
 
-export default async function ChangePasswordScreen({ navigation }) {
+export default function ChangePasswordScreen({ navigation }) {
   const [currentPassword, setCurrentPassword] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [rePassword, setRePassword] = useState({ value: '', error: '' })
+
   const changePassword = async () => {
     const passwordError = passwordValidator(password.value) 
     const rePasswordError = rePasswordValidator(rePassword.value)

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Account () {
     const {avatar, account} = useSelector(state => state);
-
+    console.log('account', account)
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalVisibleProfile, setModalVisibleProfile] = useState(false);
 

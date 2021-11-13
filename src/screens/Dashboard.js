@@ -6,25 +6,35 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './HomeScreen'
 import PostScreen from './PostScreen'
+// import PostViewScreen from './PostViewScreen'
 import SettingsScreen from './SettingScreen'
 import FollowingScreen from './FollowingScreen'
 import Background from '../components/Background'
 import Account from '../components/Account';
 import WalletScreen from './WalletScreen';
 
-import { getProfile } from '../core/model';
+import { useSelector, useDispatch } from 'react-redux';
+import slice from '../../reducer';
+
+import { getProfile, initialAccount } from '../core/model';
 // import { white } from 'react-native-paper/lib/typescript/styles/colors';
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard() {
-const [postsAmount, setPostsAmount] = useState(null);
+	const dispatch = useDispatch();
+    const update = (json) => dispatch(slice.actions.update(json));
 
-useEffect(() => {
-	(async () => {
-		setPostsAmount((await getProfile()).postsAmount)
-	})();
-	
-}, []);
+	const A = useSelector(state => state)
+	// const [postsAmount, setPostsAmount] = useState(null);
+	// const [followingStatu, setFollowingStatu] = useState(null);
+
+	// useEffect(() => {
+	// 	(async () => {
+	// 		setPostsAmount((await getProfile()).postsAmount)
+	// 		setFollowingStatu((await getProfile()).followingStatus)
+	// 	})();
+		
+	// }, []);
   return (
 	<>
 		<Account />
@@ -36,9 +46,9 @@ useEffect(() => {
           options = {{tabBarIcon:({focused})=>(
           	<View>
            		<Ionicons name="add-circle-outline" focused={focused} color={focused?"#0099ff":"#737373"} size={30}/>
-				{postsAmount==="0" || null?
+				{A.postsAmount==="0" || 0 || null || undefined?
 					null:
-					<Text style = {styles.alamAmount_post}>{postsAmount}</Text>
+					<Text style = {styles.alamAmount_post}>{A.postsAmount}</Text>
 				}
         	</View>
         )}}
@@ -47,7 +57,10 @@ useEffect(() => {
           options = {{tabBarIcon:({focused})=>(
 			<View>
 				<Ionicons name="heart-outline" focused={focused}  color={focused?"#0099ff":"#737373"} size={30}/>
-				<Text style = {styles.alamAmount_following}>1</Text>
+				{A.followingStatu==("0" || 0 || null || undefined)?
+					null:
+					<Text style = {styles.alamAmount_following}>{A.followingStatu}</Text>
+				}
 			</View>
         )}}
         />

@@ -7,6 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
 import { useSelector } from 'react-redux';
 
+import FollowingScreen from './FollowingScreen'
+import PostScreen from './PostScreen';
+
 export default function HomeScreen({navigation}) {
 	const {avatar} = useSelector(state => state)
 	const [articleTitle, setArticleTitle] = useState("");
@@ -56,26 +59,26 @@ export default function HomeScreen({navigation}) {
 				<ScrollView horizontal = {true}>
 					<View style = {{flexDirection:"row", padding:15, borderBottomWidth:2, borderBottomColor:"rgba(230, 230, 230, 1)"}}>
 						{avatar!=="anonymous"?
-							<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+							<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 								<Image source = {{uri:avatar}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 							</TouchableOpacity>:
-							<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+							<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 								<Image source = {require('../assets/avatarrandom.png')} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 							</TouchableOpacity>
 						}
-						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 							<Image source = {{uri:"https://randomuser.me/api/portraits/med/men/1.jpg"}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 						</TouchableOpacity>
-						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 							<Image source = {{uri:"https://randomuser.me/api/portraits/med/men/2.jpg"}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 						</TouchableOpacity>
-						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 							<Image source = {{uri:"https://randomuser.me/api/portraits/med/women/3.jpg"}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 						</TouchableOpacity>
-						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 							<Image source = {{uri:"https://randomuser.me/api/portraits/med/men/4.jpg"}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 						</TouchableOpacity>
-						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.replace('RecommandedPostScreen')}>
+						<TouchableOpacity style = {{ paddingHorizontal: 10}} onPress = {() => navigation.navigate('RecommandedPostScreen')}>
 							<Image source = {{uri:"https://randomuser.me/api/portraits/med/women/5.jpg"}} style = {{width:50, height:50,borderRadius:25,borderWidth:0.5, borderColor:"#333333",}} />
 						</TouchableOpacity>
 					</View>
@@ -88,7 +91,7 @@ export default function HomeScreen({navigation}) {
 					</Text>
 					<View>
 						<ScrollView>
-							<TouchableOpacity style = {{flexDirection:"row", padding:10, marginLeft:10,}} onPress = {viewPost}>
+							{/* <TouchableOpacity style = {{flexDirection:"row", padding:10, marginLeft:10,}} onPress = {viewPost}>
 									<Image source = {{uri:topicImage}} style = {{width:60, height:48,}} />
 							</TouchableOpacity>
 							<TouchableOpacity style = {{flexDirection:"row", padding:10, marginLeft:10,}} onPress = {viewPost}>
@@ -105,7 +108,8 @@ export default function HomeScreen({navigation}) {
 							</TouchableOpacity>
 							<TouchableOpacity style = {{flexDirection:"row", padding:10, marginLeft:10,}} onPress = {viewPost}>
 									<Image source = {{uri:topicImage}} style = {{width:60, height:48,}} />
-							</TouchableOpacity>
+							</TouchableOpacity> */}
+							<PostScreen />
 						</ScrollView>
 					</View>
 				</View>
@@ -115,7 +119,7 @@ export default function HomeScreen({navigation}) {
 					</Text>
 					<View>
 						<ScrollView>
-							<TouchableOpacity style = {{flexDirection:"row", padding:10,}} onPress = {viewPost}>
+							{/* <TouchableOpacity style = {{flexDirection:"row", padding:10,}} onPress = {viewPost}>
 								<View>
 									<Image source = {{uri:topicImage}} style = {{width:40, height:32}} />
 								</View>
@@ -186,7 +190,8 @@ export default function HomeScreen({navigation}) {
 										<Text style = {{fontSize:10, color:"grey"}}>{postedTime}</Text>
 									</View>
 								</View>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
+							<FollowingScreen />
 						</ScrollView>
 					</View>
 				</View>

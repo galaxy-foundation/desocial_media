@@ -46,9 +46,9 @@ export const getProfile = async () => {
 	const account = 	await AsyncStorage.getItem("desocial@0313/publicKey") || ''
 
 	const postsAmount = await AsyncStorage.getItem("desocial@0313/postsAmount")
-	const followingStatu = Number(await AsyncStorage.getItem("desocial@0313/followingStatu")) || 0
+	const followingStatus = await AsyncStorage.getItem("desocial@0313/followingStatu")
 	const buf = 		await AsyncStorage.getItem("desocial@0313/article")
-	const article = 	buf ? JSON.parse(buf) : [];
+	const articles = 	buf ? JSON.parse(buf) : [];
 
 	return {
 		avatar,
@@ -62,12 +62,12 @@ export const getProfile = async () => {
 		account,
 
 		postsAmount,
-		article,
-		followingStatu,
+		articles,
+		followingStatus,
 	}
 }
 
-export const setProfile = async ({avatar, fullName, gender, email, instagram, linkedin, phone}) => {
+export const setProfile = async ({avatar, fullName, gender, email, instagram, linkedin, phone, followingStatus}) => {
 	if (avatar!=undefined) 		await AsyncStorage.setItem("desocial@0313/profilePhoto",    avatar)
 	if (fullName!=undefined) 	await AsyncStorage.setItem("desocial@0313/userName",        fullName)
 	if (gender!=undefined) 		await AsyncStorage.setItem("desocial@0313/userGender",      gender)
@@ -75,6 +75,7 @@ export const setProfile = async ({avatar, fullName, gender, email, instagram, li
 	if (instagram!=undefined) 	await AsyncStorage.setItem("desocial@0313/userInstagram",   instagram)
 	if (linkedin!=undefined) 	await AsyncStorage.setItem("desocial@0313/userLinkedin",    linkedin)
 	if (phone!=undefined) 		await AsyncStorage.setItem("desocial@0313/userPhone",       phone)
+								await AsyncStorage.setItem("desocial@0313/followingStatu", followingStatus)
 }
 
 export const validatePassword = async (password) => {

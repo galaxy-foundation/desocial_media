@@ -11,8 +11,13 @@ import slice from '../../reducer';
 
 export default function EditProfileScreen({navigation}) {
     const {avatar, fullName, gender, email, instagram, linkedin, phone} = useSelector(state => state);
+    const [showAvatar, setShowAvatar] = useState(" ")
 	const dispatch = useDispatch();
 	const update = (json) => dispatch(slice.actions.update(json));
+
+    useEffect(() => {
+        setShowAvatar(avatar)
+    }, [])
     const pickProfilePhoto = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -22,17 +27,17 @@ export default function EditProfileScreen({navigation}) {
           base64:true,
         });
         
-        console.log(result);
     
         if (!result.cancelled) {
-            update({avatar:result.uri});
+            setShowAvatar(result.uri)
         }
       };
     const submitProfile = async () => {
-        if(avatar==="anonymous") {
+        if(showAvatar==="anonymous") {
             alert("Please Add your Profile Photo !")
             return
         }
+        update({avatar:showAvatar});
         setProfile(avatar, fullName, gender, email, instagram, linkedin, phone)
         navigation.replace('ProfileSettingScreen')
     }
@@ -47,11 +52,11 @@ export default function EditProfileScreen({navigation}) {
                     <Image style={styles.submitIcon} source={require('../assets/correct.png')}/>
                 </TouchableOpacity>
             </View>
-            {avatar!=="anonymous"?
+            {showAvatar!=="anonymous"?
                 <View style = {{marginTop:30, alignItems:"center"}}>
                     <TouchableOpacity onPress = {pickProfilePhoto} >
                         <View style = {{alignItems:"center"}}>
-                            <Image source={{ uri: avatar }} style={{ width: 100, height: 100, marginTop:5, borderRadius:50, borderWidth:2, borderColor:"green",alignItems: "center"}} />
+                            <Image source={{ uri: showAvatar }} style={{ width: 100, height: 100, marginTop:5, borderRadius:50, borderWidth:2, borderColor:"green",alignItems: "center"}} />
                         </View>
                         <Image source={require('../assets/edit.png')} style = {{width:20, height: 20,marginTop: 80, marginLeft: 120,position:"absolute"}} />
                         <Text style = {{fontSize:20, color:"black", textAlign:"center"}}>Change Profile Photo</Text>

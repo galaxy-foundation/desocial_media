@@ -12,7 +12,7 @@ export default function SettingsScreen({navigation}) {
         <TouchableOpacity onPress = {()=>navigation.navigate('ChangePasswordScreen')} style = {{marginTop:40, backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
             <Text style = {{color:"white", textAlign:"center"}}><Image source = {require("../assets/key.png")} style = {{width:20, height:20,}} /> Change Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress = {()=>navigation.navigate('LoginScreen')} style = {{marginTop:40, backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
+        <TouchableOpacity onPress = {()=>navigation.navigate('RecoverySettingScreen')} style = {{marginTop:40, backgroundColor:"#333333",padding:10, width:"100%", borderRadius:7,}}>
             <Text style = {{color:"white", textAlign:"center"}}><Image source = {require("../assets/recovery.png")} style = {{width:20, height:20,}} /> Recovery Setting</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress = {()=>navigation.replace('LoginScreen')} style = {{marginTop:40, backgroundColor:"white",padding:10, width:"100%", borderWidth:0.5, borderColor:"#333333", borderRadius:7,}}>

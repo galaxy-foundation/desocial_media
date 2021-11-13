@@ -31,6 +31,7 @@ import {
   WalletScreen,
   SendScreen,
   ReceiveScreen,
+  RecoverySettingScreen,
 } from './src/screens'
 
 import { Provider as ReduxProvider } from 'react-redux';
@@ -68,6 +69,7 @@ export default function App() {
             <Stack.Screen name="WalletScreen" component={WalletScreen} />
             <Stack.Screen name="SendScreen" component={SendScreen} />
             <Stack.Screen name="ReceiveScreen" component={ReceiveScreen} />
+            <Stack.Screen name="RecoverySettingScreen" component={RecoverySettingScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
