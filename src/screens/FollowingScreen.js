@@ -41,7 +41,7 @@ export default function FollowingScreen({navigation}) {
 		<View>
 			<Text style = {{color:"black", fontSize:20, zIndex:1,marginTop:-40, marginLeft:120,}}>({followingStatus})</Text>
 			<ScrollView style = {{marginTop:20,}}>
-				{G.articles.length ? (
+				{G.followingStatu && Number(G.followingStatu) > 0 ? (
 						G.articles.map((v,k)=>(
 							v.followingAmount>0 ? (
 								<View key = {k}>

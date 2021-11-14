@@ -6,22 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a66053f1-0e48-4510-9518-1ed20b1303ab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/ChangePasswordScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ChangePasswordScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/EditProfileScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/EditProfileScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/FollowingScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/FollowingScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/HomeScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/PostEditScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostEditScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/PostScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/PostViewScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostViewScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/PostedViewScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/PostedViewScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/RecommandedPostScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/RecommandedPostScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/SettingScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/SettingScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,10 +113,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1634978144430" />
-    <state x="117" y="97" width="1736" height="856" key="AVDManager" timestamp="1636826340306">
+    <state x="117" y="97" width="1736" height="856" key="AVDManager" timestamp="1636868659970">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1636826340306" />
+    <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1636868659970" />
     <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1635861103006" />
     <state x="117" y="97" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1636571092202" />
     <state x="773" y="266" key="AndroidProcessChooserDialog" timestamp="1634979460607">
