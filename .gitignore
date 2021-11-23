@@ -14,3 +14,7 @@ web-build/
 yarn.lock
 .expo-shared
 *.log
+.env
+artifacts
+.idea
+.env.development

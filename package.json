@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "deploy_icicb": "npx hardhat run --network icicbtestnet scripts/deploy.js"
   },
   "dependencies": {
     "@ethersproject/shims": "^5.5.0",
@@ -15,12 +16,14 @@
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "@reduxjs/toolkit": "^1.6.2",
-    "ethers": "^5.4.7",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.5.1",
     "expo": "^40.0.1",
     "expo-image-picker": "^11.0.3",
     "expo-random": "^11.2.0",
     "expo-standard-web-crypto": "^1.1.0",
     "expo-status-bar": "~1.0.3",
+    "ipfs-http-client": "^54.0.1",
     "radio-buttons-react-native": "^1.0.4",
     "radio-react-native": "^0.0.4",
     "react": "16.13.1",
@@ -49,7 +52,11 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@nomiclabs/hardhat-ethers": "2.0.0",
+    "@nomiclabs/hardhat-etherscan": "^2.1.7",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
     "babel-eslint": "^10.1.0",
+    "colors": "^1.4.0",
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
@@ -57,6 +64,9 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
+    "ethereum-waffle": "^3.4.0",
+    "hardhat": "^2.6.8",
+    "hardhat-deploy": "^0.9.10",
     "prettier": "^2.2.1"
   },
   "private": true

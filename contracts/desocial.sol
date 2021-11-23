@@ -1,47 +1,32 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Forum {
+contract Desocial {
     struct Article {
-        account owner;
+        address owner;
         string title;
-        byte32 hash;
+        bytes32 hash;
         uint followers;
         uint created;
     }
 
     Article[] articles;
-    mapping(byte32=>uint) articleIds;
+    mapping(bytes32=>uint) articleIds;
 
     constructor() {
 
     }
 
-    function addBlog(title, hash) public {
+    function addBlog(string memory title, bytes32 extra) public {
         address _account = msg.sender;
         require(_account!=address(0), "ZERO ADDRESS");
 
         articles.push(Article({
             owner: _account,
             title: title,
-            hash: hash,
-            followers: 0;
+            hash: extra,
+            followers: 0,
             created: block.timestamp
         }));
     }
-    
-    function addBlog(title, hash) public {
-        address _account = msg.sender;
-        require(_account!=address(0), "ZERO ADDRESS");
-
-        articles.push(Article({
-            owner: _account,
-            title: title,
-            hash: hash,
-            followers: 0;
-            created: block.timestamp
-        }));
-    }
-
-    
 }
