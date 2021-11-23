@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { StyleSheet, View, Clipboard, AsyncStorage, TouchableOpacity, Text, Button, Linking, Image } from 'react-native'
 import Modal from "react-native-modal";
 import { useNavigation } from '@react-navigation/native';
+// import { ethers } from 'ethers';
 
 import { useSelector } from 'react-redux';
 
@@ -10,6 +11,7 @@ export default function Account () {
     console.log('account', account)
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalVisibleProfile, setModalVisibleProfile] = useState(false);
+    // const [balance, setBalance] = useState(0)
 
     const copyToClipboard = async () => {
         Clipboard.setString(account)
@@ -34,6 +36,15 @@ export default function Account () {
         setModalVisibleProfile(!isModalVisibleProfile)
         navigation.replace('LoginScreen')
     }
+
+    // useEffect(() => {
+    //     (async () => {
+    //         const provider = new ethers.providers.Web3Provider(window.ethereum);
+    //         setBalance(ethers.utils.formatUnits(await provider.balanceOf(account)).slice(0,6));
+    //         alert(balance)
+    //     })();
+    // }, [])
+
     return (
         <View style = {styles.row}>
             <TouchableOpacity onPress={() => copyToClipboard()} style = {styles.address}>

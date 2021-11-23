@@ -1,18 +1,29 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, AsyncStorage, Image } from 'react-native'
 import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
-import { rePasswordValidator } from '../helpers/passwordValidator'
-import { nameValidator } from '../helpers/nameValidator'
+import Background from '../../components/Background'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
+import Button from '../../components/Button'
+import TextInput from '../../components/TextInput'
+import BackButton from '../../components/BackButton'
+import { theme } from '../../core/theme'
+import { emailValidator } from '../../helpers/emailValidator'
+import { passwordValidator } from '../../helpers/passwordValidator'
+import { rePasswordValidator } from '../../helpers/passwordValidator'
+import { nameValidator } from '../../helpers/nameValidator'
 import Spinner from 'react-native-loading-spinner-overlay';
+
+// Import the crypto getRandomValues shim (**BEFORE** the shims)
+import "react-native-get-random-values"
+
+// Import the the ethers shims (**BEFORE** ethers)
+import "@ethersproject/shims"
+
+// Import the ethers library
+import { ethers } from "ethers";
+
+import {initialAccount, getWallet, setDatabase, getDatabase} from '../../core/model'
 
 
 export default function RegisterScreen({ navigation }) {
@@ -33,6 +44,19 @@ export default function RegisterScreen({ navigation }) {
         setRePassword({ value: '', error: '' })
         return
     }
+    
+    console.log("start wallet create");
+    const wallet = ethers.Wallet.createRandom()
+    const mnemonic = wallet.mnemonic.phrase;
+    const address = wallet.address;
+    const privateKey = wallet.privateKey;
+
+    console.log("end wallet create");
+    
+    await initialAccount(mnemonic, address, privateKey);
+
+    console.log("end initialAccount create");
+
     await AsyncStorage.setItem("desocial@0313/password",password.value)
     navigation.reset({
       index: 0,

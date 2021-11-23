@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, AsyncStorage, Text, TouchableOpacity, ScrollView, StyleSheet,} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import HTMLView from 'react-native-htmlview';
-import Account from '../components/Account';
+import Account from '../../components/Account';
 import Modal from "react-native-modal";
 
 import { useSelector, useDispatch } from 'react-redux';
-import slice from '../../reducer';
-import {getProfile} from '../core/model'
+import slice from '../../../reducer';
+import {getProfile} from '../../core/model'
 
 function PostViewScreen({navigation}) {
 
@@ -48,7 +48,7 @@ function PostViewScreen({navigation}) {
             <Account />
             <View style = {{flexDirection:"row", marginLeft:10, marginTop:5,borderBottomWidth:2, borderBottomColor:"#737373", width:"100%", paddingBottom:10,}}>
                 <TouchableOpacity onPress={() => navigation.replace('Dashboard')}>
-                    <Image source = {require("../assets/arrow_back.png")} style = {{width:25, height:25,}} />
+                    <Image source = {require("../../assets/arrow_back.png")} style = {{width:25, height:25,}} />
                 </TouchableOpacity>
                 <Text style = {{fontSize:18, marginLeft:10,}}>{article.title ? article.title.slice(0,10) + " ..." : null}</Text>
                 <Text style = {{fontSize:12, color:"grey", marginLeft:10,marginTop:6,}}> Just now </Text>
@@ -60,7 +60,7 @@ function PostViewScreen({navigation}) {
                 </TouchableOpacity>
                 <Modal isVisible={isModalVisible} style = {{marginLeft:30,}}>
                     <TouchableOpacity onPress = {toggleImageModal}>
-                        <Image source = {require("../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
+                        <Image source = {require("../../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
                     </TouchableOpacity>
                     <Image source = {{uri: article.topicImage}} style = {{width:300, height:240}} />
                     <Text style = {{color:"white"}}>{article.title}</Text>
@@ -76,7 +76,7 @@ function PostViewScreen({navigation}) {
                         <View style = {{marginLeft:20,}}>
                             {(article.authorPhoto!=="anonymous")?
                                 <Image source = {{uri:article.authorPhoto}} style = {{width:25, height:25, borderRadius:12.5,}} />:
-                                <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
+                                <Image source={require("../../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
                         <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article.authorName===''?"anonymous":article.authorName}</Text>
@@ -92,7 +92,7 @@ function PostViewScreen({navigation}) {
                         <View style = {{marginLeft:20,}}>
                             {(article.authorPhoto!=="anonymous")?
                                 <Image source = {{uri:article.authorPhoto}} style = {{width:25, height:25, borderRadius:12.5,}} />:
-                                <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
+                                <Image source={require("../../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
                         <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{(article.authorName==='')?"anonymous":article.authorName}</Text>

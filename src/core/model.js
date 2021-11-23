@@ -34,6 +34,7 @@ export const getWallet = async () => {
 	}
 }
 
+
 export const getProfile = async () => {
 	const avatar = 		await AsyncStorage.getItem("desocial@0313/profilePhoto") || 'anonymous'
 	const fullName = 	await AsyncStorage.getItem("desocial@0313/userName") || ''

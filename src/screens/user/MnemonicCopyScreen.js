@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TouchableOpacity, Clipboard, Image, AsyncStorage } from 'react-native'
 import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
+import Background from '../../components/Background'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
 
-import {initialAccount, getWallet, setDatabase, getDatabase} from '../core/model'
-// import "react-native-get-random-values"
-// import unorm from 'unorm';
-// String.prototype.normalize = function(form) {
-//   var func = unorm[(form || 'NFC').toLowerCase()];
-//   if (!func) {
-//     throw new RangeError('invalid form - ' + form);
-//   }
-//   return func(this);
-// };
-// import "@ethersproject/shims"
-import { ethers } from 'ethers';
+import {initialAccount, getWallet, setDatabase, getDatabase} from '../../core/model'
+
 // import * as Random from 'expo-random';
 // import { polyfillWebCrypto } from 'expo-standard-web-crypto';
 // import { generateSecureRandom } from 'react-native-securerandom';
-
-
-
 
 export default function MnemonicCopyScreen({ navigation }) {
 //   polyfillWebCrypto();
@@ -36,29 +23,15 @@ export default function MnemonicCopyScreen({ navigation }) {
     const [storedPhrase, setStoredPhrase] = useState('')
 	  const [storedPublicKey, setStoredPublicKey] = useState('')
 
-    // const [data, setData] = useState({})
-    const wallet = ethers.Wallet.createRandom()
-    const mnemonic = wallet.mnemonic.phrase;
-    const address = wallet.address;
-    const privateKey = wallet.privateKey;
     //   console.log('address:', wallet.address)
     //   console.log('mnemonic:', wallet.mnemonic.phrase)
     //   console.log('privateKey:', wallet.privateKey)
     //   const phrase = "middle pride coil impulse interest sand pizza supply vital diagram margin vally stomach avocado zoo visit eagle fortune unk rescue yard spring gown cause"
 	useEffect(() => {
 		const runInit = async ()=>{
-      initialAccount(mnemonic, address, privateKey)
-      const storedMnemonic = (await getWallet()).mnemonic;
-      // const initialDatas = (await getDatabase()).database
-      // alert(initialDatas)
-      // return
-      // initialDatas.storedMnemonic = "profile_infor";
-      // setData(initialDatas)
-			setStoredPhrase(storedMnemonic)
-      console.log(storedMnemonic)
-      const storedAddress = (await getWallet()).address;
-			setStoredPublicKey(storedAddress)
-      console.log(storedAddress)
+      const {mnemonic,address} = await getWallet();
+      setStoredPhrase(mnemonic)
+      setStoredPublicKey(address)
 		}
     	runInit();
 	}, []);
@@ -81,6 +54,7 @@ export default function MnemonicCopyScreen({ navigation }) {
           setCopiedText("No copied!")
         }
       }
+
   return (
     <Background>
       <Logo />

@@ -15,9 +15,9 @@ export default function SendScreen({navigation}) {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
-        {label: '0X', value: '0x21', icon: () => <Image source={require('../assets/oxcoin.png')} style={{width:50, height:50, marginRight:40,}} />},
-        {label: 'BNB', value: 'BNB', icon: () => <Image source={require('../assets/bnb.webp')} style={{width:30, height:30, marginLeft:10, marginRight:50,}} />},
-        {label: 'USDT', value: 'USDT', icon: () => <Image source={require('../assets/usdt.png')} style={{width:30, height:30, marginLeft:10, marginRight:50,}} />}
+        {label: '0X', value: '0x21', icon: () => <Image source={require('../../assets/oxcoin.png')} style={{width:50, height:50, marginRight:40,}} />},
+        {label: 'BNB', value: 'BNB', icon: () => <Image source={require('../../assets/bnb.webp')} style={{width:30, height:30, marginLeft:10, marginRight:50,}} />},
+        {label: 'USDT', value: 'USDT', icon: () => <Image source={require('../../assets/usdt.png')} style={{width:30, height:30, marginLeft:10, marginRight:50,}} />}
     ]);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function SendScreen({navigation}) {
         <View>
             <View style = {{flexDirection:"row", marginTop:20, backgroundColor:"#002e4d", paddingVertical:10,}}>
                 <TouchableOpacity onPress = {() => navigation.navigate("Dashboard")}>
-                    <Image source = {require('../assets/arrow_back_white.png')} style = {{width:40, height:40, }} />
+                    <Image source = {require('../../assets/arrow_back_white.png')} style = {{width:40, height:40, }} />
                 </TouchableOpacity>
                 <Text style = {{color:"white", marginLeft:10,fontSize:20, marginTop:5,}}>SEND {value}</Text>
                 <View style = {{marginLeft:"40%"}}>
@@ -49,13 +49,13 @@ export default function SendScreen({navigation}) {
             <View style = {{marginTop:50, flexDirection:"row", justifyContent:"center"}}>
                 {avatar!=="anonymous"?
                     <Image source = {{uri:avatar}} style = {{width:70, height:70, borderRadius:35, }} />:
-                    <Image source = {require('../assets/avatarrandom.png')} style = {{width:70, height:70, borderRadius:35, }} />
+                    <Image source = {require('../../assets/avatarrandom.png')} style = {{width:70, height:70, borderRadius:35, }} />
                 }
                 <Ionicons name = "caret-forward-outline" size = {50} style = {{marginTop:10, marginLeft:20,}} />
                 <Ionicons name = "caret-forward-outline" size = {30} style = {{marginTop:20, marginRight:20,}} />
                 {addressError!==true?
                     <Image source = {{uri:avatar}} style = {{width:70, height:70, borderRadius:35, }} />:
-                    <Image source = {require('../assets/question_avatar.jpg')} style = {{width:70, height:70, borderRadius:35, }} />
+                    <Image source = {require('../../assets/question_avatar.jpg')} style = {{width:70, height:70, borderRadius:35, }} />
                 }
             </View>
             <View style = {{width:"90%", marginLeft:"5%", marginTop:50,}}>

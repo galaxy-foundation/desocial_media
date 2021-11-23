@@ -5,10 +5,10 @@ import Modal from "react-native-modal";
 import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
 
-import { getProfile, setProfile } from '../core/model';
+import { getProfile, setProfile } from '../../core/model';
 
 import { useSelector, useDispatch} from 'react-redux';
-import slice from '../../reducer';
+import slice from '../../../reducer';
 
 export default function FollowingScreen({navigation}) {
 	const G = useSelector(state => state);
@@ -64,7 +64,7 @@ export default function FollowingScreen({navigation}) {
 						))
 					) :
 					<View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
-						<Image source = {require("../assets/items.png")} />
+						<Image source = {require("../../assets/items.png")} />
 						<View style = {{alignItems:"center", marginTop:-30}}>
 							<Text style={{ color:"#737373", }}>NO ITEMS</Text>
 						</View>

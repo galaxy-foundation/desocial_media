@@ -5,13 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';  
 
 import HomeScreen from './HomeScreen'
-import PostScreen from './PostScreen'
+import PostScreen from './article/PostScreen'
 // import PostViewScreen from './PostViewScreen'
-import SettingsScreen from './SettingScreen'
-import FollowingScreen from './FollowingScreen'
+import SettingsScreen from './setting/SettingScreen'
+import FollowingScreen from './article/FollowingScreen'
 import Background from '../components/Background'
 import Account from '../components/Account';
-import WalletScreen from './WalletScreen';
+import WalletScreen from './wallet/WalletScreen';
 
 import { useSelector, useDispatch } from 'react-redux';
 import slice from '../../reducer';

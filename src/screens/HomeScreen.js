@@ -7,8 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
 import { useSelector } from 'react-redux';
 
-import FollowingScreen from './FollowingScreen'
-import PostScreen from './PostScreen';
+import FollowingScreen from './article/FollowingScreen'
+import PostScreen from './article/PostScreen';
 
 export default function HomeScreen({navigation}) {
 	const {avatar} = useSelector(state => state)

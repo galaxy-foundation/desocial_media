@@ -7,7 +7,7 @@ import HTMLView from 'react-native-htmlview';
 
 
 import { useSelector, useDispatch} from 'react-redux';
-import slice from '../../reducer';
+import slice from '../../../reducer';
 
 /* import { getProfile } from '../core/model'; */
 export default function PostScreen({navigation}) {
@@ -67,13 +67,13 @@ export default function PostScreen({navigation}) {
 										<Text style = {{fontSize:10, color:"grey"}}>posted at </Text>
 										<Text style = {{fontSize:10, color:"grey"}}>{v.postedTime}</Text>
 									</View>
-								</View>
+								</View> 
 						</TouchableOpacity>
 						</View>
 					))
 				) : (
 					<View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
-						<Image source = {require("../assets/items.png")} />
+						<Image source = {require("../../assets/items.png")} />
 						<View style = {{alignItems:"center", marginTop:-30}}>
 							<Text style={{ color:"#737373", }}>NO POSTS</Text>
 							<View style = {{flexDirection:"row"}}>

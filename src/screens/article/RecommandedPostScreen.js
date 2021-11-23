@@ -5,11 +5,11 @@ import Modal from "react-native-modal";
 import { NavigationContainer } from '@react-navigation/native';
 import HTMLView from 'react-native-htmlview';
 
-import { getProfile } from '../core/model';
+import { getProfile } from '../../core/model';
 
 import { useSelector, useDispatch} from 'react-redux';
-import slice from '../../reducer';
-import Account from '../components/Account';
+import slice from '../../../reducer';
+import Account from '../../components/Account';
 
 export default function FollowingScreen({navigation}) {
 	const G = useSelector(state => state);
@@ -25,7 +25,7 @@ export default function FollowingScreen({navigation}) {
       <Account />
       <View style = {{flexDirection:"row", padding:10,}}>
         <TouchableOpacity onPress = {() => navigation.navigate("Dashboard")}>
-          <Image source = {require('../assets/arrow_back.png')} style = {{width:30, height:30,}} />
+          <Image source = {require('../../assets/arrow_back.png')} style = {{width:30, height:30,}} />
         </TouchableOpacity>
         {G.fullName===""?
           <Text style = {{color:"black", fontSize:15, padding:5,}}>{G.account.slice(0, 12) + "..." + G.account.slice(-5)}</Text>:
@@ -55,7 +55,7 @@ export default function FollowingScreen({navigation}) {
 						))
 					) :
 					<View style = {{marginTop:"20%", alignItems: 'center', justifyContent: 'center' ,}}>
-						<Image source = {require("../assets/items.png")} />
+						<Image source = {require("../../assets/items.png")} />
 						<View style = {{alignItems:"center", marginTop:-30}}>
 							<Text style={{ color:"#737373", }}>NO ITEMS</Text>
 						</View>

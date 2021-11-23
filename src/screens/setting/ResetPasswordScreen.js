@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react'
 import {AsyncStorage} from 'react-native'
-import Background from '../components/Background'
-import BackButton from '../components/BackButton'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import TextInput from '../components/TextInput'
-import Button from '../components/Button'
-import { passwordValidator } from '../helpers/passwordValidator'
-import { rePasswordValidator } from '../helpers/passwordValidator'
+import Background from '../../components/Background'
+import BackButton from '../../components/BackButton'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
+import TextInput from '../../components/TextInput'
+import Button from '../../components/Button'
+import { passwordValidator } from '../../helpers/passwordValidator'
+import { rePasswordValidator } from '../../helpers/passwordValidator'
 
 export default function ResetPasswordScreen({ navigation }) {
   const [phrase, setPhrase] = useState({ value: '', error: '' })

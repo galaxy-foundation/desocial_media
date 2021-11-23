@@ -12,7 +12,10 @@ const initialState = {
     phone: '',
     postsAmount: 0,
     articles: [],
-    followingStatu: 0,
+	followingStatu: 0,
+	mnemonic: "",
+	address: "",
+	privateKey: "",
 }
 
 export default createSlice({

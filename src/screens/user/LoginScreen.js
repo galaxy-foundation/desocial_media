@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, StyleSheet, View, AsyncStorage } from 'react-native'
 import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
+import Background from '../../components/Background'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
+import Button from '../../components/Button'
+import TextInput from '../../components/TextInput'
+import BackButton from '../../components/BackButton'
+import { theme } from '../../core/theme'
+import { emailValidator } from '../../helpers/emailValidator'
+import { passwordValidator } from '../../helpers/passwordValidator'
 
-import {validatePassword, getProfile, getDatabase} from '../core/model'
+import { validatePassword, getProfile, getWallet, getDatabase } from '../../core/model'
 
-import { useSelector, useDispatch} from 'react-redux';
-import slice from '../../reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import slice from '../../../reducer';
 
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
-	const update = (json) => dispatch(slice.actions.update(json));
+  const update = (json) => dispatch(slice.actions.update(json));
 
   const [password, setPassword] = useState({ value: '', error: '' })
 
@@ -31,13 +31,14 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError })
       return
     }
-    if(!await validatePassword(password.value)){
+    if (!await validatePassword(password.value)) {
       alert("Wrong Password. Try again !")
-      setPassword({value: ''})
+      setPassword({ value: '' })
       return
     }
     const profile = await getProfile();
-    update({...profile})
+    const wallet = await getWallet();
+    update({ ...profile, ...wallet })
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],

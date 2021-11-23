@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button, View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Clipboard, Image, Linking, Touchable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import Background from '../components/Background'
+import Background from '../../components/Background'
 import Modal from "react-native-modal";
 
 import { useSelector, useDispatch} from 'react-redux';
-import slice from '../../reducer';
-import {setProfile } from '../core/model';
+import slice from '../../../reducer';
+import {setProfile } from '../../core/model';
 
 export default function ProfileSettingScreen({navigation}) {
     const {avatar, fullName, gender, email, instagram, linkedin, phone} = useSelector(state => state);
@@ -42,7 +42,7 @@ export default function ProfileSettingScreen({navigation}) {
 		<View style = {{marginTop:25}}>
 			<View style = {styles.topBar}>
 				<TouchableOpacity onPress = {() => navigation.navigate("Dashboard")} style = {{marginLeft:10,}}>
-					<Image source = {require("../assets/arrow_back_white.png")} style = {{width: 25, height: 25, }} />
+					<Image source = {require("../../assets/arrow_back_white.png")} style = {{width: 25, height: 25, }} />
 				</TouchableOpacity>
 				<Text style = {{color:"white", fontSize:20, marginLeft:10,}}>{fullName}</Text>
 			</View>
@@ -53,7 +53,7 @@ export default function ProfileSettingScreen({navigation}) {
 							<View>
 								<TouchableOpacity onPress = {toggleModal}>
 									<Image source={{ uri: avatar }} style={{ width: 100, height: 100, borderRadius:50, borderWidth:2, borderColor:"green"}} />
-									<Image source={require('../assets/trash.png')} style = {{position:"absolute", width: 20, height:20,marginTop: 80, marginLeft: 75}} />
+									<Image source={require('../../assets/trash.png')} style = {{position:"absolute", width: 20, height:20,marginTop: 80, marginLeft: 75}} />
 								</TouchableOpacity>
 								<Modal isVisible={isModalVisible}>
 									<View>
@@ -70,7 +70,7 @@ export default function ProfileSettingScreen({navigation}) {
 								</Modal>
 							</View>:
 							<TouchableOpacity onPress = {pickProfilePhoto}>
-								<Image source = {require('../assets/avatar.png')} style={{ width: 80, height: 80, marginTop:10,}} />
+								<Image source = {require('../../assets/avatar.png')} style={{ width: 80, height: 80, marginTop:10,}} />
 								<Text style = {styles.addProfileIcon}>+</Text>
 							</TouchableOpacity>
 						}
@@ -94,10 +94,10 @@ export default function ProfileSettingScreen({navigation}) {
 				</View>
 				<View style = {{marginTop:30}}>
 						<Text>*Gender: {gender!==""?gender:"unknown"}</Text>
-						<Text>*E-mail: {email!==""?email:"unknown"}</Text>
-						<Text>*Instagram Link: {instagram!==""?instagram:"unknown"}</Text>
-						<Text>*Linkedin Link: {linkedin!==""?linkedin:"unknown"}</Text>
-						<Text>*Phone Number: {phone!==""?phone:"unknown"}</Text>
+						<Text style = {{marginTop:5,}}>*E-mail: {email!==""?email:"unknown"}</Text>
+						<Text style = {{marginTop:5,}}>*Phone Number: {phone!==""?phone:"unknown"}</Text>
+						<Text style = {{marginTop:5,}}>*Instagram Link: {instagram!==""?instagram:"unknown"}</Text>
+						<Text style = {{marginTop:5,}}>*Linkedin Link: {linkedin!==""?linkedin:"unknown"}</Text>
 				</View>
 				<View style = {{width:"80%", marginTop: 40,}}>
 					<Button mode="contained" title = "EDIT PROFILE" onPress={() => navigation.navigate('EditProfileScreen')} color = "#333333" />

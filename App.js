@@ -3,6 +3,8 @@ import { Provider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import "react-native-get-random-values"
+import '@ethersproject/shims/dist/index';
+import './global.js'
 import unorm from 'unorm';
 String.prototype.normalize = function(form) {
   var func = unorm[(form || 'NFC').toLowerCase()];
@@ -11,8 +13,10 @@ String.prototype.normalize = function(form) {
   }
   return func(this);
 };
-import "@ethersproject/shims"
-import { ethers } from 'ethers';
+
+
+// import './shim'
+// import { ethers } from 'ethers';
 import { theme } from './src/core/theme'
 import {
   StartScreen,

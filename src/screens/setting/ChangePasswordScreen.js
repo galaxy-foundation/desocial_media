@@ -1,16 +1,16 @@
 import React, { useState, useRef } from 'react'
 import {AsyncStorage, TouchableOpacity, Image, StyleSheet} from 'react-native'
-import Background from '../components/Background'
-import BackButton from '../components/BackButton'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import TextInput from '../components/TextInput'
-import Button from '../components/Button'
-import { passwordValidator } from '../helpers/passwordValidator'
-import { rePasswordValidator } from '../helpers/passwordValidator'
-import { currentPasswordValidator } from '../helpers/passwordValidator'
+import Background from '../../components/Background'
+import BackButton from '../../components/BackButton'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
+import TextInput from '../../components/TextInput'
+import Button from '../../components/Button'
+import { passwordValidator } from '../../helpers/passwordValidator'
+import { rePasswordValidator } from '../../helpers/passwordValidator'
+import { currentPasswordValidator } from '../../helpers/passwordValidator'
 
-import { validatePassword, updatePassword } from '../core/model'
+import { validatePassword, updatePassword } from '../../core/model'
 
 export default function ChangePasswordScreen({ navigation }) {
   const [currentPassword, setCurrentPassword] = useState({ value: '', error: '' })
@@ -52,7 +52,7 @@ export default function ChangePasswordScreen({ navigation }) {
   return (
     <Background>
       <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-        <Image style={styles.image} source={require('../assets/arrow_back.png')}/>
+        <Image style={styles.image} source={require('../../assets/arrow_back.png')}/>
       </TouchableOpacity>
       <Logo />
       <Header>Reset your Password</Header>

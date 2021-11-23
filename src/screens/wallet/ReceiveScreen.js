@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity, Button, Image, Clipboard} from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 
-import Logo from '../components/Logo'
+import Logo from '../../components/Logo'
 
-import { getProfile } from '../core/model';
+import { getProfile } from '../../core/model';
 
 export default function ReceiveScreen({navigation}) {
 
@@ -25,7 +25,7 @@ export default function ReceiveScreen({navigation}) {
         <View>
             <View style = {{flexDirection:"row", marginTop:20, backgroundColor:"#002e4d", paddingVertical:10,}}>
                 <TouchableOpacity onPress = {() => navigation.navigate("Dashboard")}>
-                    <Image source = {require('../assets/arrow_back_white.png')} style = {{width:40, height:40, }} />
+                    <Image source = {require('../../assets/arrow_back_white.png')} style = {{width:40, height:40, }} />
                 </TouchableOpacity>
                 <Text style = {{color:"white", marginLeft:10,fontSize:20, marginTop:5,}}>RECEIVE</Text>
             </View>

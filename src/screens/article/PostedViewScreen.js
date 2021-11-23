@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, AsyncStorage, Text, TouchableOpacity, ScrollView, StyleSheet,} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import HTMLView from 'react-native-htmlview';
-import Account from '../components/Account';
+import Account from '../../components/Account';
 import Modal from "react-native-modal";
 
 import { useSelector , useDispatch } from 'react-redux';
-import slice from '../../reducer';
+import slice from '../../../reducer';
 
-import { getProfile } from '../core/model';
+import { getProfile } from '../../core/model';
 
 function PostedViewScreen({navigation}) {
     const G = useSelector(state => state);
@@ -47,7 +47,7 @@ function PostedViewScreen({navigation}) {
             }
         })();
         
-    }, [G.currentPage]);
+    }, [G.currentPage, goodFeedbackStatu, badFeedbackStatu]);
 
     const toggleImageModal = () => {
         setModalVisible(!isModalVisible);
@@ -112,7 +112,7 @@ function PostedViewScreen({navigation}) {
             <Account />
             <View style = {{flexDirection:"row", marginLeft:10, marginTop:5,borderBottomWidth:2, borderBottomColor:"#737373", width:"100%", paddingBottom:10,}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-                    <Image source = {require("../assets/arrow_back.png")} style = {{width:25, height:25,}} />
+                    <Image source = {require("../../assets/arrow_back.png")} style = {{width:25, height:25,}} />
                 </TouchableOpacity>
                 {article.title?.length<10 ? 
                     (<Text style = {{fontSize:18, marginLeft:10,}}>{article.title}</Text> || null) : 
@@ -128,7 +128,7 @@ function PostedViewScreen({navigation}) {
                 </TouchableOpacity>
                 <Modal isVisible={isModalVisible} style = {{marginLeft:30,}}>
                     <TouchableOpacity onPress = {toggleImageModal}>
-                        <Image source = {require("../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
+                        <Image source = {require("../../assets/cross.png")} style = {{width:20, height:20, marginBottom:30,marginLeft:"80%"}} />
                     </TouchableOpacity>
                     <Image source = {{uri: article.topicImage}} style = {{width:300, height:240}} />
                     <Text style = {{color:"white"}}>{article.title}</Text>
@@ -142,18 +142,18 @@ function PostedViewScreen({navigation}) {
                     <View style = {{flexDirection:"row", justifyContent:"center"}}>
                         {(badFeedbackStatu===true)?
                             <TouchableOpacity onPress = {onBadFeedback}>
-                                <Image source = {require('../assets/following_bad.png')} style ={{width:40, height:40,}} />
+                                <Image source = {require('../../assets/following_bad.png')} style ={{width:40, height:40,}} />
                             </TouchableOpacity>:
                             <TouchableOpacity onPress = {onBadFeedback}>
-                                <Image source = {require('../assets/following_bad_off.png')} style ={{width:40, height:40,}} />
+                                <Image source = {require('../../assets/following_bad_off.png')} style ={{width:40, height:40,}} />
                             </TouchableOpacity>
                         }
                         {(goodFeedbackStatu===true)?
                             <TouchableOpacity style = {{ marginLeft:30,}} onPress = {onGoodFeedback}>
-                                <Image source = {require('../assets/following_good.png')} style ={{width:40, height:40}} />
+                                <Image source = {require('../../assets/following_good.png')} style ={{width:40, height:40}} />
                             </TouchableOpacity>:
                             <TouchableOpacity style = {{ marginLeft:30,}} onPress = {onGoodFeedback}>
-                                <Image source = {require('../assets/following_good_off.png')} style ={{width:40, height:40}} />
+                                <Image source = {require('../../assets/following_good_off.png')} style ={{width:40, height:40}} />
                             </TouchableOpacity>
                         }
                     </View>
@@ -165,7 +165,7 @@ function PostedViewScreen({navigation}) {
                         <View style = {{marginLeft:20,}}>
                             {(article.authorPhoto!=="anonymous")?
                                 <Image source = {{uri:article.authorPhoto}} style = {{width:25, height:25, borderRadius:12.5,}} />:
-                                <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
+                                <Image source={require("../../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
                         <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article.authorName===''?"anonymous":article.authorName}</Text>
@@ -181,7 +181,7 @@ function PostedViewScreen({navigation}) {
                         <View style = {{marginLeft:20,}}>
                             {(article.authorPhoto!=="anonymous")?
                                 <Image source = {{uri:article.authorPhoto}} style = {{width:25, height:25, borderRadius:12.5,}} />:
-                                <Image source={require("../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
+                                <Image source={require("../../assets/avatarrandom.png")} style = {{width:20, height:20, borderRadius:10,}} />
                             }
                         </View>
                         <Text style = {{color:"black", marginLeft:7,fontSize:10, color:"grey", marginTop:8,}}>{article.authorName===''?"anonymous":article.authorName}</Text>
