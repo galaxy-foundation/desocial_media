@@ -1,6 +1,8 @@
 require('dotenv').config()
 const { expect } = require("chai");
+const axios = require('axios') // 
 const {create} = require('ipfs-http-client') // 
+const entryPointHttp = 'http://127.0.0.1:8080/ipfs/' // process.env.IPFS
 const entryPoint = '/ip4/127.0.0.1/tcp/5001' // process.env.IPFS
 /* const ipfs = require("nano-ipfs-store").at("http://127.0.0.1:8080"); */
 
@@ -21,9 +23,12 @@ describe("test for ipfs", function () {
 			const contents = JSON.stringify(data)
 			const cid = await client.add(contents)
 			console.log(cid)
-			const result = await client.get(cid.path)
+			const response = await axios(entryPointHttp + cid.path);
+			const json = response.data
+			console.log(json)
+			/* const result = await client.get(cid.path)
 			console.log(result)
-			const buf = await result.get()
+			const buf = await result.get() */
 			// create a string to append contents to
 			/* let note = ""
 			// loop over incoming data
