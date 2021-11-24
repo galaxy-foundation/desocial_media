@@ -1,5 +1,5 @@
-const IPFS = require('ipfs-api');
-const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+const {create} = require('ipfs-http-client');
+const ipfs = create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
 //run with local daemon
 // const ipfsApi = require('ipfs-api');
