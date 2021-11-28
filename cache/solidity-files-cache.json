@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "E:\\freelancing\\20211123-HSI-deso\\contracts\\DeployTokens.sol": {
-      "lastModificationDate": 1636640341170,
-      "contentHash": "a6310108250676da1c9cd204bde64e11",
+    "E:\\my working files\\working\\React-native\\desocial app\\contracts\\DeployTokens.sol": {
+      "lastModificationDate": 1637766640787,
+      "contentHash": "50fe7dc6690c1f60f08656e2b156c1f5",
       "sourceName": "contracts/DeployTokens.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -45,8 +45,8 @@
         "DeployTokens"
       ]
     },
-    "E:\\freelancing\\20211123-HSI-deso\\contracts\\IRC20.sol": {
-      "lastModificationDate": 1637675237991,
+    "E:\\my working files\\working\\React-native\\desocial app\\contracts\\IRC20.sol": {
+      "lastModificationDate": 1637766640787,
       "contentHash": "e12fbc5f2263a7fca812d8cc1ba7727e",
       "sourceName": "contracts/IRC20.sol",
       "solcConfig": {
@@ -89,8 +89,8 @@
         "IRC20"
       ]
     },
-    "E:\\freelancing\\20211123-HSI-deso\\contracts\\Ownable.sol": {
-      "lastModificationDate": 1636737667866,
+    "E:\\my working files\\working\\React-native\\desocial app\\contracts\\Ownable.sol": {
+      "lastModificationDate": 1637766640787,
       "contentHash": "c89abb59144fc8e1e2615480da8441db",
       "sourceName": "contracts/Ownable.sol",
       "solcConfig": {
@@ -131,10 +131,10 @@
         "Ownable"
       ]
     },
-    "E:\\freelancing\\20211123-HSI-deso\\contracts\\Desocial.sol": {
-      "lastModificationDate": 1637679165365,
+    "E:\\my working files\\working\\React-native\\desocial app\\contracts\\desocial.sol": {
+      "lastModificationDate": 1637766640787,
       "contentHash": "3bfb5c944267470770c30f303a244d64",
-      "sourceName": "contracts/Desocial.sol",
+      "sourceName": "contracts/desocial.sol",
       "solcConfig": {
         "version": "0.8.4",
         "settings": {
